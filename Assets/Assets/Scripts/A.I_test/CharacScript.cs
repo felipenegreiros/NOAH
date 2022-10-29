@@ -217,6 +217,17 @@ public class CharacScript : MonoBehaviour
            // anim.SetBool("run2", false);
         }
 
+        //AGACHAR
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            anim.SetBool("Agacha", true);
+
+        }
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            anim.SetBool("Agacha", false);
+
+        }
 
 
     }
