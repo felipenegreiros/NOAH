@@ -49,7 +49,7 @@ public class Golpeador : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "balah")
+        if (collision.gameObject.tag == "Golpe")
         {
             Ani.SetBool("shooting2", false);
             Ani.SetBool("Walk2", false);

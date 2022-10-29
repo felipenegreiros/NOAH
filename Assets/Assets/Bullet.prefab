@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca7235a6f3cc9b41bdf680d3c6615f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 8
+  life: 4
   bala: {fileID: 7917319578482180742}
   balaexp: {fileID: 1123985599733800675, guid: d368ad2751c5b4e48a3f63151f8fe88d, type: 3}
   timerr: 0

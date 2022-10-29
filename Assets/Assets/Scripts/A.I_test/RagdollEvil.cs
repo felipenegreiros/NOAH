@@ -38,7 +38,7 @@ public class RagdollEvil : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "balah")
+        if (collision.gameObject.tag == "Golpe")
         {
            // if (Input.GetKey(KeyCode.K))
           //  {

@@ -29,6 +29,7 @@ public class CharacScript : MonoBehaviour
     [SerializeField] GameObject bala;
     [SerializeField] GameObject Sword;
     [SerializeField] GameObject ps;
+    [SerializeField] Transform bulletpoint;
 
     public Vector3 characPosition;
     public Quaternion characRotation;
@@ -73,7 +74,8 @@ public class CharacScript : MonoBehaviour
     }
     void PeEnable()
     {
-         pecollider.enabled = true;
+       // pecollider.enabled = true;
+        perna.tag = "Golpe";
     }
     void PeDisable()
     {
@@ -127,16 +129,37 @@ public class CharacScript : MonoBehaviour
 
         Maist();
 
+        //CORRER
+        if (Input.GetKey(KeyCode.M))
+        {
+
+            anim.SetBool("run", true);
+            anim.SetBool("run2", false);
+            kicktime = 0;
+            inX = inX * 100;
+
+            // Debug.Log("colon");
+        }
+        if (Input.GetKeyUp(KeyCode.M))
+        {
+            anim.SetBool("run", false);
+            anim.SetBool("run2", true);
+
+        }
         //CHUTE
         if (Input.GetKey(KeyCode.K))
         {
             kicktime = 100;
-                anim.SetBool("kick", true);
+            anim.SetBool("run", false);
+            anim.SetBool("run2", true);
+            anim.SetBool("kick", true);
                 kick = true;
+
         }
         else
         {
-            kicktime = kicktime - 3.3f;
+            kicktime = kicktime - 5f;
+            //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
         }
 
         if (Input.GetKeyUp(KeyCode.K))
@@ -149,10 +172,11 @@ public class CharacScript : MonoBehaviour
         {
             kicktime = 0;
         }
-        if (kicktime > 2)
+        if (kicktime > 20 )
         {
+            Invoke("PeEnable", 0.8f);
             pecollider.enabled = true;
-            perna.tag = "balah";
+           // perna.tag = "balah";
         }
         else
         {
@@ -167,21 +191,7 @@ public class CharacScript : MonoBehaviour
             inX = inX * 100;
            // tempo = 0;
         }
-        if (Input.GetKey(KeyCode.M))
-        {
 
-            anim.SetBool("run", true);
-            anim.SetBool("run2", false);
-            inX = inX * 100;
-
-           // Debug.Log("colon");
-        }
-         if(Input.GetKeyUp(KeyCode.M))
-        {
-            anim.SetBool("run", false);
-            anim.SetBool("run2", true);
-
-        }
         if (Input.GetKeyUp(KeyCode.UpArrow)) 
         {
            // anim.SetBool("run", false);
@@ -229,7 +239,29 @@ public class CharacScript : MonoBehaviour
 
         }
 
+        //Atirar
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            anim.SetBool("shoot", true);
 
+            Invoke("atira", 0.4f);
+        }
+        else
+        {
+            anim.SetBool("shoot", false);
+        }
+        if (Input.GetKeyUp(KeyCode.J))
+        {
+            anim.SetBool("shoot", false);
+
+        }
+    }
+
+    void atira()
+    {
+        Rigidbody rb = Instantiate(bala, bulletpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
+        rb.AddForce(transform.up * -0.5f, ForceMode.Impulse);
     }
     private void FixedUpdate()
     {

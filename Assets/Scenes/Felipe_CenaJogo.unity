@@ -6982,9 +6982,10 @@ MonoBehaviour:
   pecollider: {fileID: 1399747346}
   perna: {fileID: 1399747344}
   ThisGuyrig: {fileID: 1411992843}
-  bala: {fileID: 0}
+  bala: {fileID: 7917319578482180742, guid: 3bf30bc0b38aac2448aec126354b0515, type: 3}
   Sword: {fileID: 0}
   ps: {fileID: 0}
+  bulletpoint: {fileID: 714360596}
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!143 &413967552
@@ -10270,6 +10271,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Atirador2Rag
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1092408308860062549, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.00000082346315
@@ -11446,6 +11451,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &714360595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 714360596}
+  m_Layer: 0
+  m_Name: BulletpointNoah
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &714360596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714360595}
+  m_LocalRotation: {x: -0.48335373, y: 0.45701233, z: 0.7319675, w: -0.14741933}
+  m_LocalPosition: {x: -0.31, y: -0.49, z: 0.68}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1959186174}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &726699147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14352,7 +14388,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.14790007, y: -0.22869027, z: 0.03517561, w: 0.96155554}
+  m_LocalRotation: {x: 0.14790007, y: -0.2286902, z: 0.0351756, w: 0.96155554}
   m_LocalPosition: {x: 0.16210985, y: 3.7, z: -7.748335}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16381,7 +16417,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253118963}
-  m_LocalRotation: {x: 0.14790004, y: -0.22869022, z: 0.035175607, w: 0.96155554}
+  m_LocalRotation: {x: 0.14790004, y: -0.22869019, z: 0.0351756, w: 0.96155554}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17775,10 +17811,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.6
-  m_Height: 3.4
+  m_Radius: 0.4
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: -0.2, y: 0.8, z: 0.8}
+  m_Center: {x: -0.2, y: 0.9, z: 0.7}
 --- !u!54 &1399747347
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -23536,6 +23572,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
   m_PrefabInstance: {fileID: 2043779240}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1959186174 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5097370190579632962, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
+  m_PrefabInstance: {fileID: 1380246888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1978544305 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 854b94aff6025ea4e80631c31f5e31c8, type: 3}
@@ -23582,6 +23623,7 @@ MonoBehaviour:
   bala: {fileID: 1632862775}
   Sword: {fileID: 1632862775}
   ps: {fileID: 5967611599718341237, guid: 3b01b60203124174789df0a5ea60cc88, type: 3}
+  bulletpoint: {fileID: 0}
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!143 &1978544308
