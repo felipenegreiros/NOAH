@@ -12,6 +12,8 @@ public class Golpeador : MonoBehaviour
     [SerializeField] Transform bulletpoint;
     [SerializeField] GameObject esse;
     [SerializeField] GameObject Particles;
+    [SerializeField] Collider arma;
+    [SerializeField] Rigidbody armarig;
 
 
     public LayerMask whatIsGround, whatIsPlayer;
@@ -73,6 +75,7 @@ public class Golpeador : MonoBehaviour
         Ani.SetBool("Walk2", true);
 
         // Debug.Log("patrol");
+        arma.enabled = false;
 
         if (!walkPointSet)
         {
@@ -94,6 +97,8 @@ public class Golpeador : MonoBehaviour
     {
         Ani.SetBool("shooting2", false);
         Ani.SetBool("Walk2", true);
+
+        arma.enabled = false;
 
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -117,7 +122,7 @@ public class Golpeador : MonoBehaviour
 
         agent.SetDestination(player.transform.position);
 
-
+        arma.enabled = false;
         // transform.LookAt(player);
     }
     private void AttackPlayer()
@@ -127,6 +132,8 @@ public class Golpeador : MonoBehaviour
 
         agent.SetDestination(player.transform.position / 2);
 
+        arma.enabled = true;
+        armarig.isKinematic = true;
         //a treta é com a rotação, verificar o q esta mechendo com a rotação
         //possivel conflito entre "LookAt & SetDestination"
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));

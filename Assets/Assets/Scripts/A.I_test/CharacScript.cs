@@ -10,6 +10,7 @@ public class CharacScript : MonoBehaviour
     public float inX;
     public float inZ;
     public float kicktime = 0;
+    public float punchtime = 0;
     private Vector3 vmovement;
     private Vector3 vvelocity;
     public float moveSpeed;
@@ -20,11 +21,15 @@ public class CharacScript : MonoBehaviour
     [SerializeField] private float forceMagnitude;
 
     //ragdollvaribles
-    [SerializeField] public MeshCollider Maincollider;
+    // [SerializeField] public MeshCollider Maincollider;
+    // [SerializeField] public Collider boxcollider;
+    [SerializeField] public Collider Maincollider;
     [SerializeField] public Collider pecollider;
+    [SerializeField] public Collider maocollider;
     //[SerializeField] public Rigidbody peRigid;
 
     [SerializeField] GameObject perna;
+    [SerializeField] GameObject mao;
     [SerializeField] GameObject ThisGuyrig;
     [SerializeField] GameObject bala;
     [SerializeField] GameObject Sword;
@@ -81,6 +86,10 @@ public class CharacScript : MonoBehaviour
     {
         pecollider.enabled = false;
     }
+    void maoEnable()
+    {
+        mao.tag = "Golpe";
+    }
     void RagdollOn()
     {
         anim.enabled = false;
@@ -108,17 +117,29 @@ public class CharacScript : MonoBehaviour
         }
         if (collision.gameObject.tag == "balah")
         {
+           // boxcollider.enabled = true;
+           // Maincollider.enabled = false;
             RagdollOn();
            // Instantiate(ps, characPosition, characRotation);
             Debug.Log("pow");
         }
+        else
+        {
+           // Maincollider.enabled = true;
+           // Invoke("disablebox", 0.7f);
+        }
 
     }
 
+    void disablebox()
+    {
+       // boxcollider.enabled = false;
+    }
     // Update is called once per frame
     void Update()
     {
-        RagdollOff();
+
+       // RagdollOff();
         if (Input.GetKey(KeyCode.UpArrow))
         {
             RagdollOff();
@@ -153,7 +174,9 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("run", false);
             anim.SetBool("run2", true);
             anim.SetBool("kick", true);
-                kick = true;
+            anim.SetBool("lbool", false);
+            anim.SetBool("rbool", false);
+            kick = true;
 
         }
         else
@@ -181,6 +204,45 @@ public class CharacScript : MonoBehaviour
         else
         {
             perna.tag = "Untagged";
+        }
+
+        //PUNCH
+        if (Input.GetKey(KeyCode.H))
+        {
+            punchtime = 100;
+            anim.SetBool("run", false);
+            anim.SetBool("run2", true);
+            anim.SetBool("punch", true);
+            anim.SetBool("lbool", false);
+            anim.SetBool("rbool", false);
+
+
+        }
+        else
+        {
+            punchtime = punchtime - 4f;
+            //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
+        }
+
+        if (Input.GetKeyUp(KeyCode.H))
+        {
+            anim.SetBool("punch", false);
+
+        }
+
+        if (punchtime < 0)
+        {
+            punchtime = 0;
+        }
+        if (punchtime > 10)
+        {
+            Invoke("maoEnable", 0.4f);
+            maocollider.enabled = true;
+            // perna.tag = "balah";
+        }
+        else
+        {
+            mao.tag = "Untagged";
         }
 
         //WALK
@@ -231,12 +293,13 @@ public class CharacScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             anim.SetBool("Agacha", true);
+            Maincollider.enabled = false;
 
         }
         if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             anim.SetBool("Agacha", false);
-
+            Maincollider.enabled = true;
         }
 
         //Atirar
@@ -245,6 +308,7 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("shoot", true);
 
             Invoke("atira", 0.4f);
+           
         }
         else
         {
@@ -255,13 +319,14 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("shoot", false);
 
         }
+
     }
 
     void atira()
     {
         Rigidbody rb = Instantiate(bala, bulletpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
-        rb.AddForce(transform.up * -0.5f, ForceMode.Impulse);
+        rb.AddForce(transform.forward * 4f, ForceMode.Impulse);
+        rb.AddForce(transform.up * -0.1f, ForceMode.Impulse);
     }
     private void FixedUpdate()
     {
