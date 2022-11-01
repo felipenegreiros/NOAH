@@ -36,6 +36,7 @@ public class CharacScript : MonoBehaviour
     [SerializeField] GameObject ps;
     [SerializeField] Transform bulletpoint;
 
+    float hits = 0;
     public Vector3 characPosition;
     public Quaternion characRotation;
     void Start()
@@ -105,6 +106,8 @@ public class CharacScript : MonoBehaviour
 
         Maincollider.enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
+
+        hits = 0;
     }
        private void OnCollisionEnter(Collision collision)
     {
@@ -117,9 +120,14 @@ public class CharacScript : MonoBehaviour
         }
         if (collision.gameObject.tag == "balah")
         {
-           // boxcollider.enabled = true;
-           // Maincollider.enabled = false;
-            RagdollOn();
+            // boxcollider.enabled = true;
+            // Maincollider.enabled = false;
+
+            // RagdollOn();
+
+            hits++;
+            anim.SetBool("hit", true);
+            Invoke("hitfalse", 0.2f);
            // Instantiate(ps, characPosition, characRotation);
             Debug.Log("pow");
         }
@@ -131,6 +139,10 @@ public class CharacScript : MonoBehaviour
 
     }
 
+    void hitfalse()
+    {
+        anim.SetBool("hit", false);
+    }
     void disablebox()
     {
        // boxcollider.enabled = false;
@@ -138,7 +150,10 @@ public class CharacScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (hits > 4)
+        {
+            RagdollOn();
+        }
        // RagdollOff();
         if (Input.GetKey(KeyCode.UpArrow))
         {

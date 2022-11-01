@@ -11,6 +11,8 @@ public class RagdollEvil : MonoBehaviour
     [SerializeField] GameObject rosto;
     public float tempo = 1;
     public bool active = false;
+    float hits = 0;
+
     void Start()
     {
         GetRagdollBits2();
@@ -20,6 +22,10 @@ public class RagdollEvil : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       // if (hits > 3)
+       // {
+       //     RagdollModeOn2();
+       // }
         if(active == true)
         {
             timer();
@@ -43,7 +49,8 @@ public class RagdollEvil : MonoBehaviour
            // if (Input.GetKey(KeyCode.K))
           //  {
                 Debug.Log("collide");
-                RagdollModeOn2();
+                hits++;
+              RagdollModeOn2();
            // }
         }
     }

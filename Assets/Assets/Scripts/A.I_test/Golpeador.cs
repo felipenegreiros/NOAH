@@ -23,10 +23,12 @@ public class Golpeador : MonoBehaviour
     public float walkPointRange;
 
     public float timeBetweenAttacks;
+    float hits = 0;
     bool alreadyattacked;
 
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    bool armable;
 
     private void Awake()
     {
@@ -47,23 +49,52 @@ public class Golpeador : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
+        if(armable == true)
+        {
+
+        }
+
+    }
+
+    void aramableOn()
+    {
+        armable = true;
+        arma.enabled = true;
+       // armarig.isKinematic = true;
+    }
+    void aramableOff()
+    {
+        armable = false;
+        arma.enabled = false;
+       // armarig.isKinematic = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Golpe")
         {
+            arma.enabled = false;
             Ani.SetBool("shooting2", false);
             Ani.SetBool("Walk2", false);
             Ani.SetBool("defeat", true);
 
+            hits++;
+
+           // Invoke("hitanimfalse", 0.5f);
             //thisRB.AddForce(transform.forward * -9f, ForceMode.Impulse);
-            Invoke("Ps", 1.3f);
-            Destroy(esse, 1.5f);
+           // if (hits > 2)
+          //  {
+                Invoke("Ps", 1.3f);
+                Destroy(esse, 1.5f);
+          //  }
             //mudar a tag so na hr do chute
         }
     }
 
+    void hitanimfalse()
+    {
+        Ani.SetBool("defeat", false);
+    }
     private void Ps()
     {
         Instantiate(Particles, transform.position, Quaternion.identity);
@@ -76,6 +107,7 @@ public class Golpeador : MonoBehaviour
 
         // Debug.Log("patrol");
         arma.enabled = false;
+       // armarig.isKinematic = false;
 
         if (!walkPointSet)
         {
@@ -99,6 +131,7 @@ public class Golpeador : MonoBehaviour
         Ani.SetBool("Walk2", true);
 
         arma.enabled = false;
+       // armarig.isKinematic = false;
 
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -116,13 +149,14 @@ public class Golpeador : MonoBehaviour
 
     private void ChasePlayer()
     {
-        //Ani.SetBool("shooting2", true);
+       
          Ani.SetBool("Walk2", true);
         Ani.SetBool("shooting2", false);
 
         agent.SetDestination(player.transform.position);
 
         arma.enabled = false;
+       // armarig.isKinematic = false;
         // transform.LookAt(player);
     }
     private void AttackPlayer()
@@ -132,8 +166,9 @@ public class Golpeador : MonoBehaviour
 
         agent.SetDestination(player.transform.position / 2);
 
-        arma.enabled = true;
-        armarig.isKinematic = true;
+       // arma.enabled = true;
+       // armarig.isKinematic = true;
+
         //a treta é com a rotação, verificar o q esta mechendo com a rotação
         //possivel conflito entre "LookAt & SetDestination"
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
@@ -148,12 +183,12 @@ public class Golpeador : MonoBehaviour
             alreadyattacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
-        //Ani.SetBool("shooting2", false);
+      
     }
 
     private void ResetAttack()
     {
-        //Ani.SetBool("shooting2", false);
+       
         alreadyattacked = false;
     }
 }
