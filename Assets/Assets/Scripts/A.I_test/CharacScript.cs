@@ -345,10 +345,11 @@ public class CharacScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        //o problema da tremedeira eh o collider e os comandos uparrow com leftright arrow quando executados juntos
 
-        vmovement = _charController.transform.forward * inZ;
+        vmovement = _charController.transform.forward * inZ *(2f * Time.deltaTime);
         
-        _charController.transform.Rotate(Vector3.up * inX * (1f * Time.deltaTime));
+        _charController.transform.Rotate(Vector3.up * inX * (2f * Time.deltaTime));
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.M))
             {
