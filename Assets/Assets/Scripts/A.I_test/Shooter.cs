@@ -25,7 +25,7 @@ namespace Assets.Scripts.A.I_test
             collisionList = Physics.OverlapSphere(transform.position, sightRange);
             foreach (var colliderObject in collisionList)
             {
-                print(colliderObject);
+                continue;
             }
         }
     }

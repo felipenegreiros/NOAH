@@ -3599,7 +3599,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194808225}
-  m_LocalRotation: {x: 0.16536577, y: -0.22801252, z: 0.039329525, w: 0.95870626}
+  m_LocalRotation: {x: 0.16843195, y: -0.1326256, z: 0.02287638, w: 0.9764824}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7860,7 +7860,6 @@ GameObject:
   m_Component:
   - component: {fileID: 293793379}
   - component: {fileID: 293793381}
-  - component: {fileID: 293793380}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -7883,14 +7882,6 @@ Transform:
   m_Father: {fileID: 963194228}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &293793380
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 293793378}
-  m_Enabled: 1
 --- !u!20 &293793381
 Camera:
   m_ObjectHideFlags: 0
@@ -9303,6 +9294,14 @@ MonoBehaviour:
   Sword: {fileID: 0}
   ps: {fileID: 0}
   bulletpoint: {fileID: 714360596}
+  upKey: 119
+  downKey: 115
+  leftKey: 97
+  rightKey: 100
+  kickKey: 107
+  runKey: 109
+  punchKey: 104
+  shootKey: 106
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!143 &413967552
@@ -13543,7 +13542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639645432}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.16210985, y: 3.7, z: -7.748335}
+  m_LocalPosition: {x: 0.4104743, y: 3.7, z: -8.385961}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17118,8 +17117,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.14790007, y: -0.2286902, z: 0.0351756, w: 0.96155554}
-  m_LocalPosition: {x: 0.16210985, y: 3.7, z: -7.748335}
+  m_LocalRotation: {x: 0.15064241, y: -0.13301978, z: 0.020460214, w: 0.97938454}
+  m_LocalPosition: {x: 0.4104743, y: 3.7, z: -8.385961}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19657,7 +19656,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253118963}
-  m_LocalRotation: {x: 0.14790004, y: -0.22869019, z: 0.0351756, w: 0.96155554}
+  m_LocalRotation: {x: 0.15064238, y: -0.13301976, z: 0.020460203, w: 0.97938454}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20709,7 +20708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8897047
+      value: -1.99
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24513,7 +24512,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488971896}
-  m_LocalRotation: {x: 0.13043168, y: -0.2292907, z: 0.031021038, w: 0.96408045}
+  m_LocalRotation: {x: 0.13285014, y: -0.13336906, z: 0.018043675, w: 0.9819562}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28968,6 +28967,14 @@ MonoBehaviour:
   Sword: {fileID: 1632862775}
   ps: {fileID: 5967611599718341237, guid: 3b01b60203124174789df0a5ea60cc88, type: 3}
   bulletpoint: {fileID: 0}
+  upKey: 119
+  downKey: 115
+  leftKey: 97
+  rightKey: 100
+  kickKey: 107
+  runKey: 109
+  punchKey: 104
+  shootKey: 106
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!143 &1978544308
