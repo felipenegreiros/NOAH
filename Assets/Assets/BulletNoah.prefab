@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7917319578482180738}
   - component: {fileID: 7917319578482180739}
   - component: {fileID: 7917319578482180736}
-  - component: {fileID: 7917319578482180737}
+  - component: {fileID: 4504073139262792176}
   m_Layer: 0
   m_Name: BulletNoah
   m_TagString: Golpe
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7917319578482180737
+--- !u!114 &4504073139262792176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,11 +124,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7917319578482180742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ca7235a6f3cc9b41bdf680d3c6615f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c707ee8b1ba9a743a01f46c75dd4965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 4
-  bala: {fileID: 7917319578482180742}
-  balaexp: {fileID: 1123985599733800675, guid: d368ad2751c5b4e48a3f63151f8fe88d, type: 3}
-  timerr: 0
-  pos: {x: 0, y: 0, z: 0}

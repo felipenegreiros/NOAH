@@ -3599,7 +3599,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194808225}
-  m_LocalRotation: {x: 0.16843195, y: -0.1326256, z: 0.02287638, w: 0.9764824}
+  m_LocalRotation: {x: 0.16947296, y: 0.07593881, z: -0.013098568, w: 0.98251754}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9277,23 +9277,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4483b49d432a8a449a30e92e509bdab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 413967548}
+  animatorComponent: {fileID: 413967548}
   inX: 0
   inZ: 0
-  kicktime: 0
-  punchtime: 0
+  kickTime: 0
+  punchTime: 0
   moveSpeed: 0
   forceMagnitude: 0
-  Maincollider: {fileID: 413967554}
-  pecollider: {fileID: 1459460241}
-  maocollider: {fileID: 0}
-  perna: {fileID: 1459460238}
-  mao: {fileID: 1966402281}
-  ThisGuyrig: {fileID: 1411992843}
-  bala: {fileID: 7917319578482180742, guid: b40a4fc7da3bc52488ce168eac39d739, type: 3}
-  Sword: {fileID: 0}
+  mainCollider: {fileID: 413967554}
+  feetCollider: {fileID: 1459460241}
+  handCollider: {fileID: 0}
+  leg: {fileID: 1459460238}
+  hand: {fileID: 1966402281}
+  thisGuyRig: {fileID: 1411992843}
+  bullet: {fileID: 7917319578482180742, guid: b40a4fc7da3bc52488ce168eac39d739, type: 3}
+  sword: {fileID: 0}
   ps: {fileID: 0}
-  bulletpoint: {fileID: 714360596}
+  bulletPoint: {fileID: 714360596}
   upKey: 119
   downKey: 115
   leftKey: 97
@@ -13542,7 +13542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639645432}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4104743, y: 3.7, z: -8.385961}
+  m_LocalPosition: {x: 0.47704124, y: 3.7, z: -8.6051035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17117,8 +17117,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.15064241, y: -0.13301978, z: 0.020460214, w: 0.97938454}
-  m_LocalPosition: {x: 0.4104743, y: 3.7, z: -8.385961}
+  m_LocalRotation: {x: 0.15157343, y: 0.07616443, z: -0.011715107, w: 0.9854376}
+  m_LocalPosition: {x: 0.47704124, y: 3.7, z: -8.6051035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19656,7 +19656,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253118963}
-  m_LocalRotation: {x: 0.15064238, y: -0.13301976, z: 0.020460203, w: 0.97938454}
+  m_LocalRotation: {x: 0.15157343, y: 0.076164454, z: -0.011715107, w: 0.9854376}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20708,7 +20708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.99
+      value: 1.86
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24512,7 +24512,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488971896}
-  m_LocalRotation: {x: 0.13285014, y: -0.13336906, z: 0.018043675, w: 0.9819562}
+  m_LocalRotation: {x: 0.13367121, y: 0.07636447, z: -0.010331449, w: 0.9880252}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28950,23 +28950,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4483b49d432a8a449a30e92e509bdab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1978544309}
+  animatorComponent: {fileID: 1978544309}
   inX: 0
   inZ: 0
-  kicktime: 0
-  punchtime: 0
+  kickTime: 0
+  punchTime: 0
   moveSpeed: 0
   forceMagnitude: 0
-  Maincollider: {fileID: 1978544311}
-  pecollider: {fileID: 1596639295}
-  maocollider: {fileID: 0}
-  perna: {fileID: 0}
-  mao: {fileID: 0}
-  ThisGuyrig: {fileID: 1787684554}
-  bala: {fileID: 1632862775}
-  Sword: {fileID: 1632862775}
+  mainCollider: {fileID: 1978544311}
+  feetCollider: {fileID: 1596639295}
+  handCollider: {fileID: 0}
+  leg: {fileID: 0}
+  hand: {fileID: 0}
+  thisGuyRig: {fileID: 1787684554}
+  bullet: {fileID: 1632862775}
+  sword: {fileID: 1632862775}
   ps: {fileID: 5967611599718341237, guid: 3b01b60203124174789df0a5ea60cc88, type: 3}
-  bulletpoint: {fileID: 0}
+  bulletPoint: {fileID: 0}
   upKey: 119
   downKey: 115
   leftKey: 97

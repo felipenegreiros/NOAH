@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.A.I_test;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -161,7 +162,6 @@ public class CharacScript : MonoBehaviour
             animatorComponent.SetBool("run2", false);
             kickTime = 0;
             inX = inX * 100;
-            // Debug.Log("colon");
         }
         
         if (Input.GetKeyUp(runKey)) {
@@ -297,8 +297,16 @@ public class CharacScript : MonoBehaviour
     private void Shoot() {
         var bulletGameObject = Instantiate(bullet, bulletPoint.position, Quaternion.identity);
         var rb = bulletGameObject.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 4f, ForceMode.Impulse);
-        rb.AddForce(transform.up * -0.1f, ForceMode.Impulse);
+        var bulletComponent = bulletGameObject.GetComponent<Bullet>();
+        bulletComponent.Push(transform);
+    }
+
+    private void SetTransform(Transform oldTransform)
+    {
+        var transform1 = transform;
+        oldTransform.position = transform1.position;
+        oldTransform.rotation = transform1.rotation;
+        oldTransform.localScale = transform1.localScale;
     }
     
     private void FixedUpdate() {
