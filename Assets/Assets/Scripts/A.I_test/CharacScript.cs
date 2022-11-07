@@ -10,6 +10,7 @@ public class CharacScript : MonoBehaviour
     public float inX;
     public float inZ;
     public float kicktime = 0;
+    public float punchtime = 0;
     private Vector3 vmovement;
     private Vector3 vvelocity;
     public float moveSpeed;
@@ -20,16 +21,22 @@ public class CharacScript : MonoBehaviour
     [SerializeField] private float forceMagnitude;
 
     //ragdollvaribles
-    [SerializeField] public MeshCollider Maincollider;
+    // [SerializeField] public MeshCollider Maincollider;
+    // [SerializeField] public Collider boxcollider;
+    [SerializeField] public Collider Maincollider;
     [SerializeField] public Collider pecollider;
+    [SerializeField] public Collider maocollider;
     //[SerializeField] public Rigidbody peRigid;
 
     [SerializeField] GameObject perna;
+    [SerializeField] GameObject mao;
     [SerializeField] GameObject ThisGuyrig;
     [SerializeField] GameObject bala;
     [SerializeField] GameObject Sword;
     [SerializeField] GameObject ps;
+    [SerializeField] Transform bulletpoint;
 
+    float hits = 0;
     public Vector3 characPosition;
     public Quaternion characRotation;
     void Start()
@@ -73,11 +80,16 @@ public class CharacScript : MonoBehaviour
     }
     void PeEnable()
     {
-         pecollider.enabled = true;
+       // pecollider.enabled = true;
+        perna.tag = "Golpe";
     }
     void PeDisable()
     {
         pecollider.enabled = false;
+    }
+    void maoEnable()
+    {
+        mao.tag = "Golpe";
     }
     void RagdollOn()
     {
@@ -94,6 +106,8 @@ public class CharacScript : MonoBehaviour
 
         Maincollider.enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
+
+        hits = 0;
     }
        private void OnCollisionEnter(Collision collision)
     {
@@ -106,17 +120,41 @@ public class CharacScript : MonoBehaviour
         }
         if (collision.gameObject.tag == "balah")
         {
-            RagdollOn();
+            // boxcollider.enabled = true;
+            // Maincollider.enabled = false;
+
+            // RagdollOn();
+
+            hits++;
+            anim.SetBool("hit", true);
+            Invoke("hitfalse", 0.2f);
            // Instantiate(ps, characPosition, characRotation);
             Debug.Log("pow");
+        }
+        else
+        {
+           // Maincollider.enabled = true;
+           // Invoke("disablebox", 0.7f);
         }
 
     }
 
+    void hitfalse()
+    {
+        anim.SetBool("hit", false);
+    }
+    void disablebox()
+    {
+       // boxcollider.enabled = false;
+    }
     // Update is called once per frame
     void Update()
     {
-        RagdollOff();
+        if (hits > 4)
+        {
+            RagdollOn();
+        }
+       // RagdollOff();
         if (Input.GetKey(KeyCode.UpArrow))
         {
             RagdollOff();
@@ -127,16 +165,39 @@ public class CharacScript : MonoBehaviour
 
         Maist();
 
+        //CORRER
+        if (Input.GetKey(KeyCode.M))
+        {
+
+            anim.SetBool("run", true);
+            anim.SetBool("run2", false);
+            kicktime = 0;
+            inX = inX * 100;
+
+            // Debug.Log("colon");
+        }
+        if (Input.GetKeyUp(KeyCode.M))
+        {
+            anim.SetBool("run", false);
+            anim.SetBool("run2", true);
+
+        }
         //CHUTE
         if (Input.GetKey(KeyCode.K))
         {
             kicktime = 100;
-                anim.SetBool("kick", true);
-                kick = true;
+            anim.SetBool("run", false);
+            anim.SetBool("run2", true);
+            anim.SetBool("kick", true);
+            anim.SetBool("lbool", false);
+            anim.SetBool("rbool", false);
+            kick = true;
+
         }
         else
         {
-            kicktime = kicktime - 3.3f;
+            kicktime = kicktime - 5f;
+            //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
         }
 
         if (Input.GetKeyUp(KeyCode.K))
@@ -149,14 +210,54 @@ public class CharacScript : MonoBehaviour
         {
             kicktime = 0;
         }
-        if (kicktime > 2)
+        if (kicktime > 20 )
         {
+            Invoke("PeEnable", 0.8f);
             pecollider.enabled = true;
-            perna.tag = "balah";
+           // perna.tag = "balah";
         }
         else
         {
             perna.tag = "Untagged";
+        }
+
+        //PUNCH
+        if (Input.GetKey(KeyCode.H))
+        {
+            punchtime = 100;
+            anim.SetBool("run", false);
+            anim.SetBool("run2", true);
+            anim.SetBool("punch", true);
+            anim.SetBool("lbool", false);
+            anim.SetBool("rbool", false);
+
+
+        }
+        else
+        {
+            punchtime = punchtime - 4f;
+            //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
+        }
+
+        if (Input.GetKeyUp(KeyCode.H))
+        {
+            anim.SetBool("punch", false);
+
+        }
+
+        if (punchtime < 0)
+        {
+            punchtime = 0;
+        }
+        if (punchtime > 10)
+        {
+            Invoke("maoEnable", 0.4f);
+            maocollider.enabled = true;
+            // perna.tag = "balah";
+        }
+        else
+        {
+            mao.tag = "Untagged";
         }
 
         //WALK
@@ -167,21 +268,7 @@ public class CharacScript : MonoBehaviour
             inX = inX * 100;
            // tempo = 0;
         }
-        if (Input.GetKey(KeyCode.M))
-        {
 
-            anim.SetBool("run", true);
-            anim.SetBool("run2", false);
-            inX = inX * 100;
-
-           // Debug.Log("colon");
-        }
-         if(Input.GetKeyUp(KeyCode.M))
-        {
-            anim.SetBool("run", false);
-            anim.SetBool("run2", true);
-
-        }
         if (Input.GetKeyUp(KeyCode.UpArrow)) 
         {
            // anim.SetBool("run", false);
@@ -217,15 +304,52 @@ public class CharacScript : MonoBehaviour
            // anim.SetBool("run2", false);
         }
 
+        //AGACHAR
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            anim.SetBool("Agacha", true);
+            Maincollider.enabled = false;
 
+        }
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            anim.SetBool("Agacha", false);
+            Maincollider.enabled = true;
+        }
 
+        //Atirar
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            anim.SetBool("shoot", true);
+
+            Invoke("atira", 0.4f);
+           
+        }
+        else
+        {
+            anim.SetBool("shoot", false);
+        }
+        if (Input.GetKeyUp(KeyCode.J))
+        {
+            anim.SetBool("shoot", false);
+
+        }
+
+    }
+
+    void atira()
+    {
+        Rigidbody rb = Instantiate(bala, bulletpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * 4f, ForceMode.Impulse);
+        rb.AddForce(transform.up * -0.1f, ForceMode.Impulse);
     }
     private void FixedUpdate()
     {
+        //o problema da tremedeira eh o collider e os comandos uparrow com leftright arrow quando executados juntos
 
-        vmovement = _charController.transform.forward * inZ;
+        vmovement = _charController.transform.forward * inZ *(2f * Time.deltaTime);
         
-        _charController.transform.Rotate(Vector3.up * inX * (1f * Time.deltaTime));
+        _charController.transform.Rotate(Vector3.up * inX * (2f * Time.deltaTime));
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.M))
             {

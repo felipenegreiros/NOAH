@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
-    public float life = 8;
+    public float life = 4;
     [SerializeField] GameObject bala;
     [SerializeField] GameObject balaexp;
 
@@ -20,13 +20,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        timerr = 0;
-
-        if (timerr > 100)
-        {
-            // Destroy(collision.;
-            Destroy(bala);
-        }
+        Invoke("destroyer", 0.6f);
     }
     // Update is called once per frame
     void Update()
@@ -34,5 +28,9 @@ public class Bullet : MonoBehaviour
 
         timerr++;
 
+    }
+    void destroyer()
+    {
+        Destroy(bala);
     }
 }
