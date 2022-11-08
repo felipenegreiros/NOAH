@@ -12,6 +12,7 @@ namespace Assets.Scripts.A.I_test
         [SerializeField] private Transform bulletPoint;
         [SerializeField] private Animator animatorComponent;
         private static readonly int Shoot1 = Animator.StringToHash("shoot");
+        public float timeSinceLastAttack;
 
         private void Awake()
         {
@@ -41,7 +42,15 @@ namespace Assets.Scripts.A.I_test
             }
             else
             {
-                // Invoke(nameof(ShootProjectile), 1f);
+                if (timeSinceLastAttack < 1)
+                {
+                    timeSinceLastAttack += Time.deltaTime;
+                    animatorComponent.SetBool(Shoot1, false);
+                    return;
+                }
+                animatorComponent.SetBool(Shoot1, true);
+                Invoke(nameof(ShootProjectile), .4f);
+                timeSinceLastAttack = 0;
             }
         }
 

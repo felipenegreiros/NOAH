@@ -1355,7 +1355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
       propertyPath: m_LocalScale.x
@@ -9107,10 +9107,11 @@ MonoBehaviour:
   leftKey: 97
   rightKey: 100
   kickKey: 107
-  runKey: 109
+  runKey: 304
   punchKey: 104
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
+  _runningTime: 0
 --- !u!143 &413967552
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9161,6 +9162,25 @@ MonoBehaviour:
   bullet: {fileID: 7917319578482180742, guid: b40a4fc7da3bc52488ce168eac39d739, type: 3}
   bulletPoint: {fileID: 714360596}
   animatorComponent: {fileID: 0}
+  timeSinceLastAttack: 0
+--- !u!114 &413967556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413967546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4655e520e7a85c469d6409129533c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hp: 0
+  _dead: 0
+  _godMode: 0
+  _takeDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &427919230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1864740628597940677, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
@@ -15090,9 +15110,8 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
-  - component: {fileID: 963194230}
   - component: {fileID: 963194231}
+  - component: {fileID: 963194226}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -15166,40 +15185,6 @@ Transform:
   m_Father: {fileID: 636845278}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 25.3, y: -16.94, z: 358.4}
---- !u!114 &963194230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15217,6 +15202,8 @@ MonoBehaviour:
   rotateSpeed: 5
   zoomSpeed: 5
   currentZoom: 0.5
+  initialCameraRotation: {x: 0, y: 0, z: 0, w: 0}
+  newRotation: {x: 0, y: 0, z: 0, w: 0}
   turn: {x: 0, y: 0}
 --- !u!1 &978917063 stripped
 GameObject:
@@ -26704,6 +26691,7 @@ MonoBehaviour:
   punchKey: 104
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
+  _runningTime: 0
 --- !u!143 &1978544308
 CharacterController:
   m_ObjectHideFlags: 0
@@ -29364,7 +29352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114556547386789385, guid: ba79ede9b7f6d00498577957a9c54dcd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.7
+      value: -22.39
       objectReference: {fileID: 0}
     - target: {fileID: 114556547386789385, guid: ba79ede9b7f6d00498577957a9c54dcd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -29394,13 +29382,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 440303759756900940, guid: ba79ede9b7f6d00498577957a9c54dcd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 440303759756900942, guid: ba79ede9b7f6d00498577957a9c54dcd, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1978544314}
+    - target: {fileID: 440303759756900943, guid: ba79ede9b7f6d00498577957a9c54dcd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 782830555889603763, guid: ba79ede9b7f6d00498577957a9c54dcd, type: 3}
       propertyPath: m_Name
       value: Atirador2Rag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302453728369874035, guid: ba79ede9b7f6d00498577957a9c54dcd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba79ede9b7f6d00498577957a9c54dcd, type: 3}

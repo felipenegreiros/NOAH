@@ -51,6 +51,8 @@ public class CharacScript : MonoBehaviour
     private Rigidbody[] _ragRigid;
     private Collider[] _ragCollider;
 
+    [SerializeField] private float _runningTime;
+
     private void Start() {
         _rigidBodyComponent = GetComponent<Rigidbody>();
         GetRagDollReferenceBits();
@@ -155,18 +157,12 @@ public class CharacScript : MonoBehaviour
 
         IncrementTempo();
 
-        //CORRER
-        if (Input.GetKey(runKey)) {
-            animatorComponent.SetBool("run", true);
-            animatorComponent.SetBool("run2", false);
-            kickTime = 0;
-            inX = inX * 100;
-        }
+        RunTrigger();
         
-        if (Input.GetKeyUp(runKey)) {
-            animatorComponent.SetBool("run", false);
-            animatorComponent.SetBool("run2", true);
-        }
+        // if (Input.GetKeyUp(runKey)) {
+        //     animatorComponent.SetBool("run", false);
+        //     animatorComponent.SetBool("run2", true);
+        // }
         
         //CHUTE
         if (Input.GetKey(kickKey)) {
@@ -191,7 +187,6 @@ public class CharacScript : MonoBehaviour
         if (kickTime < 0) {
             kickTime = 0;
         }
-        
         if (kickTime > 20 ) {
             Invoke("EnableFeet", 0.8f);
             feetCollider.enabled = true;
@@ -280,13 +275,36 @@ public class CharacScript : MonoBehaviour
         }
     }
 
-    private void SetTransform(Transform oldTransform)
+    private void RunTrigger()
     {
-        var transform1 = transform;
-        oldTransform.position = transform1.position;
-        oldTransform.rotation = transform1.rotation;
-        oldTransform.localScale = transform1.localScale;
+        if (Input.GetKey(runKey)) {
+            _runningTime += Time.deltaTime;
+        }
+        else
+        {
+            _runningTime = 0;
+        }
+        RunMechanics();
     }
+
+    private void RunMechanics()
+    {
+        if (_runningTime is > 0 and < 1)
+        {
+            // animatorComponent.SetBool("run2", false);
+            animatorComponent.SetBool("run", false);
+        }
+        else if (_runningTime is >= 1 and < 3)
+        {
+            animatorComponent.SetBool("run", true);
+        } else if (_runningTime >= 3)
+        {
+            // animatorComponent.SetBool("run", false);
+            // animatorComponent.SetBool("run2", true);
+        }
+    }
+
+
     
     private void FixedUpdate() {
         //o problema da tremedeira eh o collider e os comandos uparrow com leftright arrow quando executados juntos

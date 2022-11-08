@@ -15,6 +15,8 @@ namespace Assets.Scripts.A.I_test
         public float rotateSpeed = 0.1f;
         public float zoomSpeed = 2f;
         public float currentZoom = 0.5f;
+        public Quaternion initialCameraRotation;
+        public Quaternion newRotation;
         private Vector3 _maximumZoom;
         private Vector3 _minimumZoom;
         public Vector2 turn;
@@ -32,6 +34,7 @@ namespace Assets.Scripts.A.I_test
             var rightClickHold = Input.GetMouseButton(1);
             if (!rightClickHold)
             {
+                initialCameraRotation = transform.localRotation;
                 Cursor.lockState = CursorLockMode.None;
                 return;
             }
@@ -39,12 +42,13 @@ namespace Assets.Scripts.A.I_test
         }
 
         private void RotateCamera()
-        {            turn.x += Input.GetAxis("Mouse X");
+        {
+            turn.x += Input.GetAxis("Mouse X");
             turn.y += Input.GetAxis("Mouse Y");
-            var currentRotation = transform.localRotation;
-            transform.localRotation = Quaternion.Euler(-turn.y+currentRotation.y, turn.x+currentRotation.x, 0);
+            // newRotation = Quaternion.Euler(-turn.y+currentRotation.y, turn.x+currentRotation.x, 0);
+            newRotation = Quaternion.Euler(-turn.y, turn.x, 0);
+            transform.localRotation = newRotation;
             Cursor.lockState = CursorLockMode.Locked;
-            
         }
 
         private void LateUpdate()
