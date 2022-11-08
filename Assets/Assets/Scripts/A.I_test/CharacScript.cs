@@ -54,8 +54,8 @@ public class CharacScript : MonoBehaviour
 
     private void Start() {
         _rigidBodyComponent = GetComponent<Rigidbody>();
-        GetRagdollBits();
-        RagDollOff();
+        GetRagDollReferenceBits();
+        DisableRagDoll();
 
         var playerObject = GameObject.FindGameObjectWithTag("Player");
         _charController = playerObject.GetComponent<CharacterController>();
@@ -68,12 +68,12 @@ public class CharacScript : MonoBehaviour
         animatorComponent.SetBool("kick2", true);
     }
 
-    private void GetRagdollBits() {
+    private void GetRagDollReferenceBits() {
         _ragRigid = thisGuyRig.GetComponentsInChildren<Rigidbody>();
         _ragCollider = thisGuyRig.GetComponentsInChildren<Collider>();
     }
 
-    private void RagDollOff() {
+    private void DisableRagDoll() {
         foreach (var col in _ragCollider) {
             col.enabled = false;
         }
@@ -148,7 +148,7 @@ public class CharacScript : MonoBehaviour
         }
         
         if (Input.GetKey(upKey)) {
-            RagDollOff();
+            DisableRagDoll();
         }
 
         inX = Input.GetAxis("Horizontal");
@@ -296,7 +296,6 @@ public class CharacScript : MonoBehaviour
 
     private void Shoot() {
         var bulletGameObject = Instantiate(bullet, bulletPoint.position, Quaternion.identity);
-        var rb = bulletGameObject.GetComponent<Rigidbody>();
         var bulletComponent = bulletGameObject.GetComponent<Bullet>();
         bulletComponent.Push(transform);
     }
