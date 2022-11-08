@@ -22,17 +22,17 @@ public class CharacScript : MonoBehaviour
 
     [SerializeField] private float forceMagnitude;
     
-    [FormerlySerializedAs("maincollider")] [SerializeField] public Collider mainCollider;
-    [FormerlySerializedAs("pecollider")] [SerializeField] public Collider feetCollider;
-    [FormerlySerializedAs("maocollider")] [SerializeField] public Collider handCollider;
+    [SerializeField] public Collider mainCollider;
+    [SerializeField] public Collider feetCollider;
+    [SerializeField] public Collider handCollider;
 
-    [FormerlySerializedAs("perna")] [SerializeField] private GameObject leg;
-    [FormerlySerializedAs("mao")] [SerializeField] private GameObject hand;
+    [SerializeField] private GameObject leg;
+    [SerializeField] private GameObject hand;
     [SerializeField] private GameObject thisGuyRig;
-    [FormerlySerializedAs("bala")] [SerializeField] private GameObject bullet;
-    [FormerlySerializedAs("Sword")] [SerializeField] private GameObject sword;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject sword;
     [SerializeField] private GameObject ps;
-    [FormerlySerializedAs("bulletpoint")] [SerializeField] private Transform bulletPoint;
+    [SerializeField] private Transform bulletPoint;
 
     public KeyCode upKey = KeyCode.W;
     public KeyCode downKey = KeyCode.S;
@@ -42,7 +42,6 @@ public class CharacScript : MonoBehaviour
     public KeyCode kickKey = KeyCode.K;
     public KeyCode runKey = KeyCode.M;
     public KeyCode punchKey = KeyCode.H;
-    public KeyCode shootKey = KeyCode.J;
 
     private float _hits = 0;
     public Vector3 characPosition;
@@ -279,25 +278,6 @@ public class CharacScript : MonoBehaviour
             animatorComponent.SetBool("Agacha", false);
             mainCollider.enabled = true;
         }
-
-        //Atirar
-        if (Input.GetKeyDown(shootKey)) {
-            animatorComponent.SetBool("shoot", true);
-            Invoke("Shoot", 0.4f);
-        }
-        else  {
-            animatorComponent.SetBool("shoot", false);
-        }
-        
-        if (Input.GetKeyUp(shootKey)) {
-            animatorComponent.SetBool("shoot", false);
-        }
-    }
-
-    private void Shoot() {
-        var bulletGameObject = Instantiate(bullet, bulletPoint.position, Quaternion.identity);
-        var bulletComponent = bulletGameObject.GetComponent<Bullet>();
-        bulletComponent.Push(transform);
     }
 
     private void SetTransform(Transform oldTransform)

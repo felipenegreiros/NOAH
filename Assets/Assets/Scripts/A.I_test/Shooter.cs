@@ -5,28 +5,39 @@ namespace Assets.Scripts.A.I_test
 {
     public class Shooter: MonoBehaviour
     {
-        public UnityEngine.AI.NavMeshAgent agent;
-        public Transform playerTransform;
+        public KeyCode shootKey = KeyCode.J;
+        public string gameObjectTag;
+        [SerializeField] private GameObject bullet;
+        [SerializeField] private Transform bulletPoint;
         [SerializeField] private Animator animatorComponent;
-        public LayerMask whatIsGround, whatIsPlayer;
-        public float sightRange, attackRange;
-        public Collider[] collisionList;
-        public bool playerInSightRange, playerInAttackRange;
+        private static readonly int Shoot1 = Animator.StringToHash("shoot");
 
         private void Awake()
         {
-            playerTransform = GameObject.Find("Noah").transform;
-            agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-            animatorComponent.SetBool("Walk2", true);
+            gameObjectTag = gameObject.tag;
+            if (gameObjectTag == "Player")
+            {
+                animatorComponent = gameObject.GetComponent<Animator>();   
+            }
         }
 
         private void Update()
         {
-            collisionList = Physics.OverlapSphere(transform.position, sightRange);
-            foreach (var colliderObject in collisionList)
+            if (Input.GetKeyDown(shootKey))
             {
-                continue;
+                animatorComponent.SetBool(Shoot1, true);
+                Invoke("Shoot", 0.4f);
             }
+            else
+            {
+                animatorComponent.SetBool(Shoot1, false);
+            }
+        }
+        
+        private void Shoot() {
+            var bulletGameObject = Instantiate(bullet, bulletPoint.position, Quaternion.identity);
+            var bulletComponent = bulletGameObject.GetComponent<Bullet>();
+            bulletComponent.Push(transform);
         }
     }
 }

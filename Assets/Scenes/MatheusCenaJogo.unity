@@ -9337,6 +9337,23 @@ CapsuleCollider:
   m_Height: 13
   m_Direction: 1
   m_Center: {x: 0, y: 7, z: 0}
+--- !u!114 &413967555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413967546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5fa7a7cc4874e818e6c4425ce9200bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootKey: 106
+  gameObjectTag: 
+  bullet: {fileID: 7917319578482180742, guid: b40a4fc7da3bc52488ce168eac39d739, type: 3}
+  bulletPoint: {fileID: 714360596}
+  animatorComponent: {fileID: 0}
 --- !u!4 &427919230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1864740628597940677, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
@@ -17151,14 +17168,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.2186465, y: 0.1378127, z: -0.018129492, w: -0.96585333}
+  m_LocalRotation: {x: -0.21859176, y: 0.14067782, z: -0.018778147, w: -0.9654403}
   m_LocalPosition: {x: 5.11, y: 7.22, z: -13.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 636845278}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 25.3, y: -16.6, z: 358.4}
+  m_LocalEulerAnglesHint: {x: 25.3, y: -16.94, z: 358.4}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17210,6 +17227,7 @@ MonoBehaviour:
   rotateSpeed: 5
   zoomSpeed: 5
   currentZoom: 0.5
+  turn: {x: 0, y: 0}
 --- !u!1 &978917063 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3135921509060577837, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}

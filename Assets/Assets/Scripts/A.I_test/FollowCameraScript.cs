@@ -35,10 +35,16 @@ namespace Assets.Scripts.A.I_test
                 Cursor.lockState = CursorLockMode.None;
                 return;
             }
-            turn.x += Input.GetAxis("Mouse X");
+            RotateCamera();
+        }
+
+        private void RotateCamera()
+        {            turn.x += Input.GetAxis("Mouse X");
             turn.y += Input.GetAxis("Mouse Y");
-            transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
+            var currentRotation = transform.localRotation;
+            transform.localRotation = Quaternion.Euler(-turn.y+currentRotation.y, turn.x+currentRotation.x, 0);
             Cursor.lockState = CursorLockMode.Locked;
+            
         }
 
         private void LateUpdate()
