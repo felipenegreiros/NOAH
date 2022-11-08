@@ -31,9 +31,7 @@ public class Atirador : MonoBehaviour
     {
         player = GameObject.Find("Noah").transform;
         agent = GetComponent<NavMeshAgent>();
-
         Ani.SetBool("Walk2", true);
-
     }
 
     private void Update()

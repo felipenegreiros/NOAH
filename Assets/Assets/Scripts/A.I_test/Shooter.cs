@@ -7,6 +7,7 @@ namespace Assets.Scripts.A.I_test
     {
         public KeyCode shootKey = KeyCode.J;
         public string gameObjectTag;
+        public GameObject playerObject;
         [SerializeField] private GameObject bullet;
         [SerializeField] private Transform bulletPoint;
         [SerializeField] private Animator animatorComponent;
@@ -15,18 +16,41 @@ namespace Assets.Scripts.A.I_test
         private void Awake()
         {
             gameObjectTag = gameObject.tag;
-            if (gameObjectTag == "Player")
+            animatorComponent = gameObject.GetComponent<Animator>();  
+            if (IsNpc())
             {
-                animatorComponent = gameObject.GetComponent<Animator>();   
+                playerObject = GameObject.FindGameObjectWithTag("Player");
             }
+        }
+
+        private bool IsPlayer()
+        {
+            return gameObjectTag == "Player";
+        }
+
+        private bool IsNpc()
+        {
+            return gameObjectTag != "Player";
         }
 
         private void Update()
         {
+            if (IsPlayer())
+            {
+                ShootingAnimation();
+            }
+            else
+            {
+                // Invoke(nameof(ShootProjectile), 1f);
+            }
+        }
+
+        private void ShootingAnimation()
+        {
             if (Input.GetKeyDown(shootKey))
             {
                 animatorComponent.SetBool(Shoot1, true);
-                Invoke("Shoot", 0.4f);
+                Invoke(nameof(ShootProjectile), 0.4f);
             }
             else
             {
@@ -34,7 +58,7 @@ namespace Assets.Scripts.A.I_test
             }
         }
         
-        private void Shoot() {
+        private void ShootProjectile() {
             var bulletGameObject = Instantiate(bullet, bulletPoint.position, Quaternion.identity);
             var bulletComponent = bulletGameObject.GetComponent<Bullet>();
             bulletComponent.Push(transform);
