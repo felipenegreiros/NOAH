@@ -13,15 +13,17 @@ namespace Assets.Scripts.A.I_test
         [SerializeField] private Animator animatorComponent;
         private static readonly int Shoot1 = Animator.StringToHash("shoot");
         public float timeSinceLastAttack;
+        // public Quaternion angle;
+        public float playerAngle;
+        public float bottleAngle;
+        public Quaternion desiredAngle;
 
         private void Awake()
         {
             gameObjectTag = gameObject.tag;
-            animatorComponent = gameObject.GetComponent<Animator>();  
-            if (IsNpc())
-            {
-                playerObject = GameObject.FindGameObjectWithTag("Player");
-            }
+            animatorComponent = gameObject.GetComponent<Animator>();
+            if (!IsNpc()) return;
+            playerObject = GameObject.FindGameObjectWithTag("Player");
         }
 
         private bool IsPlayer()
@@ -38,34 +40,71 @@ namespace Assets.Scripts.A.I_test
         {
             if (IsPlayer())
             {
-                ShootingAnimation();
+                PlayerShootingAnimation();
             }
             else
             {
-                if (timeSinceLastAttack < 1)
-                {
-                    timeSinceLastAttack += Time.deltaTime;
-                    animatorComponent.SetBool(Shoot1, false);
-                    return;
-                }
-                animatorComponent.SetBool(Shoot1, true);
-                Invoke(nameof(ShootProjectile), .4f);
-                timeSinceLastAttack = 0;
+                // EnemyShootingAnimation();
             }
         }
 
-        private void ShootingAnimation()
+        private Quaternion GetHorizontalAngleBetweenShooterAndPlayer()
+        {
+            var playerPosition = playerObject.transform.position;
+            var shooterPosition = transform.position;
+            var lookPos = playerPosition - shooterPosition;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            return rotation;
+        }
+
+        private void LookAtPlayer()
+        {
+            desiredAngle = GetHorizontalAngleBetweenShooterAndPlayer();
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredAngle, Time.deltaTime * 10);
+            transform.eulerAngles = new Vector3(90, transform.eulerAngles.y, transform.eulerAngles.z);
+            // transform.rotation = Quaternion.Euler(90, desiredAngle, 0);
+        }
+
+        public void EnemyShootingAnimation()
+        {
+            Debug.Log("Shooting!");
+            LookAtPlayer();
+            if (timeSinceLastAttack < 1)
+            {
+                timeSinceLastAttack += Time.deltaTime;
+                // ;DisableShootingAnimation();
+                return;
+            }
+            // EnableShootingAnimation();
+            Invoke(nameof(ShootProjectile), .4f);
+            timeSinceLastAttack = 0;
+            // Invoke(nameof(DisableShootingAnimation), .4f);
+        }
+
+        private void PlayerShootingAnimation()
         {
             if (Input.GetKeyDown(shootKey))
             {
-                animatorComponent.SetBool(Shoot1, true);
+                EnableShootingAnimation();
                 Invoke(nameof(ShootProjectile), 0.4f);
             }
             else
             {
-                animatorComponent.SetBool(Shoot1, false);
+                DisableShootingAnimation();
             }
         }
+
+        private void EnableShootingAnimation()
+        {
+            animatorComponent.SetBool(Shoot1, true);
+        }
+
+        private void DisableShootingAnimation()
+        {
+            animatorComponent.SetBool(Shoot1, false);
+        }
+        
         
         private void ShootProjectile() {
             var bulletGameObject = Instantiate(bullet, bulletPoint.position, Quaternion.identity);

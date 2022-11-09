@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.30889648, g: 0.112145476, b: 0.51528084, a: 1}
+  m_IndirectSpecularColor: {r: 0.30889666, g: 0.112145655, b: 0.5152818, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3599,7 +3599,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194808225}
-  m_LocalRotation: {x: 0.16536577, y: -0.22801252, z: 0.039329525, w: 0.95870626}
+  m_LocalRotation: {x: 0.16612437, y: -0.20865758, z: 0.03599103, w: 0.96310407}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9247,25 +9247,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4483b49d432a8a449a30e92e509bdab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 413967548}
+  animatorComponent: {fileID: 413967548}
   inX: 0
   inZ: 0
-  kicktime: 0
-  punchtime: 0
+  kickTime: 0
+  punchTime: 0
   moveSpeed: 0
   forceMagnitude: 0
-  Maincollider: {fileID: 413967554}
-  pecollider: {fileID: 1459460241}
-  maocollider: {fileID: 0}
-  perna: {fileID: 1459460238}
-  mao: {fileID: 1966402281}
-  ThisGuyrig: {fileID: 1411992843}
-  bala: {fileID: 7917319578482180742, guid: b40a4fc7da3bc52488ce168eac39d739, type: 3}
-  Sword: {fileID: 0}
+  mainCollider: {fileID: 0}
+  feetCollider: {fileID: 0}
+  handCollider: {fileID: 0}
+  leg: {fileID: 0}
+  hand: {fileID: 0}
+  thisGuyRig: {fileID: 0}
+  bullet: {fileID: 0}
+  sword: {fileID: 0}
   ps: {fileID: 0}
-  bulletpoint: {fileID: 714360596}
+  bulletPoint: {fileID: 0}
+  upKey: 119
+  downKey: 115
+  leftKey: 97
+  rightKey: 100
+  kickKey: 107
+  runKey: 109
+  punchKey: 104
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
+  _runningTime: 0
 --- !u!143 &413967552
 CharacterController:
   m_ObjectHideFlags: 0
@@ -13467,7 +13475,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639645432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.16210985, y: 3.7, z: -7.748335}
+  m_LocalPosition: {x: -0.16482186, y: 3.7, z: -7.0629997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13897,7 +13905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.92
+      value: 16.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17009,8 +17017,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.14790007, y: -0.22869027, z: 0.03517561, w: 0.96155554}
-  m_LocalPosition: {x: 0.16210985, y: 3.7, z: -7.748335}
+  m_LocalRotation: {x: 0.14857854, y: -0.20927776, z: 0.032189712, w: 0.9659664}
+  m_LocalPosition: {x: -0.16482186, y: 3.7, z: -7.0629997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19543,7 +19551,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253118963}
-  m_LocalRotation: {x: 0.14790004, y: -0.22869022, z: 0.035175607, w: 0.96155554}
+  m_LocalRotation: {x: 0.14857851, y: -0.20927773, z: 0.03218971, w: 0.9659664}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20598,7 +20606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.28800774
+      value: 1.13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24394,7 +24402,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488971896}
-  m_LocalRotation: {x: 0.13043168, y: -0.2292907, z: 0.031021038, w: 0.96408045}
+  m_LocalRotation: {x: 0.13103002, y: -0.20982723, z: 0.0283878, w: 0.9685029}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28789,11 +28797,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5097370190579632962, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
   m_PrefabInstance: {fileID: 1380246888}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1966402281 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2715566404302941441, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
-  m_PrefabInstance: {fileID: 1380246888}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1978544305 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 854b94aff6025ea4e80631c31f5e31c8, type: 3}
@@ -28827,25 +28830,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4483b49d432a8a449a30e92e509bdab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1978544309}
+  animatorComponent: {fileID: 1978544309}
   inX: 0
   inZ: 0
-  kicktime: 0
-  punchtime: 0
+  kickTime: 0
+  punchTime: 0
   moveSpeed: 0
   forceMagnitude: 0
-  Maincollider: {fileID: 1978544311}
-  pecollider: {fileID: 1596639295}
-  maocollider: {fileID: 0}
-  perna: {fileID: 0}
-  mao: {fileID: 0}
-  ThisGuyrig: {fileID: 1787684554}
-  bala: {fileID: 1632862775}
-  Sword: {fileID: 1632862775}
+  mainCollider: {fileID: 0}
+  feetCollider: {fileID: 0}
+  handCollider: {fileID: 0}
+  leg: {fileID: 0}
+  hand: {fileID: 0}
+  thisGuyRig: {fileID: 0}
+  bullet: {fileID: 0}
+  sword: {fileID: 0}
   ps: {fileID: 5967611599718341237, guid: 3b01b60203124174789df0a5ea60cc88, type: 3}
-  bulletpoint: {fileID: 0}
+  bulletPoint: {fileID: 0}
+  upKey: 119
+  downKey: 115
+  leftKey: 97
+  rightKey: 100
+  kickKey: 107
+  runKey: 109
+  punchKey: 104
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
+  _runningTime: 0
 --- !u!143 &1978544308
 CharacterController:
   m_ObjectHideFlags: 0
@@ -31499,15 +31510,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63e6e980c5428154cacaa40372201894, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.018853
+      value: -15.82
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63e6e980c5428154cacaa40372201894, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5368965
+      value: 2.49
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63e6e980c5428154cacaa40372201894, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.9924077
+      value: -1.55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63e6e980c5428154cacaa40372201894, type: 3}
       propertyPath: m_LocalRotation.w

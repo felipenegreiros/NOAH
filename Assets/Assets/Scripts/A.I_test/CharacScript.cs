@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.A.I_test;
 using UnityEngine;
 using UnityEngine.Serialization;
 

@@ -1,21 +1,22 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Assets.Scripts.A.I_test
 {
     
     public class Health : MonoBehaviour
     {
-        [SerializeField] private float _hp;
+        [SerializeField] private float hp;
         [Serializable]
         public class TakeDamageEvent : UnityEvent<float>
         {
             //
         }
-        [SerializeField] private bool _dead;
-        [SerializeField] private bool _godMode;
-        [SerializeField] private TakeDamageEvent _takeDamage;
+        [SerializeField] private bool dead;
+        [SerializeField] private bool godMode;
+        [SerializeField] private TakeDamageEvent takeDamage;
         // Start is called before the first frame update
         void Start()
         {
@@ -23,34 +24,34 @@ namespace Assets.Scripts.A.I_test
         }
         public void TakeDamage(GameObject instigator, float damage)
         {
-            if (!_godMode)
+            if (!godMode)
             {
-                _hp = Mathf.Max(_hp - damage, 0);
+                hp = Mathf.Max(hp - damage, 0);
             }
 
-            if (_hp == 0)
+            if (hp == 0)
             {
                 Die();
                 // AwardExperience(instigator);
             }
             else
             {
-                _takeDamage.Invoke(damage);
+                takeDamage.Invoke(damage);
             }
         }
 
         private float GetHp()
         {
-            return _hp;
+            return hp;
         }
 
         private void Die()
         {
-            if (_dead)
+            if (dead)
             {
                 return;
             }
-            _dead = true;
+            dead = true;
         }
 
         // Update is called once per frame
