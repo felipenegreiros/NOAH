@@ -5,7 +5,9 @@ using UnityEngine;
 public class CharacScript : MonoBehaviour
 {
     [SerializeField] Animator anim;
-    private CharacterController _charController;
+    //private CharacterController _charController;
+    private Transform chartransf;
+    private Rigidbody charig;
 
     public float inX;
     public float inZ;
@@ -45,8 +47,10 @@ public class CharacScript : MonoBehaviour
         RagdollOff();
 
         GameObject Playeri = GameObject.FindGameObjectWithTag("Player");
-        _charController = Playeri.GetComponent<CharacterController>();
+       // _charController = Playeri.GetComponent<CharacterController>();
+        chartransf = Playeri.GetComponent<Transform>();
         anim = Playeri.GetComponent<Animator>();
+        charig = Playeri.GetComponent<Rigidbody>();
 
 
         moveSpeed = 4f;
@@ -347,18 +351,35 @@ public class CharacScript : MonoBehaviour
     {
         //o problema da tremedeira eh o collider e os comandos uparrow com leftright arrow quando executados juntos
 
-        vmovement = _charController.transform.forward * inZ *(2f * Time.deltaTime);
+        vmovement = chartransf.transform.forward * inZ *(1.5f * Time.deltaTime);
         
-        _charController.transform.Rotate(Vector3.up * inX * (2f * Time.deltaTime));
+        chartransf.transform.Rotate(Vector3.up * inX * (1.5f * Time.deltaTime));
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.M))
             {
-                _charController.Move(vmovement * moveSpeed * Time.deltaTime);
+                charig.AddForce(vmovement * moveSpeed * Time.deltaTime);
             tempo = 0;
 
         }
 
     }
+   // private void FixedUpdate()
+   // {
+        //o problema da tremedeira eh o collider e os comandos uparrow com leftright arrow quando executados juntos
+
+      //  vmovement = _charController.transform.forward * inZ * (2f * Time.deltaTime);
+
+       // _charController.transform.Rotate(Vector3.up * inX * (2f * Time.deltaTime));
+
+       // if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.M))
+      //  {
+      //     _charController.Move(vmovement * moveSpeed * Time.deltaTime);
+      //      tempo = 0;
+
+      //  }
+
+   // }
+
     private void Maist()
     {
         tempo++;
