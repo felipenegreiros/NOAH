@@ -6,6 +6,8 @@ namespace Assets.Scripts.A.I_test
     {
         public float timeToLive = 5f;
         private Rigidbody _rigidBodyComponent;
+        [SerializeField] private float horizontalSpeed = 4f;
+        [SerializeField] private float verticalSpeed = -0.1f;
         
         // Start is called before the first frame update
         private void Awake()
@@ -21,8 +23,8 @@ namespace Assets.Scripts.A.I_test
         }
         public void Push(Transform desiredTransform)
         {
-            var horizontalForce = desiredTransform.forward * 4f;
-            var verticalForce = desiredTransform.up * -0.1f;
+            var horizontalForce = desiredTransform.forward * horizontalSpeed;
+            var verticalForce = desiredTransform.up * verticalSpeed;
             _rigidBodyComponent.AddForce(horizontalForce, ForceMode.Impulse);
             _rigidBodyComponent.AddForce(verticalForce, ForceMode.Impulse);
         }
