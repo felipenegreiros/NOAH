@@ -31,9 +31,7 @@ public class Atirador : MonoBehaviour
     {
         player = GameObject.Find("Noah").transform;
         agent = GetComponent<NavMeshAgent>();
-
         Ani.SetBool("Walk2", true);
-
     }
 
     private void Update()
@@ -100,13 +98,11 @@ public class Atirador : MonoBehaviour
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        Debug.Log("voidSearchWalkpoint");
         //nao parece ser nada desse void
 
         if (Physics.Raycast(walkpoint, -transform.up, 2f, whatIsGround))
         {
             walkPointSet = true;
-            Debug.Log("ifSearchWalkpoint");
         }
     }
 
@@ -128,7 +124,7 @@ public class Atirador : MonoBehaviour
 
         agent.SetDestination(player.transform.position / 2);
 
-        //a treta é com a rotação, verificar o q esta mechendo com a rotação
+        //a treta ï¿½ com a rotaï¿½ï¿½o, verificar o q esta mechendo com a rotaï¿½ï¿½o
         //possivel conflito entre "LookAt & SetDestination"
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
 

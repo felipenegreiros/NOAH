@@ -1,383 +1,338 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CharacScript : MonoBehaviour
 {
-    [SerializeField] Animator anim;
+    [FormerlySerializedAs("anim")] [SerializeField] private Animator animatorComponent;
     private CharacterController _charController;
 
     public float inX;
     public float inZ;
-    public float kicktime = 0;
-    public float punchtime = 0;
-    private Vector3 vmovement;
-    private Vector3 vvelocity;
+    [FormerlySerializedAs("kicktime")] public float kickTime = 0;
+    [FormerlySerializedAs("punchtime")] public float punchTime = 0;
+    private Vector3 _vmovement;
+    private Vector3 _vvelocity;
     public float moveSpeed;
-    private float gravidade;
-    private int tempo;
-    bool kick;
+    private float _gravidade;
+    private int _tempo;
+    private bool _kick;
 
     [SerializeField] private float forceMagnitude;
+    
+    [SerializeField] public Collider mainCollider;
+    [SerializeField] public Collider feetCollider;
+    [SerializeField] public Collider handCollider;
 
-    //ragdollvaribles
-    // [SerializeField] public MeshCollider Maincollider;
-    // [SerializeField] public Collider boxcollider;
-    [SerializeField] public Collider Maincollider;
-    [SerializeField] public Collider pecollider;
-    [SerializeField] public Collider maocollider;
-    //[SerializeField] public Rigidbody peRigid;
+    [SerializeField] private GameObject leg;
+    [SerializeField] private GameObject hand;
+    [SerializeField] private GameObject thisGuyRig;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject sword;
+    [SerializeField] private GameObject ps;
+    [SerializeField] private Transform bulletPoint;
 
-    [SerializeField] GameObject perna;
-    [SerializeField] GameObject mao;
-    [SerializeField] GameObject ThisGuyrig;
-    [SerializeField] GameObject bala;
-    [SerializeField] GameObject Sword;
-    [SerializeField] GameObject ps;
-    [SerializeField] Transform bulletpoint;
+    public KeyCode upKey = KeyCode.W;
+    public KeyCode downKey = KeyCode.S;
+    public KeyCode leftKey = KeyCode.A;
+    public KeyCode rightKey = KeyCode.D;
 
-    float hits = 0;
+    public KeyCode kickKey = KeyCode.K;
+    public KeyCode runKey = KeyCode.M;
+    public KeyCode punchKey = KeyCode.H;
+
+    private float _hits = 0;
     public Vector3 characPosition;
     public Quaternion characRotation;
-    void Start()
-    {
-        Getragdoolbits();
-        RagdollOff();
 
-        GameObject Playeri = GameObject.FindGameObjectWithTag("Player");
-        _charController = Playeri.GetComponent<CharacterController>();
-        anim = Playeri.GetComponent<Animator>();
+    private Rigidbody _rigidBodyComponent;
+    private Rigidbody[] _ragRigid;
+    private Collider[] _ragCollider;
 
+    [SerializeField] private float _runningTime;
 
-        moveSpeed = 4f;
-        gravidade = 0.5f;
+    private void Start() {
+        _rigidBodyComponent = GetComponent<Rigidbody>();
+        GetRagDollReferenceBits();
+        DisableRagDoll();
 
-        anim.SetBool("kick", false);
-        anim.SetBool("kick2", true);
+        var playerObject = GameObject.FindGameObjectWithTag("Player");
+        _charController = playerObject.GetComponent<CharacterController>();
+        animatorComponent = playerObject.GetComponent<Animator>();
+        
+        moveSpeed = 16f;
+        _gravidade = 0.5f;
+
+        animatorComponent.SetBool("kick", false);
+        animatorComponent.SetBool("kick2", true);
     }
 
-    Rigidbody[] ragrigid;
-    Collider[] ragcollider;
-    void Getragdoolbits()
-    {
-        ragrigid = ThisGuyrig.GetComponentsInChildren<Rigidbody>();
-        ragcollider = ThisGuyrig.GetComponentsInChildren<Collider>();
+    private void GetRagDollReferenceBits() {
+        _ragRigid = thisGuyRig.GetComponentsInChildren<Rigidbody>();
+        _ragCollider = thisGuyRig.GetComponentsInChildren<Collider>();
     }
-    void RagdollOff()
-    {
-        foreach (Collider col in ragcollider)
-        {
+
+    private void DisableRagDoll() {
+        foreach (var col in _ragCollider) {
             col.enabled = false;
         }
-        foreach (Rigidbody rag in ragrigid)
-        {
+        
+        foreach (var rag in _ragRigid) {
             rag.isKinematic = true;
         }
-    
-        anim.enabled = true;
-        Maincollider.enabled = true;
-        GetComponent<Rigidbody>().isKinematic = false;
+        
+        animatorComponent.enabled = true;
+        mainCollider.enabled = true;
+        _rigidBodyComponent.isKinematic = false;
     }
-    void PeEnable()
-    {
-       // pecollider.enabled = true;
-        perna.tag = "Golpe";
-    }
-    void PeDisable()
-    {
-        pecollider.enabled = false;
-    }
-    void maoEnable()
-    {
-        mao.tag = "Golpe";
-    }
-    void RagdollOn()
-    {
-        anim.enabled = false;
 
-        foreach (Collider col in ragcollider)
-        {
+    private void EnableFeet() {
+        leg.tag = "Golpe";
+    }
+
+    private void DisableFeet() {
+        feetCollider.enabled = false;
+    }
+
+    private void EnableHand() {
+        hand.tag = "Golpe";
+    }
+
+    private void RagDollOn() {
+        animatorComponent.enabled = false;
+
+        foreach (var col in _ragCollider) {
             col.enabled = true;
         }
-        foreach (Rigidbody rag in ragrigid)
-        {
+        
+        foreach (var rag in _ragRigid) {
             rag.isKinematic = false;
         }
 
-        Maincollider.enabled = false;
-        GetComponent<Rigidbody>().isKinematic = true;
-
-        hits = 0;
+        mainCollider.enabled = false;
+        _rigidBodyComponent.isKinematic = true;
+        _hits = 0;
     }
-       private void OnCollisionEnter(Collision collision)
-    {
+       private void OnCollisionEnter(Collision collision) {
 
-        if (collision.gameObject.name == "Rosto_AI")
-        {
-            RagdollOn();
-           // Instantiate(ps, characPosition, characRotation);
+        if (collision.gameObject.name == "Rosto_AI") {
+            RagDollOn();
             Debug.Log("pow");
         }
-        if (collision.gameObject.tag == "balah")
-        {
-            // boxcollider.enabled = true;
-            // Maincollider.enabled = false;
-
-            // RagdollOn();
-
-            hits++;
-            anim.SetBool("hit", true);
-            Invoke("hitfalse", 0.2f);
-           // Instantiate(ps, characPosition, characRotation);
+        
+        if (collision.gameObject.CompareTag("balah")) {
+            _hits++;
+            animatorComponent.SetBool("hit", true);
+            Invoke("HitFalse", 0.2f);
             Debug.Log("pow");
         }
-        else
-        {
+        else {
            // Maincollider.enabled = true;
            // Invoke("disablebox", 0.7f);
         }
+       }
 
+       private void HitFalse() {
+        animatorComponent.SetBool("hit", false);
     }
 
-    void hitfalse()
-    {
-        anim.SetBool("hit", false);
-    }
-    void disablebox()
-    {
+    private void DisableBox() {
        // boxcollider.enabled = false;
     }
     // Update is called once per frame
-    void Update()
+    public void Update() 
     {
-        if (hits > 4)
-        {
-            RagdollOn();
+        if (_hits > 4) {
+            RagDollOn();
         }
-       // RagdollOff();
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            RagdollOff();
+        
+        if (Input.GetKey(upKey)) {
+            DisableRagDoll();
         }
 
         inX = Input.GetAxis("Horizontal");
         inZ = Input.GetAxis("Vertical");
 
-        Maist();
+        IncrementTempo();
 
-        //CORRER
-        if (Input.GetKey(KeyCode.M))
-        {
-
-            anim.SetBool("run", true);
-            anim.SetBool("run2", false);
-            kicktime = 0;
-            inX = inX * 100;
-
-            // Debug.Log("colon");
-        }
-        if (Input.GetKeyUp(KeyCode.M))
-        {
-            anim.SetBool("run", false);
-            anim.SetBool("run2", true);
-
-        }
+        RunTrigger();
+        
+        // if (Input.GetKeyUp(runKey)) {
+        //     animatorComponent.SetBool("run", false);
+        //     animatorComponent.SetBool("run2", true);
+        // }
+        
         //CHUTE
-        if (Input.GetKey(KeyCode.K))
-        {
-            kicktime = 100;
-            anim.SetBool("run", false);
-            anim.SetBool("run2", true);
-            anim.SetBool("kick", true);
-            anim.SetBool("lbool", false);
-            anim.SetBool("rbool", false);
-            kick = true;
-
+        if (Input.GetKey(kickKey)) {
+            kickTime = 100;
+            animatorComponent.SetBool("run", false);
+            animatorComponent.SetBool("run2", true);
+            animatorComponent.SetBool("kick", true);
+            animatorComponent.SetBool("lbool", false);
+            animatorComponent.SetBool("rbool", false);
+            _kick = true;
         }
-        else
-        {
-            kicktime = kicktime - 5f;
+        else {
+            kickTime = kickTime - 5f;
             //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
         }
 
-        if (Input.GetKeyUp(KeyCode.K))
-        {
-            anim.SetBool("kick", false);
-            kick = false;
+        if (Input.GetKeyUp(kickKey)) {
+            animatorComponent.SetBool("kick", false);
+            _kick = false;
         }
 
-        if (kicktime < 0)
-        {
-            kicktime = 0;
+        if (kickTime < 0) {
+            kickTime = 0;
         }
-        if (kicktime > 20 )
-        {
-            Invoke("PeEnable", 0.8f);
-            pecollider.enabled = true;
+        if (kickTime > 20 ) {
+            Invoke("EnableFeet", 0.8f);
+            feetCollider.enabled = true;
            // perna.tag = "balah";
-        }
-        else
-        {
-            perna.tag = "Untagged";
+        } else {
+            leg.tag = "Untagged";
         }
 
         //PUNCH
-        if (Input.GetKey(KeyCode.H))
-        {
-            punchtime = 100;
-            anim.SetBool("run", false);
-            anim.SetBool("run2", true);
-            anim.SetBool("punch", true);
-            anim.SetBool("lbool", false);
-            anim.SetBool("rbool", false);
-
-
+        if (Input.GetKey(punchKey)) {
+            punchTime = 100;
+            animatorComponent.SetBool("run", false);
+            animatorComponent.SetBool("run2", true);
+            animatorComponent.SetBool("punch", true);
+            animatorComponent.SetBool("lbool", false);
+            animatorComponent.SetBool("rbool", false);
         }
-        else
-        {
-            punchtime = punchtime - 4f;
+        else {
+            punchTime = punchTime - 4f;
             //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
         }
 
-        if (Input.GetKeyUp(KeyCode.H))
-        {
-            anim.SetBool("punch", false);
-
+        if (Input.GetKeyUp(punchKey)) {
+            animatorComponent.SetBool("punch", false);
         }
 
-        if (punchtime < 0)
-        {
-            punchtime = 0;
+        if (punchTime < 0) {
+            punchTime = 0;
         }
-        if (punchtime > 10)
-        {
-            Invoke("maoEnable", 0.4f);
-            maocollider.enabled = true;
+        
+        if (punchTime > 10) {
+            Invoke("EnableHand", 0.4f);
+            handCollider.enabled = true;
             // perna.tag = "balah";
-        }
-        else
-        {
-            mao.tag = "Untagged";
+        } else {
+            hand.tag = "Untagged";
         }
 
         //WALK
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            anim.SetBool("bool1", true);
-            anim.SetBool("bool2", true);
+        if (Input.GetKey(upKey)) {
+            animatorComponent.SetBool("bool1", true);
+            animatorComponent.SetBool("bool2", true);
             inX = inX * 100;
            // tempo = 0;
         }
 
-        if (Input.GetKeyUp(KeyCode.UpArrow)) 
-        {
+        if (Input.GetKeyUp(upKey)) {
            // anim.SetBool("run", false);
            // anim.SetBool("run2", true);
-
-            anim.SetBool("bool1", false);
-            anim.SetBool("bool2", false);
-            tempo = 0;
+           animatorComponent.SetBool("bool1", false);
+            animatorComponent.SetBool("bool2", false);
+            _tempo = 0;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            anim.SetBool("lbool", true);
-            anim.SetBool("lbool2", false);
+        
+        if (Input.GetKey(leftKey)) {
+            animatorComponent.SetBool("lbool", true);
+            animatorComponent.SetBool("lbool2", false);
+        } else {
+            animatorComponent.SetBool("lbool", false);
+            animatorComponent.SetBool("lbool2", true);
         }
-        else 
-        {
-            anim.SetBool("lbool", false);
-            anim.SetBool("lbool2", true);
+        
+        if (Input.GetKey(rightKey)) {
+            animatorComponent.SetBool("rbool", true);
+            animatorComponent.SetBool("rbool2", false);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            anim.SetBool("rbool", true);
-            anim.SetBool("rbool2", false);
+        else {
+            animatorComponent.SetBool("rbool", false);
+            animatorComponent.SetBool("rbool2", true);  
         }
-        else
-        {
-            anim.SetBool("rbool", false);
-            anim.SetBool("rbool2", true);  
-        }
-        if (tempo > 160)
-        {
+        
+        if (_tempo > 160) {
            // anim.SetBool("run", true);
            // anim.SetBool("run2", false);
         }
 
         //AGACHAR
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            anim.SetBool("Agacha", true);
-            Maincollider.enabled = false;
-
+        if (Input.GetKeyDown(downKey)) {
+            animatorComponent.SetBool("Agacha", true);
+            mainCollider.enabled = false;
         }
-        if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            anim.SetBool("Agacha", false);
-            Maincollider.enabled = true;
+        
+        if (Input.GetKeyUp(downKey)) {
+            animatorComponent.SetBool("Agacha", false);
+            mainCollider.enabled = true;
         }
+    }
 
-        //Atirar
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            anim.SetBool("shoot", true);
-
-            Invoke("atira", 0.4f);
-           
+    private void RunTrigger()
+    {
+        if (Input.GetKey(runKey)) {
+            _runningTime += Time.deltaTime;
         }
         else
         {
-            anim.SetBool("shoot", false);
+            _runningTime = 0;
         }
-        if (Input.GetKeyUp(KeyCode.J))
+        RunMechanics();
+    }
+
+    private void RunMechanics()
+    {
+        if (_runningTime is > 0 and < 1)
         {
-            anim.SetBool("shoot", false);
-
+            // animatorComponent.SetBool("run2", false);
+            animatorComponent.SetBool("run", false);
         }
-
+        else if (_runningTime is >= 1 and < 3)
+        {
+            animatorComponent.SetBool("run", true);
+        } else if (_runningTime >= 3)
+        {
+            // animatorComponent.SetBool("run", false);
+            // animatorComponent.SetBool("run2", true);
+        }
     }
 
-    void atira()
-    {
-        Rigidbody rb = Instantiate(bala, bulletpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 4f, ForceMode.Impulse);
-        rb.AddForce(transform.up * -0.1f, ForceMode.Impulse);
-    }
-    private void FixedUpdate()
-    {
+
+    
+    private void FixedUpdate() {
         //o problema da tremedeira eh o collider e os comandos uparrow com leftright arrow quando executados juntos
 
-        vmovement = _charController.transform.forward * inZ *(2f * Time.deltaTime);
+        var currentTransform = _charController.transform.forward;
+        var movementValueIncrease = inZ * (2f * Time.deltaTime);
+        _vmovement = currentTransform * movementValueIncrease;
         
-        _charController.transform.Rotate(Vector3.up * inX * (2f * Time.deltaTime));
+        var rotateValueIncrease = inX * 2f * Time.deltaTime * Vector3.up;
+        _charController.transform.Rotate(rotateValueIncrease);
 
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.M))
-            {
-                _charController.Move(vmovement * moveSpeed * Time.deltaTime);
-            tempo = 0;
-
-        }
-
+        if (!Input.GetKeyDown(upKey) && !Input.GetKeyDown(runKey)) return;
+        var moveIncrease = moveSpeed * Time.deltaTime * _vmovement;
+        _charController.Move(moveIncrease);
+        _tempo = 0;
     }
-    private void Maist()
-    {
-        tempo++;
+    
+    private void IncrementTempo() {
+        _tempo++;
     }
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Rigidbody rigidbody = hit.collider.attachedRigidbody;
-        if (rigidbody !=null 
-          //  & Input.GetKey(KeyCode.K)//pra so ativar se ele chutar
-            
-            )
-        {
-            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
-            forceDirection.y = 0;
-            forceDirection.Normalize();
-
-            rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
-        }
-
+    
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        var rigidBody = hit.collider.attachedRigidbody;
+        if (rigidBody == null) return;
+        var transformPosition = transform.position;
+        var forceDirection = hit.gameObject.transform.position - transformPosition;
+        forceDirection.y = 0;
+        forceDirection.Normalize();
+        rigidBody.AddForceAtPosition(forceDirection * forceMagnitude, transformPosition, ForceMode.Impulse);
     }
 
 }
