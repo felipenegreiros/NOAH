@@ -38,6 +38,7 @@ namespace Assets.Scripts.A.I_test
 
         private void Update()
         {
+            timeSinceLastAttack += Time.deltaTime;
             if (IsPlayer())
             {
                 PlayerShootingAnimation();
@@ -63,7 +64,7 @@ namespace Assets.Scripts.A.I_test
             desiredAngle = GetHorizontalAngleBetweenShooterAndPlayer();
             var t = transform;
             t.rotation = Quaternion.Slerp(t.rotation, desiredAngle, Time.deltaTime * 10);
-            t.eulerAngles = new Vector3(90, transform.eulerAngles.y, t.eulerAngles.z);
+            // t.eulerAngles = new Vector3(90, transform.eulerAngles.y, t.eulerAngles.z);
             // transform.rotation = Quaternion.Euler(90, desiredAngle, 0);
         }
 
@@ -78,7 +79,7 @@ namespace Assets.Scripts.A.I_test
                 return;
             }
             // EnableShootingAnimation();
-            Invoke(nameof(ShootProjectile), .4f);
+            Invoke(nameof(PlayerShootProjectile), .4f);
             timeSinceLastAttack = 0;
             // Invoke(nameof(DisableShootingAnimation), .4f);
         }
@@ -88,7 +89,7 @@ namespace Assets.Scripts.A.I_test
             if (Input.GetKeyDown(shootKey))
             {
                 EnableShootingAnimation();
-                Invoke(nameof(ShootProjectile), 0.4f);
+                Invoke(nameof(PlayerShootProjectile), 0.4f);
             }
             else
             {
@@ -107,13 +108,31 @@ namespace Assets.Scripts.A.I_test
         }
         
         
-        private void ShootProjectile() {
+        private void PlayerShootProjectile() {
             var bulletGameObject = Instantiate(bullet, bulletPoint.position, Quaternion.identity);
             bulletGameObject.transform.eulerAngles = new Vector3(90, transform.eulerAngles.y, 0);
             var bulletComponent = bulletGameObject.GetComponent<Bullet>();
-            // Make transform.forward face towards the player
             bulletComponent.transform.forward = transform.forward;
             bulletComponent.Push(transform);
+        }
+
+        private void EnemyShootProjectile()
+        {
+            if(timeSinceLastAttack <= 1)
+            {
+                return;
+            }
+            var projectile = Instantiate(bullet, transform.position, transform.rotation);
+            var rb = projectile.GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward*4f, ForceMode.Impulse);
+            rb.AddForce(transform.up*0.4f, ForceMode.Impulse);
+            timeSinceLastAttack = 0;
+        }
+
+        public void ShootAtPlayer()
+        {
+            LookAtPlayer();
+            EnemyShootProjectile();
         }
     }
 }

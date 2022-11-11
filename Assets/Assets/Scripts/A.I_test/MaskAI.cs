@@ -9,6 +9,7 @@ namespace Assets.Scripts.A.I_test
         public NavMeshAgent agent;
         public GameObject projectile;
         public float timeSinceLastAttack = 0;
+        public Quaternion desiredAngle;
 
         private void Awake()
         {
@@ -21,15 +22,22 @@ namespace Assets.Scripts.A.I_test
             timeSinceLastAttack += Time.deltaTime;
         }
 
-        public void AggressiveBehavior()
+        private Quaternion GetHorizontalAngleBetweenShooterAndPlayer()
         {
-            LookAtPlayer();
-            Shoot();
+            var playerPosition = player.transform.position;
+            var shooterPosition = transform.position;
+            var lookVector = playerPosition - shooterPosition;
+            lookVector.y = 0;
+            var rotation = Quaternion.LookRotation(lookVector);
+            return rotation;
         }
 
         private void LookAtPlayer()
         {
-            transform.LookAt(player.transform);
+            // transform.LookAt(player.transform);
+            desiredAngle = GetHorizontalAngleBetweenShooterAndPlayer();
+            var t = transform;
+            t.rotation = Quaternion.Slerp(t.rotation, desiredAngle, Time.deltaTime * 10);
         }
 
         private void Shoot()
@@ -38,16 +46,19 @@ namespace Assets.Scripts.A.I_test
             {
                 return;
             }
-            var rb = Instantiate(projectile, transform.position, transform.rotation).GetComponent<Rigidbody>();
+
+            var bullet = Instantiate(projectile, transform.position, transform.rotation);
+            var rb = bullet.GetComponent<Rigidbody>();
             rb.AddForce(transform.forward*4f, ForceMode.Impulse);
             rb.AddForce(transform.up*0.4f, ForceMode.Impulse);
             timeSinceLastAttack = 0;
             
         }
-        // Start is called before the first frame update
-        void Start()
-        {
         
+        public void AggressiveBehavior()
+        {
+            LookAtPlayer();
+            Shoot();
         }
     }
 }

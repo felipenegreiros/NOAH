@@ -16662,8 +16662,8 @@ GameObject:
   - component: {fileID: 1196557831}
   - component: {fileID: 1196557830}
   - component: {fileID: 1196557829}
-  - component: {fileID: 1196557834}
   - component: {fileID: 1196557835}
+  - component: {fileID: 1196557836}
   m_Layer: 0
   m_Name: Rosto_AI
   m_TagString: balah
@@ -16800,22 +16800,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196557827}
   m_Mesh: {fileID: -2432090755550338912, guid: 66dacca9701842b4da90fbba1aabe8af, type: 3}
---- !u!114 &1196557834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1196557827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32af27c3c7e14c94dba952e6ca5196ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  agent: {fileID: 0}
-  projectile: {fileID: 7917319578482180742, guid: b40a4fc7da3bc52488ce168eac39d739, type: 3}
-  timeSinceLastAttack: 0
 --- !u!114 &1196557835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16836,9 +16820,9 @@ MonoBehaviour:
   aggroTrigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1196557834}
-        m_TargetAssemblyTypeName: Assets.Scripts.A.I_test.MaskAI, Assembly-CSharp
-        m_MethodName: AggressiveBehavior
+      - m_Target: {fileID: 1196557836}
+        m_TargetAssemblyTypeName: Assets.Scripts.A.I_test.Shooter, Assembly-CSharp
+        m_MethodName: ShootAtPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16848,6 +16832,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1196557836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196557827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5fa7a7cc4874e818e6c4425ce9200bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootKey: 106
+  gameObjectTag: 
+  playerObject: {fileID: 0}
+  bullet: {fileID: 7917319578482180742, guid: b40a4fc7da3bc52488ce168eac39d739, type: 3}
+  bulletPoint: {fileID: 0}
+  animatorComponent: {fileID: 0}
+  timeSinceLastAttack: 0
+  playerAngle: 0
+  bottleAngle: 0
+  desiredAngle: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1206387234 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3948933247560734027, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
