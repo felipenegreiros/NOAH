@@ -35,10 +35,10 @@ namespace Assets.Scripts.A.I_test
                 Die();
                 // AwardExperience(instigator);
             }
-            else
-            {
-                takeDamage.Invoke(damage);
-            }
+            // else
+            // {
+            //     takeDamage.Invoke(damage);
+            // }
         }
 
         private float GetHp()
