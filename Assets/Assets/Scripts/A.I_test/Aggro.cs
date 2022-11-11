@@ -23,6 +23,10 @@ namespace Assets.Scripts.A.I_test
         {
             playerObject = GameObject.FindGameObjectWithTag("Player");
             objectCenter = FindGameObjectInChildWithTag(gameObject, "Center");
+            if (!objectCenter)
+            {
+                objectCenter= gameObject;
+            }
         }
         
         private static GameObject FindGameObjectInChildWithTag (GameObject parent, string tag)
@@ -49,7 +53,8 @@ namespace Assets.Scripts.A.I_test
 
         private bool IsPlayerInRange()
         {
-            collisionList = Physics.OverlapSphere(transform.position, sightRange);
+            var sphereCenter = objectCenter.transform.position;
+            collisionList = Physics.OverlapSphere(sphereCenter, sightRange);
             var result = collisionList.Any(colliderObject => colliderObject.CompareTag("Player"));
             if (result)
             {
@@ -61,17 +66,8 @@ namespace Assets.Scripts.A.I_test
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.cyan;
-            Vector3 target;
             //Use the same vars you use to draw your Overlap Sphere to draw your Wire Sphere.
-            if (objectCenter)
-            {
-                target = objectCenter.transform.position;
-            }
-            else
-            {
-                target = transform.position;
-            }
-            Gizmos.DrawWireSphere (target, sightRange);
+            Gizmos.DrawWireSphere (transform.position, sightRange);
         }
     }
 }

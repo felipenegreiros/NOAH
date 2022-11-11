@@ -25,6 +25,8 @@ namespace Assets.Scripts.A.I_test
         {
             var horizontalForce = desiredTransform.forward * horizontalSpeed;
             var verticalForce = desiredTransform.up * verticalSpeed;
+            verticalForce.x = 0;
+            verticalForce.z = 0;
             _rigidBodyComponent.AddForce(horizontalForce, ForceMode.Impulse);
             _rigidBodyComponent.AddForce(verticalForce, ForceMode.Impulse);
         }

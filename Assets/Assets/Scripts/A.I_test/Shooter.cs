@@ -61,8 +61,9 @@ namespace Assets.Scripts.A.I_test
         private void LookAtPlayer()
         {
             desiredAngle = GetHorizontalAngleBetweenShooterAndPlayer();
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredAngle, Time.deltaTime * 10);
-            transform.eulerAngles = new Vector3(90, transform.eulerAngles.y, transform.eulerAngles.z);
+            var t = transform;
+            t.rotation = Quaternion.Slerp(t.rotation, desiredAngle, Time.deltaTime * 10);
+            t.eulerAngles = new Vector3(90, transform.eulerAngles.y, t.eulerAngles.z);
             // transform.rotation = Quaternion.Euler(90, desiredAngle, 0);
         }
 
@@ -108,7 +109,10 @@ namespace Assets.Scripts.A.I_test
         
         private void ShootProjectile() {
             var bulletGameObject = Instantiate(bullet, bulletPoint.position, Quaternion.identity);
+            bulletGameObject.transform.eulerAngles = new Vector3(90, transform.eulerAngles.y, 0);
             var bulletComponent = bulletGameObject.GetComponent<Bullet>();
+            // Make transform.forward face towards the player
+            bulletComponent.transform.forward = transform.forward;
             bulletComponent.Push(transform);
         }
     }
