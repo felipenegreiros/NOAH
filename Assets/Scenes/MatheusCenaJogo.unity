@@ -9113,6 +9113,9 @@ MonoBehaviour:
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
   _runningTime: 0
+  currentTransform: {x: 0, y: 0, z: 0}
+  movementValueIncrease: 0
+  rotateValueIncrease: {x: 0, y: 0, z: 0}
 --- !u!143 &413967552
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9210,11 +9213,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animatorComponent: {fileID: 413967548}
-  inX: 0
+  playerGameObject: {fileID: 0}
+  moveSpeed: 0
   upKey: 119
   downKey: 115
   leftKey: 97
   rightKey: 100
+  runKey: 304
+  _runningTime: 0
 --- !u!4 &427919230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1864740628597940677, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
@@ -26936,6 +26942,9 @@ MonoBehaviour:
   characPosition: {x: 0, y: 0, z: 0}
   characRotation: {x: 0, y: 0, z: 0, w: 0}
   _runningTime: 0
+  currentTransform: {x: 0, y: 0, z: 0}
+  movementValueIncrease: 0
+  rotateValueIncrease: {x: 0, y: 0, z: 0}
 --- !u!143 &1978544308
 CharacterController:
   m_ObjectHideFlags: 0

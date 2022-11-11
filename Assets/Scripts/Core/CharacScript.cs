@@ -51,6 +51,10 @@ namespace Core
         private Collider[] _ragCollider;
 
         [SerializeField] private float _runningTime;
+        
+        public Vector3 currentTransform;
+        public float movementValueIncrease;
+        public Vector3 rotateValueIncrease;
 
         private void Start() {
             _rigidBodyComponent = GetComponent<Rigidbody>();
@@ -308,13 +312,13 @@ namespace Core
         private void FixedUpdate() {
             //o problema da tremedeira eh o collider e os comandos uparrow com leftright arrow quando executados juntos
 
-            var currentTransform = _charController.transform.forward;
-            var movementValueIncrease = inZ * (2f * Time.deltaTime);
+            currentTransform = _charController.transform.forward;
+            movementValueIncrease = inZ * (2f * Time.deltaTime);
             _vmovement = currentTransform * movementValueIncrease;
-        
-            var rotateValueIncrease = inX * 2f * Time.deltaTime * Vector3.up;
+            
+            rotateValueIncrease = inX * 2f * Time.deltaTime * Vector3.up;
             _charController.transform.Rotate(rotateValueIncrease);
-
+            
             if (!Input.GetKeyDown(upKey) && !Input.GetKeyDown(runKey)) return;
             var moveIncrease = moveSpeed * Time.deltaTime * _vmovement;
             _charController.Move(moveIncrease);

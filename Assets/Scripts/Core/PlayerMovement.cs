@@ -1,15 +1,25 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core
 {
     public class PlayerMovement: MonoBehaviour
     {
         [SerializeField] private Animator animatorComponent;
-        public float inX;
+
+        [SerializeField] private GameObject  playerGameObject;
+        private CharacterController _characterController;
+        private float horizontalInputX;
+        private float horizontalInputY;
+        public float moveSpeed;
+        private Vector3 _verticalMovement;
         public KeyCode upKey = KeyCode.W;
         public KeyCode downKey = KeyCode.S;
         public KeyCode leftKey = KeyCode.A;
         public KeyCode rightKey = KeyCode.D;
+        public KeyCode runKey = KeyCode.LeftShift;
+        [SerializeField] private float _runningTime;
         private static readonly int Bool1 = Animator.StringToHash("bool1");
         private static readonly int Bool2 = Animator.StringToHash("bool2");
         private static readonly int LBool = Animator.StringToHash("lbool");
@@ -17,21 +27,38 @@ namespace Core
         private static readonly int RBool = Animator.StringToHash("rbool");
         private static readonly int RBool2 = Animator.StringToHash("rbool2");
         private static readonly int CrouchBool = Animator.StringToHash("Agacha");
+        private static readonly int Run = Animator.StringToHash("run");
+
+
+        private void Awake()
+        {
+            playerGameObject = GameObject.FindWithTag("Player");
+            _characterController = playerGameObject.GetComponent<CharacterController>();
+        }
 
         private void Update()
         {
+            DiagonalMovement();
             ForwardMovement();
             LeftMovement();
             RightMovement();
             CrouchMovement();
+            RunMovement();
+        }
+
+        private void DiagonalMovement()
+        {
+            horizontalInputX = Input.GetAxis("Horizontal") * 100;
+            horizontalInputY = Input.GetAxis("Vertical") * 100;
         }
 
         private void ForwardMovement()
         {
-            if (Input.GetKeyDown(upKey)) {
+            if (Input.GetKeyDown(upKey))
+            {
                 animatorComponent.SetBool(Bool1, true);
                 animatorComponent.SetBool(Bool2, true);
-                inX = inX * 100;
+                horizontalInputX *= 100;
                 // tempo = 0;
             }
             if (Input.GetKeyUp(upKey))
@@ -43,7 +70,8 @@ namespace Core
 
         private void LeftMovement()
         {
-            if (Input.GetKeyDown(leftKey)) {
+            if (Input.GetKeyDown(leftKey))
+            {
                 animatorComponent.SetBool(LBool, true);
                 animatorComponent.SetBool(LBool2, false);
             }
@@ -80,6 +108,55 @@ namespace Core
                 // mainCollider.enabled = true;
             }
         }
+
+        private void FixedUpdate()
+        {
+            var currentTransform = _characterController.transform.forward;
+            var movementValueIncrease = horizontalInputY * (2f * Time.deltaTime);
+            _verticalMovement = currentTransform * movementValueIncrease;
         
+            var rotateValueIncrease = horizontalInputX * 2f * Time.deltaTime * Vector3.up;
+            _characterController.transform.Rotate(rotateValueIncrease);
+
+            if (!Input.GetKeyDown(upKey) && !Input.GetKeyDown(runKey)) return;
+            var moveIncrease = moveSpeed * Time.deltaTime * _verticalMovement;
+            _characterController.Move(moveIncrease);
+        }
+        
+        private void RunMovement()
+        {
+            RunningTime();
+            RunMechanics();
+        }
+
+        private void RunningTime()
+        {
+            if (Input.GetKey(runKey)) {
+                _runningTime += Time.deltaTime;
+            }
+            else
+            {
+                _runningTime = 0;
+            }
+        }
+
+        private void RunMechanics()
+        {
+            if (_runningTime is >= 0 and < 1)
+            {
+                // animatorComponent.SetBool("run2", false);
+                animatorComponent.SetBool(Run, false);
+                Debug.Log("PAROU DE CORRER");
+            }
+            else if (_runningTime is >= 1 and < 3)
+            {
+                animatorComponent.SetBool(Run, true);
+                Debug.Log("CORRENDO");
+            } else if (_runningTime >= 3)
+            {
+                // animatorComponent.SetBool("run", false);
+                // animatorComponent.SetBool("run2", true);
+            }
+        }
     }
 }
