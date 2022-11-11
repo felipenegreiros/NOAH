@@ -26,7 +26,8 @@ namespace Assets.Scripts.A.I_test
         {
             if (!godMode)
             {
-                hp = Mathf.Max(hp - damage, 0);
+                var newHp = Mathf.Max(hp - damage, 0);
+                hp = newHp;
             }
 
             if (hp == 0)

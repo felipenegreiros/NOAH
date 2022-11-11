@@ -9164,9 +9164,9 @@ MonoBehaviour:
   bulletPoint: {fileID: 714360596}
   animatorComponent: {fileID: 0}
   timeSinceLastAttack: 0
-  playerAngle: 0
-  bottleAngle: 0
   desiredAngle: {x: 0, y: 0, z: 0, w: 0}
+  horizontalForce: 1
+  verticalForce: 1
 --- !u!114 &413967556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9179,12 +9179,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4655e520e7a85c469d6409129533c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
+  hp: 100
   dead: 0
   godMode: 0
   takeDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 413967551}
+        m_TargetAssemblyTypeName: CharacScript, Assembly-CSharp
+        m_MethodName: Update
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &427919230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1864740628597940677, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
@@ -16816,7 +16828,7 @@ MonoBehaviour:
   playerInSightRange: 0
   objectCenter: {fileID: 0}
   collisionList: []
-  sightRange: 7.16
+  sightRange: 9.28
   aggroTrigger:
     m_PersistentCalls:
       m_Calls:
@@ -16851,9 +16863,9 @@ MonoBehaviour:
   bulletPoint: {fileID: 0}
   animatorComponent: {fileID: 0}
   timeSinceLastAttack: 0
-  playerAngle: 0
-  bottleAngle: 0
   desiredAngle: {x: 0, y: 0, z: 0, w: 0}
+  horizontalForce: 2.11
+  verticalForce: 0.22
 --- !u!1 &1206387234 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3948933247560734027, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
@@ -25732,9 +25744,9 @@ MonoBehaviour:
   bulletPoint: {fileID: 1993941351}
   animatorComponent: {fileID: 0}
   timeSinceLastAttack: 0
-  playerAngle: 0
-  bottleAngle: 0
   desiredAngle: {x: 0, y: 0, z: 0, w: 0}
+  horizontalForce: 1
+  verticalForce: 1
 --- !u!114 &1767698577
 MonoBehaviour:
   m_ObjectHideFlags: 0

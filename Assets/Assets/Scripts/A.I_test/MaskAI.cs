@@ -5,11 +5,13 @@ namespace Assets.Scripts.A.I_test
 {
     public class MaskAI : MonoBehaviour
     {
-        public GameObject player;
+        private GameObject player;
         public NavMeshAgent agent;
         public GameObject projectile;
         public float timeSinceLastAttack = 0;
-        public Quaternion desiredAngle;
+        private Quaternion desiredAngle;
+        public float horizontalForce = 1f;
+        public float verticalForce = 1f;
 
         private void Awake()
         {
@@ -49,8 +51,8 @@ namespace Assets.Scripts.A.I_test
 
             var bullet = Instantiate(projectile, transform.position, transform.rotation);
             var rb = bullet.GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward*4f, ForceMode.Impulse);
-            rb.AddForce(transform.up*0.4f, ForceMode.Impulse);
+            rb.AddForce(transform.forward*horizontalForce, ForceMode.Impulse);
+            rb.AddForce(transform.up*verticalForce, ForceMode.Impulse);
             timeSinceLastAttack = 0;
             
         }

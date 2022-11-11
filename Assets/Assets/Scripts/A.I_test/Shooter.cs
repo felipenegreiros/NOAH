@@ -13,10 +13,9 @@ namespace Assets.Scripts.A.I_test
         [SerializeField] private Animator animatorComponent;
         private static readonly int Shoot1 = Animator.StringToHash("shoot");
         public float timeSinceLastAttack;
-        // public Quaternion angle;
-        public float playerAngle;
-        public float bottleAngle;
         public Quaternion desiredAngle;
+        public float horizontalForce = 2.11f;
+        public float verticalForce = 0.22f;
 
         private void Awake()
         {
@@ -124,8 +123,10 @@ namespace Assets.Scripts.A.I_test
             }
             var projectile = Instantiate(bullet, transform.position, transform.rotation);
             var rb = projectile.GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward*4f, ForceMode.Impulse);
-            rb.AddForce(transform.up*0.4f, ForceMode.Impulse);
+            rb.AddForce(transform.forward*horizontalForce, ForceMode.Impulse);
+            rb.AddForce(transform.up*verticalForce, ForceMode.Impulse);
+            var bulletComponent = projectile.GetComponent<Bullet>();
+            bulletComponent.SetOriginalInstigator(gameObject);
             timeSinceLastAttack = 0;
         }
 
