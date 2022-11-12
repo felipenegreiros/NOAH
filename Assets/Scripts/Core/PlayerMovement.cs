@@ -7,19 +7,20 @@ namespace Core
     public class PlayerMovement: MonoBehaviour
     {
         [SerializeField] private Animator animatorComponent;
-
         [SerializeField] private GameObject  playerGameObject;
-        private CharacterController _characterController;
-        private float horizontalInputX;
-        private float horizontalInputY;
         public float moveSpeed;
-        private Vector3 _verticalMovement;
+        public const float RunningThreshold = 0.5f;
         public KeyCode upKey = KeyCode.W;
         public KeyCode downKey = KeyCode.S;
         public KeyCode leftKey = KeyCode.A;
         public KeyCode rightKey = KeyCode.D;
         public KeyCode runKey = KeyCode.LeftShift;
-        [SerializeField] private float _runningTime;
+        
+        private float _runningTime;
+        private CharacterController _characterController;
+        private float horizontalInputX;
+        private float horizontalInputY;
+        private Vector3 _verticalMovement;
         private static readonly int Bool1 = Animator.StringToHash("bool1");
         private static readonly int Bool2 = Animator.StringToHash("bool2");
         private static readonly int LBool = Animator.StringToHash("lbool");
@@ -27,7 +28,7 @@ namespace Core
         private static readonly int RBool = Animator.StringToHash("rbool");
         private static readonly int RBool2 = Animator.StringToHash("rbool2");
         private static readonly int CrouchBool = Animator.StringToHash("Agacha");
-        private static readonly int Run = Animator.StringToHash("run");
+        private static readonly int Walk2Run = Animator.StringToHash("walk2run");
 
 
         private void Awake()
@@ -137,25 +138,15 @@ namespace Core
             else
             {
                 _runningTime = 0;
+                animatorComponent.SetBool(Walk2Run, false);
             }
         }
 
         private void RunMechanics()
         {
-            if (_runningTime is >= 0 and < 1)
+            if (_runningTime is >= RunningThreshold)
             {
-                // animatorComponent.SetBool("run2", false);
-                animatorComponent.SetBool(Run, false);
-                Debug.Log("PAROU DE CORRER");
-            }
-            else if (_runningTime is >= 1 and < 3)
-            {
-                animatorComponent.SetBool(Run, true);
-                Debug.Log("CORRENDO");
-            } else if (_runningTime >= 3)
-            {
-                // animatorComponent.SetBool("run", false);
-                // animatorComponent.SetBool("run2", true);
+                animatorComponent.SetBool(Walk2Run, true);
             }
         }
     }
