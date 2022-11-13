@@ -27,6 +27,13 @@ namespace Core
         {
         
         }
+        
+        // Update is called once per frame
+        void Update()
+        {
+            KickMechanics();
+            PunchMechanics();
+        }
 
         private void KickMechanics()
         {
@@ -91,14 +98,6 @@ namespace Core
             } else {
                 hand.tag = "Untagged";
             }
-        }
-        
-        
-
-        // Update is called once per frame
-        void Update()
-        {
-        
         }
     }
 }

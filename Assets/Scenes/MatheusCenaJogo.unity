@@ -9214,13 +9214,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animatorComponent: {fileID: 413967548}
   playerGameObject: {fileID: 0}
+  runningThreshold: 0.5
   moveSpeed: 0
   upKey: 119
   downKey: 115
   leftKey: 97
   rightKey: 100
   runKey: 304
-  _runningTime: 0
+--- !u!114 &413967558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413967546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c171c03055436843a53d81dc782bf88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kickKey: 107
+  punchKey: 104
+  animatorComponent: {fileID: 413967548}
+  mainCollider: {fileID: 413967554}
+  feetCollider: {fileID: 1459460241}
+  handCollider: {fileID: 0}
+  leg: {fileID: 410219693}
+  hand: {fileID: 1966402281}
+  thisGuyRig: {fileID: 1411992843}
+  punchTime: 0
 --- !u!4 &427919230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1864740628597940677, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}

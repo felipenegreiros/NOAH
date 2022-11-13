@@ -8,8 +8,8 @@ namespace Core
     {
         [SerializeField] private Animator animatorComponent;
         [SerializeField] private GameObject  playerGameObject;
+        [SerializeField] private float runningThreshold = 0.5f;
         public float moveSpeed;
-        public const float RunningThreshold = 0.5f;
         public KeyCode upKey = KeyCode.W;
         public KeyCode downKey = KeyCode.S;
         public KeyCode leftKey = KeyCode.A;
@@ -144,7 +144,7 @@ namespace Core
 
         private void RunMechanics()
         {
-            if (_runningTime is >= RunningThreshold)
+            if (_runningTime >= runningThreshold)
             {
                 animatorComponent.SetBool(Walk2Run, true);
             }
