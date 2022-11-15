@@ -1,7 +1,8 @@
-using System;
+using Assets.Scripts.A.I_test;
+using Attributes;
 using UnityEngine;
 
-namespace Assets.Scripts.A.I_test
+namespace Combat
 {
     public class Bullet : MonoBehaviour
     {
@@ -9,6 +10,8 @@ namespace Assets.Scripts.A.I_test
         public GameObject playerGameObject;
         public GameObject originalInstigator;
         private Rigidbody _rigidBodyComponent;
+        private Health _healthComponent;
+        private bool alreadyDamaged = false;
         [SerializeField] private float horizontalSpeed = 4f;
         [SerializeField] private float verticalSpeed = -0.1f;
         
@@ -43,13 +46,13 @@ namespace Assets.Scripts.A.I_test
 
         public void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject != playerGameObject)
-            {
-                return;
-            }
-            var healthComponent = other.gameObject.GetComponent<Health>();
-            healthComponent.TakeDamage(originalInstigator, 10);
-            Destroy(gameObject);
+            if(other.gameObject != playerGameObject) { return; }
+            if(alreadyDamaged) { return; }
+            Debug.Log("Lost health!");
+            _healthComponent = other.gameObject.GetComponent<Health>();
+            _healthComponent.TakeDamage(originalInstigator, 10);
+            alreadyDamaged = true;
+            // Destroy(gameObject);
         }
     }
 }

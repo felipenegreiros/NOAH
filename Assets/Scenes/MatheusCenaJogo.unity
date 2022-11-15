@@ -16028,8 +16028,8 @@ MonoBehaviour:
   animatorComponent: {fileID: 0}
   timeSinceLastAttack: 0
   desiredAngle: {x: 0, y: 0, z: 0, w: 0}
-  horizontalForce: 2.11
-  verticalForce: 0.22
+  horizontalForce: 2.49
+  verticalForce: 0.13
 --- !u!1 &1206387234 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3948933247560734027, guid: 71af20d20db48fb459a213fafa6b710e, type: 3}
@@ -27109,9 +27109,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 460451026}
     m_Modifications:
+    - target: {fileID: 3372610872124070905, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: hpRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619976820177023293, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.524881
+      objectReference: {fileID: 0}
     - target: {fileID: 8360315503087050972, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
       propertyPath: m_Name
       value: Noah
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702264505592487003, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9173302524147513958, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
       propertyPath: m_RootOrder
