@@ -13,7 +13,9 @@ namespace AI
         private Aggro _aggroComponent;
         private NavMeshAgent _navMeshComponent;
         private int _currentWayPointIndex;
-        public float timeSinceArrivedAtWaypoint;
+        private Vector3 currentWayPoint;
+        private bool _arrivedAtWayPoint;
+        private float _timeSinceArrivedAtWaypoint;
         private float _timeSinceLastSawPlayer;
         public GameObject playerGameObject;
 
@@ -26,6 +28,7 @@ namespace AI
         private void Start()
         {
             playerGameObject = _aggroComponent.GetPlayerGameObject();
+            currentWayPoint = GetCurrentWayPoint();
         }
 
         private void Update()
@@ -36,16 +39,7 @@ namespace AI
         
         private void UpdateTime()
         {
-            timeSinceArrivedAtWaypoint += Time.deltaTime;
-        }
-
-        private void UpdateWayPointTime()
-        {
-            if (timeSinceArrivedAtWaypoint >= 1)
-            {
-                timeSinceArrivedAtWaypoint = 0;
-                CycleWayPoint();
-            }
+            _timeSinceArrivedAtWaypoint += Time.deltaTime;
         }
 
         private void MoveTowardsPlayer()
@@ -56,13 +50,14 @@ namespace AI
         private void PatrolBehaviour()
         {
             if (patrolPath is null) { return; }
-            var arrivedAtWayPoint = AtWayPoint();
-            if (arrivedAtWayPoint)
+            _arrivedAtWayPoint = AtWayPoint();
+            if (_arrivedAtWayPoint)
             {
-                UpdateWayPointTime();
+                _timeSinceArrivedAtWaypoint = 0;
                 CycleWayPoint();
             }
             MoveTowardsWaypoint();
+            // MoveTowardsPlayer();
         }
         
         private void MoveTowardsWaypoint()
@@ -73,8 +68,8 @@ namespace AI
 
         private bool AtWayPoint()
         {
-            var distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWayPoint());
-            return distanceToWaypoint < wayPointTolerance;
+            var distanceToWayPoint = Vector3.Distance(transform.position, currentWayPoint);
+            return distanceToWayPoint < wayPointTolerance;
         }
         
         private Vector3 GetCurrentWayPoint()
@@ -85,6 +80,8 @@ namespace AI
         private void CycleWayPoint()
         {
             _currentWayPointIndex = patrolPath.GetNextIndex(_currentWayPointIndex);
+            var newWayPoint = GetCurrentWayPoint();
+            currentWayPoint = newWayPoint;
         }
     }
 }
