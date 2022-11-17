@@ -27117,6 +27117,46 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 5.524881
       objectReference: {fileID: 0}
+    - target: {fileID: 5757116292765946906, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353434157853153117, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: colorLow.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353434157853153117, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: colorLow.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353434157853153117, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: colorLow.r
+      value: 0.5188679
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353434157853153117, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: colorFull.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353434157853153117, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: colorFull.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353434157853153117, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: colorFull.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353434157853153117, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: _currentColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353434157853153117, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: _currentColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353434157853153117, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
+      propertyPath: _currentColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8360315503087050972, guid: 4fa3468aa04f6d248a7e810244944b77, type: 3}
       propertyPath: m_Name
       value: Noah

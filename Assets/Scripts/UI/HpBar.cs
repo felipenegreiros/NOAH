@@ -15,6 +15,7 @@ namespace UI
         private Material _currentMaterial;
         private float _initialBarSize;
         private static readonly int Color1 = Shader.PropertyToID("_Color");
+        private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
         private void Awake()
         {
@@ -22,6 +23,9 @@ namespace UI
             _healthComponent = _player.GetComponent<Health>();
             _currentMaterial = GetComponent<Renderer>().material;
             _initialBarSize = transform.localScale.x;
+            _currentMaterial.SetColor(EmissionColor, colorFull);
+            // var currentMaterialEmissionColorIntensity = _currentMaterial.GetColor(EmissionColor).grayscale;
+            // Debug.Log(currentMaterialEmissionColorIntensity);
         }
         
         // Update is called once per frame
@@ -48,6 +52,10 @@ namespace UI
             var interpolatedColor = Color.Lerp(colorLow, colorFull, inputRatio);
             _currentColor = interpolatedColor;
             _currentMaterial.SetColor(Color1, interpolatedColor);
+            var interpolatedEmissionIntensity = Mathf.Lerp(0f, 1f, inputRatio);
+            var newEmissionColor = interpolatedColor * interpolatedEmissionIntensity;
+            _currentMaterial.SetColor(EmissionColor, newEmissionColor);
+            // _currentMaterial.SetColor(EmissionColor, interpolatedColor);
         }
 
         private void UpdateSize(float inputRatio)
