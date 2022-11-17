@@ -12,6 +12,7 @@ public class Golpeador : MonoBehaviour
     [SerializeField] Transform bulletpoint;
     [SerializeField] GameObject esse;
     [SerializeField] GameObject Particles;
+    [SerializeField] GameObject arm;
     [SerializeField] Collider arma;
     [SerializeField] Rigidbody armarig;
 
@@ -73,7 +74,8 @@ public class Golpeador : MonoBehaviour
     {
         if (collision.gameObject.tag == "Golpe")
         {
-            arma.enabled = false;
+
+            arm.tag = "Untagged";
             Ani.SetBool("shooting2", false);
             Ani.SetBool("Walk2", false);
             Ani.SetBool("defeat", true);

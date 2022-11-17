@@ -28,6 +28,7 @@ public class CharacScript : MonoBehaviour
     [SerializeField] public Collider Maincollider;
     [SerializeField] public Collider pecollider;
     [SerializeField] public Collider maocollider;
+    [SerializeField] public Rigidbody maorig;
     //[SerializeField] public Rigidbody peRigid;
 
     [SerializeField] GameObject perna;
@@ -81,19 +82,30 @@ public class CharacScript : MonoBehaviour
         anim.enabled = true;
         Maincollider.enabled = true;
         GetComponent<Rigidbody>().isKinematic = false;
+        maorig.isKinematic = false;
     }
     void PeEnable()
     {
        // pecollider.enabled = true;
         perna.tag = "Golpe";
+        pecollider.enabled = true;
     }
     void PeDisable()
     {
         pecollider.enabled = false;
+        perna.tag = "Untagged";
     }
     void maoEnable()
     {
         mao.tag = "Golpe";
+        maocollider.enabled = true;
+      
+    }
+    void maoDisable()
+    {
+        mao.tag = "Untagged";
+        maocollider.enabled = false;
+
     }
     void RagdollOn()
     {
@@ -124,11 +136,8 @@ public class CharacScript : MonoBehaviour
         }
         if (collision.gameObject.tag == "balah")
         {
-            // boxcollider.enabled = true;
-            // Maincollider.enabled = false;
-
-            // RagdollOn();
-
+            maoDisable();
+            PeDisable();
             hits++;
             anim.SetBool("hit", true);
             Invoke("hitfalse", 0.2f);
@@ -216,13 +225,13 @@ public class CharacScript : MonoBehaviour
         }
         if (kicktime > 20 )
         {
-            Invoke("PeEnable", 0.8f);
-            pecollider.enabled = true;
+           // Invoke("PeEnable", 0.8f);
+           // pecollider.enabled = true;
            // perna.tag = "balah";
         }
         else
         {
-            perna.tag = "Untagged";
+           // perna.tag = "Untagged";
         }
 
         //PUNCH
@@ -234,12 +243,13 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("punch", true);
             anim.SetBool("lbool", false);
             anim.SetBool("rbool", false);
+            maorig.isKinematic = false;
 
 
         }
         else
         {
-            punchtime = punchtime - 4f;
+            punchtime = punchtime - 2f;
             //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
         }
 
@@ -253,15 +263,18 @@ public class CharacScript : MonoBehaviour
         {
             punchtime = 0;
         }
-        if (punchtime > 10)
+        if (punchtime > 5)
         {
-            Invoke("maoEnable", 0.4f);
-            maocollider.enabled = true;
+            //  Invoke("maoEnable", 0.4f);
+            //  maocollider.enabled = true;
             // perna.tag = "balah";
+            maorig.isKinematic = false;
+
         }
         else
         {
-            mao.tag = "Untagged";
+            //mao.tag = "Untagged";
+            maocollider.enabled = false;
         }
 
         //WALK
