@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.A.I_test;
+using Control;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;

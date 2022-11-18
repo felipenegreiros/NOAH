@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Assets.Scripts.A.I_test
+namespace Control
 {
     public class Aggro : MonoBehaviour
     {
