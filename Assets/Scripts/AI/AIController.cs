@@ -11,7 +11,6 @@ namespace AI
         [SerializeField] private PatrolPath patrolPath;
         [SerializeField] private float wayPointTolerance = 0.1f;
         [SerializeField] private float patrolSpeed = 5.48f;
-        // [SerializeField] private float chaseSpeed = 7.5f;
         [SerializeField] private float chaseSpeed = 2.5f;
         private Aggro _aggroComponent;
         private NavMeshAgent _navMeshComponent;
