@@ -39,7 +39,13 @@ namespace AI
             var canAttack = AnalyzeAttackConditions();
             if (canAttack)
             {
-                timeSinceLastAttack = 0f;
+                var currentAnimation = _animatorComponent.GetCurrentAnimatorStateInfo(0);
+                var animationTime = currentAnimation.normalizedTime;
+                var hasAnimationFinished = animationTime >= 1;
+                if (hasAnimationFinished)
+                {
+                    timeSinceLastAttack = 0f;
+                }
                 _animatorComponent.SetBool(Attack, true);
             }
             else

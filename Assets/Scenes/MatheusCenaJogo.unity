@@ -27456,6 +27456,10 @@ PrefabInstance:
       propertyPath: attackingRange
       value: 2.16
       objectReference: {fileID: 0}
+    - target: {fileID: 1597227506504168022, guid: a6f1f111f49be1748a9e9da89d4e0159, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2880059368103740180, guid: a6f1f111f49be1748a9e9da89d4e0159, type: 3}
       propertyPath: patrolPath
       value: 
