@@ -10,6 +10,9 @@ namespace AI
     {
         [SerializeField] private PatrolPath patrolPath;
         [SerializeField] private float wayPointTolerance = 0.1f;
+        [SerializeField] private float patrolSpeed = 5.48f;
+        // [SerializeField] private float chaseSpeed = 7.5f;
+        [SerializeField] private float chaseSpeed = 2.5f;
         private Aggro _aggroComponent;
         private NavMeshAgent _navMeshComponent;
         private int _currentWayPointIndex;
@@ -34,7 +37,16 @@ namespace AI
         private void Update()
         {
             UpdateTime();
-            PatrolBehaviour();
+            if (_aggroComponent.playerInSightRange)
+            {
+                _navMeshComponent.speed = chaseSpeed;
+                ChasePlayer();
+            }
+            else
+            {
+                _navMeshComponent.speed = patrolSpeed;
+                PatrolBehaviour();
+            }
         }
         
         private void UpdateTime()
@@ -42,7 +54,7 @@ namespace AI
             _timeSinceArrivedAtWaypoint += Time.deltaTime;
         }
 
-        private void MoveTowardsPlayer()
+        private void ChasePlayer()
         {
             _navMeshComponent.SetDestination(playerGameObject.transform.position);
         }

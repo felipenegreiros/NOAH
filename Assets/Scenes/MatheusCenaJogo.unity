@@ -16078,7 +16078,7 @@ MonoBehaviour:
   timeSinceLastSawPlayer: 0
   objectCenter: {fileID: 0}
   collisionList: []
-  sightRange: 9.28
+  sightRange: 8.16
   aggroTrigger:
     m_PersistentCalls:
       m_Calls:
@@ -16130,8 +16130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolPath: {fileID: 1717415686}
   wayPointTolerance: 1.32
-  currentWayPoint: {x: 0, y: 0, z: 0}
-  timeSinceArrivedAtWaypoint: 0
+  patrolSpeed: 5.48
+  chaseSpeed: 2.5
   playerGameObject: {fileID: 0}
 --- !u!1 &1206387234 stripped
 GameObject:
