@@ -6,39 +6,45 @@ using UnityEngine.Serialization;
 
 namespace AI
 {
-    public class AIController : MonoBehaviour
+    public class PatrolController : MonoBehaviour
     {
         [SerializeField] private PatrolPath patrolPath;
         [SerializeField] private float wayPointTolerance = 0.1f;
         [SerializeField] private float patrolSpeed = 5.48f;
         [SerializeField] private float chaseSpeed = 2.5f;
+        [SerializeField] private float dwellingTime = 5f;
         private Aggro _aggroComponent;
         private NavMeshAgent _navMeshComponent;
+        private Animator _animatorComponent;
         private int _currentWayPointIndex;
         private Vector3 currentWayPoint;
         private bool _arrivedAtWayPoint;
-        private float _timeSinceArrivedAtWaypoint;
+        public float _timeSinceArrivedAtWaypoint;
         private float _timeSinceLastSawPlayer;
         public GameObject playerGameObject;
+        private static readonly int Walk = Animator.StringToHash("walk");
 
         private void Awake()
         {
             _aggroComponent = GetComponent<Aggro>();
             _navMeshComponent = GetComponent<NavMeshAgent>();
+            _animatorComponent = GetComponent<Animator>();
+            _timeSinceArrivedAtWaypoint = 0;
         }
 
         private void Start()
         {
             playerGameObject = _aggroComponent.GetPlayerGameObject();
+            _animatorComponent.SetBool(Walk, true);
             currentWayPoint = GetCurrentWayPoint();
         }
 
         private void Update()
         {
-            UpdateTime();
             if (_aggroComponent.playerInSightRange)
             {
                 _navMeshComponent.speed = chaseSpeed;
+                EnableMovement();
                 ChasePlayer();
             }
             else
@@ -46,8 +52,9 @@ namespace AI
                 _navMeshComponent.speed = patrolSpeed;
                 PatrolBehaviour();
             }
+            UpdateTime();
         }
-        
+
         private void UpdateTime()
         {
             _timeSinceArrivedAtWaypoint += Time.deltaTime;
@@ -67,14 +74,41 @@ namespace AI
                 _timeSinceArrivedAtWaypoint = 0;
                 CycleWayPoint();
             }
-            MoveTowardsWaypoint();
-            // MoveTowardsPlayer();
+            if (_timeSinceArrivedAtWaypoint > dwellingTime)
+            {
+                EnableMovement();
+                MoveTowardsWaypoint();
+            }
+            else
+            {
+                DisableMovement();
+                // LookTowardsWayPoint();
+            }
         }
-        
+
+        private void DisableMovement()
+        {
+            _animatorComponent.SetBool(Walk, false);
+            _navMeshComponent.isStopped = true;
+        }
+
+        private void EnableMovement()
+        {
+            _animatorComponent.SetBool(Walk, true);
+            _navMeshComponent.isStopped = false;
+        }
+
         private void MoveTowardsWaypoint()
         {
             var wayPoint = GetCurrentWayPoint();
             _navMeshComponent.SetDestination(wayPoint);
+        }
+
+        private void LookTowardsWayPoint()
+        {
+            var direction = currentWayPoint - transform.position;
+            var toRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, 1f);
         }
 
         private bool AtWayPoint()
