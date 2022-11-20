@@ -2,6 +2,7 @@ using System;
 using Assets.Scripts.A.I_test;
 using Control;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace AI
 {
@@ -14,13 +15,17 @@ namespace AI
         public bool isPlayerInRange;
         public bool isReadyToAttack;
         public float timeSinceLastAttack;
+        private float distanceToPlayer;
+        private NavMeshAgent _navMeshComponent;
         private Aggro _aggroComponent;
         private static readonly int Attack = Animator.StringToHash("Attack");
+        private static readonly int Walk = Animator.StringToHash("walk");
 
         private void Awake()
         {
             _aggroComponent = GetComponent<Aggro>();
             _animatorComponent = GetComponent<Animator>();
+            _navMeshComponent = GetComponent<NavMeshAgent>();
         }
         
         private void Start()
@@ -31,7 +36,34 @@ namespace AI
         private void Update()
         {
             UpdateTime();
-            AttackBehaviour();
+        }
+
+        public void ChasePlayer()
+        {
+            var playerPosition = playerGameObject.transform.position;
+            distanceToPlayer = Vector3.Distance(transform.position, playerPosition);
+            if(distanceToPlayer > 1.1f * attackingRange)
+            {
+                StartWalkingAnimation();
+                _navMeshComponent.SetDestination(playerPosition);
+            }
+            else
+            {
+                StopWalkingAnimation();
+                AttackBehaviour();
+            }
+        }
+
+        private void StartWalkingAnimation()
+        {
+            _animatorComponent.SetBool(Walk, true);
+        }
+
+        private void StopWalkingAnimation()
+        {
+            _animatorComponent.SetBool(Walk, false);
+            _navMeshComponent.isStopped = true;
+            _navMeshComponent.ResetPath();
         }
 
         private void AttackBehaviour()
@@ -39,17 +71,12 @@ namespace AI
             var canAttack = AnalyzeAttackConditions();
             if (canAttack)
             {
-                var currentAnimation = _animatorComponent.GetCurrentAnimatorStateInfo(0);
-                var animationTime = currentAnimation.normalizedTime;
-                var hasAnimationFinished = animationTime >= 1;
-                if (hasAnimationFinished)
-                {
-                    timeSinceLastAttack = 0f;
-                }
+                _animatorComponent.applyRootMotion = false;
                 _animatorComponent.SetBool(Attack, true);
             }
             else
             {
+                _animatorComponent.applyRootMotion = true;
                 _animatorComponent.SetBool(Attack, false);
             }
         }
@@ -57,7 +84,7 @@ namespace AI
         private bool AnalyzeAttackConditions()
         {
             isReadyToAttack = timeSinceLastAttack >= timeBetweenAttacks;
-            isPlayerInRange = IsPlayerInAttackRange();
+            isPlayerInRange = distanceToPlayer <= attackingRange;
             return isReadyToAttack && isPlayerInRange;
         }
 

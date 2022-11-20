@@ -17,10 +17,12 @@ namespace AI
         private Aggro _aggroComponent;
         private NavMeshAgent _navMeshComponent;
         private Animator _animatorComponent;
+        private FighterController _fighterControllerComponent;
         private int _currentWayPointIndex;
         private Vector3 currentWayPoint;
         private bool _arrivedAtWayPoint;
-        public float _timeSinceArrivedAtWaypoint;
+        private float _timeSinceArrivedAtWaypoint;
+        private float distanceToPlayer;
         private float _timeSinceLastSawPlayer;
         public GameObject playerGameObject;
         private static readonly int Walk = Animator.StringToHash("walk");
@@ -30,6 +32,7 @@ namespace AI
             _aggroComponent = GetComponent<Aggro>();
             _navMeshComponent = GetComponent<NavMeshAgent>();
             _animatorComponent = GetComponent<Animator>();
+            _fighterControllerComponent = GetComponent<FighterController>();
             _timeSinceArrivedAtWaypoint = 0;
         }
 
@@ -63,7 +66,7 @@ namespace AI
 
         private void ChasePlayer()
         {
-            _navMeshComponent.SetDestination(playerGameObject.transform.position);
+            _fighterControllerComponent.ChasePlayer();
         }
 
         private void PatrolBehaviour()
