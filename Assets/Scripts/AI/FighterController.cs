@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using Assets.Scripts.A.I_test;
+using Attributes;
 using Control;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,10 +13,12 @@ namespace AI
         [SerializeField] private float attackingRange = 2.16f;
         [SerializeField] private float timeBetweenAttacks = 1f;
         private GameObject playerGameObject;
+        private Health playerHealthComponent;
         private Animator _animatorComponent;
         public bool isPlayerInRange;
         public bool isReadyToAttack;
         public float timeSinceLastAttack;
+        public int animationLoops;
         private float distanceToPlayer;
         private NavMeshAgent _navMeshComponent;
         private Aggro _aggroComponent;
@@ -31,6 +35,7 @@ namespace AI
         private void Start()
         {
             playerGameObject = _aggroComponent.GetPlayerGameObject();
+            playerHealthComponent = playerGameObject.GetComponent<Health>();
         }
         
         private void Update()
@@ -71,8 +76,12 @@ namespace AI
             var canAttack = AnalyzeAttackConditions();
             if (canAttack)
             {
-                _animatorComponent.applyRootMotion = false;
-                _animatorComponent.SetBool(Attack, true);
+                TriggerSingleAttack();
+                // _animatorComponent.applyRootMotion = false;
+                // _animatorComponent.SetBool(Attack, true);
+                // var animationLength = _animatorComponent.GetCurrentAnimatorStateInfo(0).length;
+                // var animationAggregatedTime = _animatorComponent.GetCurrentAnimatorStateInfo(0).normalizedTime;
+                // animationLoops = (int) (animationAggregatedTime / animationLength);
             }
             else
             {
@@ -80,6 +89,24 @@ namespace AI
                 _animatorComponent.SetBool(Attack, false);
             }
         }
+
+        private void TriggerSingleAttack()
+        {
+            _animatorComponent.applyRootMotion = false;
+            _animatorComponent.SetBool(Attack, true);
+            // Set animation speed
+            _animatorComponent.SetFloat("Speed", 5f);
+            // _animatorComponent.Play("attack",  -1, 3f);
+            // StartCoroutine(WaitForAttackToFinish(animationLength));
+            // _animatorComponent.SetBool(Attack, false);
+            // _animatorComponent.applyRootMotion = true;
+        }
+
+        private IEnumerator WaitForAttackToFinish(float time)
+        {
+            yield return new WaitForSeconds(time);
+        }
+        
 
         private bool AnalyzeAttackConditions()
         {
