@@ -73,6 +73,7 @@ public class RagdollEvil : MonoBehaviour
         tempo = 0;
         active = true;
         ThisGuysAnimator2.enabled = false;
+        
 
         foreach (Collider col in ragDollColliders2)
         {
@@ -84,6 +85,7 @@ public class RagdollEvil : MonoBehaviour
             rigid.isKinematic = false;
         }
 
+        sword.enabled = false;
         mainCollider2.enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
     }
@@ -100,7 +102,7 @@ public class RagdollEvil : MonoBehaviour
             rigid.isKinematic = true;
         }
 
-        sword.enabled = true;
+       // sword.enabled = true;
         ThisGuysAnimator2.enabled = true;
         mainCollider2.enabled = true;
         GetComponent<Rigidbody>().isKinematic = false;

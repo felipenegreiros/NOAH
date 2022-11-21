@@ -25,7 +25,7 @@ public class CharacScript : MonoBehaviour
     //ragdollvaribles
     // [SerializeField] public MeshCollider Maincollider;
     // [SerializeField] public Collider boxcollider;
-    [SerializeField] public Collider Maincollider;
+    [SerializeField] public CapsuleCollider Maincollider;
     [SerializeField] public Collider pecollider;
     [SerializeField] public BoxCollider maocollider;
     [SerializeField] public Rigidbody maorig;
@@ -215,6 +215,10 @@ public class CharacScript : MonoBehaviour
         //CHUTE
         if (Input.GetKey(KeyCode.K))
         {
+            inX = inX * 100;
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
             kicktime = 100;
             anim.SetBool("run", false);
             anim.SetBool("run2", true);
@@ -252,7 +256,7 @@ public class CharacScript : MonoBehaviour
         }
 
         //PUNCH
-        if (Input.GetKey(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             punchtime = 100;
             anim.SetBool("run", false);
@@ -261,7 +265,7 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("lbool", false);
             anim.SetBool("rbool", false);
             maorig.isKinematic = false;
-
+            inX = inX * 100;
 
         }
         else
@@ -342,22 +346,34 @@ public class CharacScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             anim.SetBool("Agacha", true);
-            Maincollider.enabled = false;
-
+            // Maincollider.enabled = false;
+            Maincollider.height = 6;
+            Maincollider.center = new Vector3(0, 3, 0);
         }
         if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             anim.SetBool("Agacha", false);
-            Maincollider.enabled = true;
+           // Maincollider.enabled = true;
+            Maincollider.height = 13;
+            Maincollider.center = new Vector3(0, 7, 0);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            inX = inX * 100;
+        }
+        else
+        {
+            anim.SetBool("Agacha", false);
         }
 
-        //Atirar
+            //ATIRAR
         if (Input.GetKeyDown(KeyCode.J))
         {
+            anim.SetBool("Agacha", false);
             anim.SetBool("shoot", true);
 
             Invoke("atira", 0.4f);
-           
+            //inX = inX * 100;
         }
         else
         {
@@ -368,7 +384,17 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("shoot", false);
 
         }
+        if (Input.GetKey(KeyCode.J))
+        {
 
+            inX = inX * 100;
+        }
+
+        //pros valores de inx nao se multiplicarem e ela ficar girando loko
+        if(inX> inX * 100)
+        {
+            inX = inX * 100;
+        }
     }
 
     void atira()

@@ -50,24 +50,21 @@ public class Golpeador : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
-        if(armable == true)
-        {
-
-        }
-
     }
 
     void aramableOn()
     {
         armable = true;
         arma.enabled = true;
-       // armarig.isKinematic = true;
+        arm.tag = "balah";
+        // armarig.isKinematic = true;
     }
     void aramableOff()
     {
         armable = false;
         arma.enabled = false;
-       // armarig.isKinematic = false;
+        arm.tag = "Untagged";
+        // armarig.isKinematic = false;
     }
     void recover()
     {
@@ -84,19 +81,25 @@ public class Golpeador : MonoBehaviour
             Ani.SetBool("shooting2", false);
             Ani.SetBool("Walk2", false);
             Ani.SetBool("defeat", true);
-
+            alreadyattacked = false;
             hits++;
+            Ani.SetBool("shooting2", false);
 
-            Invoke("recover", 0.4f);
-            //thisRB.AddForce(transform.forward * -9f, ForceMode.Impulse);
+
             if (hits > 3)
             {
                 aramableOff();
                 arm.tag = "Untagged";
                 Invoke("Ps", 1.3f);
                 Destroy(esse, 1.5f);
+                armable = false;
+                arma.enabled = false;
             }
-            //mudar a tag so na hr do chute
+            else
+            {
+                Invoke("recover", 0.4f);
+            }
+         
         }
     }
 
@@ -173,7 +176,7 @@ public class Golpeador : MonoBehaviour
         //agent.SetDestination(transform.position);
         Ani.SetBool("shooting2", true);
 
-        agent.SetDestination(player.transform.position / 2);
+       // agent.SetDestination(player.transform.position );
 
        // arma.enabled = true;
        // armarig.isKinematic = true;
@@ -181,6 +184,8 @@ public class Golpeador : MonoBehaviour
         //a treta é com a rotação, verificar o q esta mechendo com a rotação
         //possivel conflito entre "LookAt & SetDestination"
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+
+        Debug.Log("attack");
 
         if (!alreadyattacked)
         {
@@ -197,7 +202,7 @@ public class Golpeador : MonoBehaviour
 
     private void ResetAttack()
     {
-       
+        Ani.SetBool("shooting2", false);
         alreadyattacked = false;
     }
 }

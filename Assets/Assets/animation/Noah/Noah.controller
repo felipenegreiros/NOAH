@@ -60,7 +60,7 @@ AnimatorStateMachine:
     m_Position: {x: 936.4369, y: 282.58618, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9114084654937863615}
-    m_Position: {x: 380, y: 450, z: 0}
+    m_Position: {x: 480, y: 570, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7861015347307018049}
     m_Position: {x: 1210, y: 560, z: 0}
@@ -234,7 +234,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: df519968d135e5548ac797caf056f73e, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 06db66cf8a9a6b44e88133ed1c7992a6, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -605,7 +605,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: kick
-  m_Speed: 1.8
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2089797672828127870}
