@@ -27,7 +27,7 @@ public class CharacScript : MonoBehaviour
     // [SerializeField] public Collider boxcollider;
     [SerializeField] public Collider Maincollider;
     [SerializeField] public Collider pecollider;
-    [SerializeField] public Collider maocollider;
+    [SerializeField] public BoxCollider maocollider;
     [SerializeField] public Rigidbody maorig;
     //[SerializeField] public Rigidbody peRigid;
 
@@ -41,6 +41,7 @@ public class CharacScript : MonoBehaviour
 
     float hits = 0;
     public Vector3 characPosition;
+    public Vector3 boxsize;
     public Quaternion characRotation;
     void Start()
     {
@@ -56,6 +57,7 @@ public class CharacScript : MonoBehaviour
 
         moveSpeed = 4f;
         gravidade = 0.5f;
+       
 
         anim.SetBool("kick", false);
         anim.SetBool("kick2", true);
@@ -106,6 +108,14 @@ public class CharacScript : MonoBehaviour
         mao.tag = "Untagged";
         maocollider.enabled = false;
 
+    }
+
+    void swordEnable()
+    {
+        maocollider.center = new Vector3(-2.5f, 0, 0);
+        maocollider.size = new Vector3(6, 0.5f, 1);
+
+        Sword.SetActive(true);
     }
     void RagdollOn()
     {
@@ -163,11 +173,18 @@ public class CharacScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       // maocollider.enabled = true;
+
         if (hits > 4)
         {
             RagdollOn();
         }
-       // RagdollOff();
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            swordEnable();
+            maocollider.enabled = true;
+        }
         if (Input.GetKey(KeyCode.UpArrow))
         {
             RagdollOff();

@@ -69,6 +69,10 @@ public class Golpeador : MonoBehaviour
         arma.enabled = false;
        // armarig.isKinematic = false;
     }
+    void recover()
+    {
+        arm.tag = "balah";
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -76,19 +80,22 @@ public class Golpeador : MonoBehaviour
         {
 
             arm.tag = "Untagged";
+            aramableOff();
             Ani.SetBool("shooting2", false);
             Ani.SetBool("Walk2", false);
             Ani.SetBool("defeat", true);
 
             hits++;
 
-           // Invoke("hitanimfalse", 0.5f);
+            Invoke("recover", 0.4f);
             //thisRB.AddForce(transform.forward * -9f, ForceMode.Impulse);
-           // if (hits > 2)
-          //  {
+            if (hits > 3)
+            {
+                aramableOff();
+                arm.tag = "Untagged";
                 Invoke("Ps", 1.3f);
                 Destroy(esse, 1.5f);
-          //  }
+            }
             //mudar a tag so na hr do chute
         }
     }

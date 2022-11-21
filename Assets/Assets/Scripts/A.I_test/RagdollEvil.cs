@@ -22,10 +22,10 @@ public class RagdollEvil : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // if (hits > 3)
-       // {
-       //     RagdollModeOn2();
-       // }
+        if (hits > 3)
+        {
+            RagdollModeOn2();
+        }
         if(active == true)
         {
             timer();
@@ -42,6 +42,11 @@ public class RagdollEvil : MonoBehaviour
         tempo++;
     }
 
+    void recover()
+    {
+        ThisGuysAnimator2.SetBool("defeat", false);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Golpe")
@@ -50,8 +55,10 @@ public class RagdollEvil : MonoBehaviour
           //  {
                 Debug.Log("collide");
                 hits++;
-              RagdollModeOn2();
-           // }
+                ThisGuysAnimator2.SetBool("defeat", true);
+                Invoke("recover", 0.2f);
+            // RagdollModeOn2();
+            // }
         }
     }
     Collider[] ragDollColliders2;
