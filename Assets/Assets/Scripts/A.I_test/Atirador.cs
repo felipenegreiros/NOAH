@@ -126,7 +126,7 @@ public class Atirador : MonoBehaviour
         //agent.SetDestination(transform.position);
         Ani.SetBool("shooting2", true);
 
-        agent.SetDestination(player.transform.position / 2);
+       // agent.SetDestination(player.transform.position / 2);
 
         //a treta é com a rotação, verificar o q esta mechendo com a rotação
         //possivel conflito entre "LookAt & SetDestination"

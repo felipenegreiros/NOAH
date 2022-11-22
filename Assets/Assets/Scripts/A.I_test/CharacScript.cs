@@ -309,8 +309,6 @@ public class CharacScript : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.UpArrow)) 
         {
-           // anim.SetBool("run", false);
-           // anim.SetBool("run2", true);
 
             anim.SetBool("bool1", false);
             anim.SetBool("bool2", false);
@@ -366,19 +364,18 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("Agacha", false);
         }
 
-            //ATIRAR
+        //ATIRAR
         if (Input.GetKeyDown(KeyCode.J))
         {
-            anim.SetBool("Agacha", false);
+            anim.SetBool("run", false);
+            anim.SetBool("run2", true);
             anim.SetBool("shoot", true);
+            anim.SetBool("bool1", false);
+            anim.SetBool("bool2", false);
 
-            Invoke("atira", 0.4f);
-            //inX = inX * 100;
+            Invoke("atira", 0.3f);
         }
-        else
-        {
-            anim.SetBool("shoot", false);
-        }
+
         if (Input.GetKeyUp(KeyCode.J))
         {
             anim.SetBool("shoot", false);
@@ -386,26 +383,28 @@ public class CharacScript : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.J))
         {
-
-            inX = inX * 100;
+                inX = inX * 100;     
         }
 
-        //pros valores de inx nao se multiplicarem e ela ficar girando loko
-        if(inX> inX * 100)
+        Debug.Log(inX);
+        if(inX >100 || inX < -100)
         {
-            inX = inX * 100;
+            inX = 100;
         }
+
     }
 
     void atira()
     {
-        Rigidbody rb = Instantiate(bala, bulletpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 4f, ForceMode.Impulse);
-        rb.AddForce(transform.up * -0.1f, ForceMode.Impulse);
+        if (anim.GetBool("shoot") == true)
+        { 
+            Rigidbody rb = Instantiate(bala, bulletpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * 4f, ForceMode.Impulse);
+            rb.AddForce(transform.up * -0.1f, ForceMode.Impulse);
+        }
     }
     private void FixedUpdate()
     {
-        //o problema da tremedeira eh o collider e os comandos uparrow com leftright arrow quando executados juntos
 
         vmovement = chartransf.transform.forward * inZ *(1.5f * Time.deltaTime);
         
@@ -419,22 +418,6 @@ public class CharacScript : MonoBehaviour
         }
 
     }
-   // private void FixedUpdate()
-   // {
-        //o problema da tremedeira eh o collider e os comandos uparrow com leftright arrow quando executados juntos
-
-      //  vmovement = _charController.transform.forward * inZ * (2f * Time.deltaTime);
-
-       // _charController.transform.Rotate(Vector3.up * inX * (2f * Time.deltaTime));
-
-       // if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.M))
-      //  {
-      //     _charController.Move(vmovement * moveSpeed * Time.deltaTime);
-      //      tempo = 0;
-
-      //  }
-
-   // }
 
     private void Maist()
     {

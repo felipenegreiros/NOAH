@@ -173,19 +173,12 @@ public class Golpeador : MonoBehaviour
     }
     private void AttackPlayer()
     {
-        //agent.SetDestination(transform.position);
+ 
         Ani.SetBool("shooting2", true);
 
        // agent.SetDestination(player.transform.position );
 
-       // arma.enabled = true;
-       // armarig.isKinematic = true;
-
-        //a treta é com a rotação, verificar o q esta mechendo com a rotação
-        //possivel conflito entre "LookAt & SetDestination"
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
-
-        Debug.Log("attack");
 
         if (!alreadyattacked)
         {
