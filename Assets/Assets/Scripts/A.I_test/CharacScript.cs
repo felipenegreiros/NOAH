@@ -202,7 +202,7 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("run", true);
             anim.SetBool("run2", false);
             kicktime = 0;
-            inX = inX * 100;
+           // inX = inX * 100;
 
             // Debug.Log("colon");
         }
@@ -215,7 +215,7 @@ public class CharacScript : MonoBehaviour
         //CHUTE
         if (Input.GetKey(KeyCode.K))
         {
-            inX = inX * 100;
+           // inX = inX * 100;
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -265,7 +265,7 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("lbool", false);
             anim.SetBool("rbool", false);
             maorig.isKinematic = false;
-            inX = inX * 100;
+           // inX = inX * 100;
 
         }
         else
@@ -303,7 +303,7 @@ public class CharacScript : MonoBehaviour
         {
             anim.SetBool("bool1", true);
             anim.SetBool("bool2", true);
-            inX = inX * 100;
+           // inX = inX * 100;
            // tempo = 0;
         }
 
@@ -318,6 +318,7 @@ public class CharacScript : MonoBehaviour
         {
             anim.SetBool("lbool", true);
             anim.SetBool("lbool2", false);
+            inX = -inX * -100;
         }
         else 
         {
@@ -328,6 +329,7 @@ public class CharacScript : MonoBehaviour
         {
             anim.SetBool("rbool", true);
             anim.SetBool("rbool2", false);
+            inX = inX * 100;
         }
         else
         {
@@ -357,7 +359,7 @@ public class CharacScript : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            inX = inX * 100;
+           // inX = inX * 100;
         }
         else
         {
@@ -383,7 +385,7 @@ public class CharacScript : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.J))
         {
-                inX = inX * 100;     
+               // inX = inX * 100;     
         }
 
         Debug.Log(inX);
