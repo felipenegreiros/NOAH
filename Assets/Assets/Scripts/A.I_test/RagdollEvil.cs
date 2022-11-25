@@ -53,7 +53,7 @@ public class RagdollEvil : MonoBehaviour
         {
            // if (Input.GetKey(KeyCode.K))
           //  {
-                Debug.Log("collide");
+               // Debug.Log("collide");
                 hits++;
                 ThisGuysAnimator2.SetBool("defeat", true);
                 Invoke("recover", 0.2f);

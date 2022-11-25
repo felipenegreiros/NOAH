@@ -15,7 +15,7 @@ public class Golpeador : MonoBehaviour
     [SerializeField] GameObject arm;
     [SerializeField] Collider arma;
     [SerializeField] Rigidbody armarig;
-
+    public Collision collision3;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -25,6 +25,7 @@ public class Golpeador : MonoBehaviour
 
     public float timeBetweenAttacks;
     float hits = 0;
+    float randomX, randomZ;
     bool alreadyattacked;
 
     public float sightRange, attackRange;
@@ -99,7 +100,23 @@ public class Golpeador : MonoBehaviour
             {
                 Invoke("recover", 0.4f);
             }
-         
+
+            //tem que ter duas collisoes mas o vois collision enter so registra uma
+            //CRIAR UM SCRIPT SO PRA COLISAO COM O CENARIO
+
+            //Muda de direção ao se chocar com a  cena
+            //if (collision2.gameObject.tag =="Cenario")
+           // {
+          //      Debug.Log("colidiucmCenario");
+
+           //     walkPointSet = false;
+           //     randomZ = Random.Range(-walkPointRange, walkPointRange);
+           //     randomX = Random.Range(-walkPointRange, walkPointRange);
+
+           //     walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+
+                
+           // }
         }
     }
 
@@ -143,19 +160,18 @@ public class Golpeador : MonoBehaviour
         Ani.SetBool("Walk2", true);
 
         arma.enabled = false;
-       // armarig.isKinematic = false;
 
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        randomZ = Random.Range(-walkPointRange, walkPointRange);
+        randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        Debug.Log("voidSearchWalkpoint");
-        //nao parece ser nada desse void
+       // Debug.Log("voidSearchWalkpoint");
+       
 
         if (Physics.Raycast(walkpoint, -transform.up, 2f, whatIsGround))
         {
             walkPointSet = true;
-            Debug.Log("ifSearchWalkpoint");
+           // Debug.Log("ifSearchWalkpoint");
         }
     }
 

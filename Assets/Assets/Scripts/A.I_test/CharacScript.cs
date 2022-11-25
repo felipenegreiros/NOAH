@@ -142,7 +142,7 @@ public class CharacScript : MonoBehaviour
         {
             RagdollOn();
            // Instantiate(ps, characPosition, characRotation);
-            Debug.Log("pow");
+           // Debug.Log("pow");
         }
         if (collision.gameObject.tag == "balah")
         {
@@ -152,7 +152,7 @@ public class CharacScript : MonoBehaviour
             anim.SetBool("hit", true);
             Invoke("hitfalse", 0.2f);
            // Instantiate(ps, characPosition, characRotation);
-            Debug.Log("pow");
+           // Debug.Log("pow");
         }
         else
         {
@@ -388,7 +388,7 @@ public class CharacScript : MonoBehaviour
                // inX = inX * 100;     
         }
 
-        Debug.Log(inX);
+        //Debug.Log(inX);
         if(inX >100 || inX < -100)
         {
             inX = 100;
