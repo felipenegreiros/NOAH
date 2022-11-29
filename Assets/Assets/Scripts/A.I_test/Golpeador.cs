@@ -20,7 +20,7 @@ public class Golpeador : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     public Vector3 walkpoint;
-    bool walkPointSet;
+    public bool walkPointSet;
     public float walkPointRange;
 
     public float timeBetweenAttacks;
@@ -32,6 +32,8 @@ public class Golpeador : MonoBehaviour
     public bool playerInSightRange, playerInAttackRange;
     bool armable;
 
+    WallCollision wallcol2;
+    [SerializeField] GameObject golpeador;
     private void Awake()
     {
         player = GameObject.Find("Noah").transform;
@@ -39,6 +41,7 @@ public class Golpeador : MonoBehaviour
 
         Ani.SetBool("Walk2", true);
 
+        wallcol2 = golpeador.GetComponent<WallCollision>();
     }
 
     private void Update()
@@ -50,6 +53,11 @@ public class Golpeador : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
+       // if(wallcol2.wallcol == false)
+       // {
+       //     Debug.Log("walcol");
+       // }
 
     }
 
@@ -153,6 +161,14 @@ public class Golpeador : MonoBehaviour
         {
             walkPointSet = false;
         }
+
+        if (wallcol2.wallcol == true)
+        {
+            Debug.Log("FOIIIIII");
+            walkPointSet = false;
+            wallcol2.wallcol = false;
+        }
+
     }
     private void SearchWalkPoint()
     {

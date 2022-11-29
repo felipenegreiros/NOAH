@@ -23,7 +23,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("personagemGame (1)").transform;
+        player = GameObject.Find("Noah").transform;
         agent = GetComponent<NavMeshAgent>();
 
     }
@@ -66,13 +66,13 @@ public class EnemyAI : MonoBehaviour
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        Debug.Log("voidSearchWalkpoint");
+        //Debug.Log("voidSearchWalkpoint");
         //nao parece ser nada desse void
 
         if (Physics.Raycast(walkpoint, -transform.up, 2f, whatIsGround))
         {
             walkPointSet = true;
-            Debug.Log("ifSearchWalkpoint");
+           // Debug.Log("ifSearchWalkpoint");
         }
     }
 

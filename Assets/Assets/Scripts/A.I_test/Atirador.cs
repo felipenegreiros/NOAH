@@ -27,13 +27,15 @@ public class Atirador : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    WallCollision wallcol2;
+    [SerializeField] GameObject atirador;
     private void Awake()
     {
         player = GameObject.Find("Noah").transform;
         agent = GetComponent<NavMeshAgent>();
 
         Ani.SetBool("Walk2", true);
-
+        wallcol2 = atirador.GetComponent<WallCollision>();
     }
 
     private void Update()
@@ -90,6 +92,12 @@ public class Atirador : MonoBehaviour
         {
             walkPointSet = false;
         }
+        if (wallcol2.wallcol == true)
+        {
+            Debug.Log("FOI");
+            walkPointSet = false;
+            wallcol2.wallcol = false;
+        }
     }
     private void SearchWalkPoint()
     {
@@ -100,13 +108,13 @@ public class Atirador : MonoBehaviour
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        Debug.Log("voidSearchWalkpoint");
+       // Debug.Log("voidSearchWalkpoint");
         //nao parece ser nada desse void
 
         if (Physics.Raycast(walkpoint, -transform.up, 2f, whatIsGround))
         {
             walkPointSet = true;
-            Debug.Log("ifSearchWalkpoint");
+           // Debug.Log("ifSearchWalkpoint");
         }
     }
 

@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class WallCollision : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
+    public bool wallcol;
+
     void Start()
     {
-        
+       
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
@@ -20,7 +22,13 @@ public class WallCollision : MonoBehaviour
     {
         if(collision3.gameObject.tag == "Cenario")
         {
-            Debug.Log("COL");
+           // Debug.Log("COL");
+            
+            wallcol = true;
+        }
+        else
+        {
+            wallcol = false;
         }
     }
 }
