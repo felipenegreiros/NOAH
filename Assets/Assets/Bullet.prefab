@@ -129,6 +129,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 4
   bala: {fileID: 7917319578482180742}
-  balaexp: {fileID: 1123985599733800675, guid: d368ad2751c5b4e48a3f63151f8fe88d, type: 3}
+  balaexp: {fileID: 5967611599718341237, guid: 3b01b60203124174789df0a5ea60cc88, type: 3}
   timerr: 0
   pos: {x: 0, y: 0, z: 0}

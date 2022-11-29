@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Invoke("destroyer", 0.6f);
+       // Instantiate(balaexp, collision.transform.position, Quaternion.identity);
     }
     // Update is called once per frame
     void Update()

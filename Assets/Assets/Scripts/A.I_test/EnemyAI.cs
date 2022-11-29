@@ -7,7 +7,16 @@ public class EnemyAI : MonoBehaviour
 {
     public NavMeshAgent agent;
     public GameObject Projectil;
+    public GameObject thisFace;
+    public GameObject patriclesystem;
     public Transform player;
+    private MeshRenderer renderer;
+    
+
+    [Range(0, 8)] public float lerpTime;
+    public Color color;
+    private Color corIncial = new Color32(156, 248, 206, 255);
+    bool Lerpbool = false;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -18,18 +27,34 @@ public class EnemyAI : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyattacked;
 
+
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    float hits = 0;
+
 
     private void Awake()
     {
         player = GameObject.Find("Noah").transform;
         agent = GetComponent<NavMeshAgent>();
+    }
 
+    private void Start()
+    {
+        renderer = GetComponent<MeshRenderer>();
     }
 
     private void Update()
     {
+        if (Lerpbool == true)
+        {
+            LerpRed();
+        }
+        if (Lerpbool == false)
+        {
+            LerpBlue();
+        }
+
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
@@ -37,6 +62,7 @@ public class EnemyAI : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
     }
 
     private void Patroling()
@@ -74,6 +100,37 @@ public class EnemyAI : MonoBehaviour
             walkPointSet = true;
            // Debug.Log("ifSearchWalkpoint");
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Golpe")
+        {
+            transform.localScale -= new Vector3(0.002f, 0.002f, 0.002f);
+
+            Lerpbool = true;
+            hits++;
+        }
+
+        if (hits > 8)
+        {
+            Destroy(thisFace);
+            Instantiate(patriclesystem, transform.position, Quaternion.identity);
+        }
+    }
+
+    void LerpBoolFalse()
+    {
+        Lerpbool = false;
+    }
+    void LerpRed()
+    {
+        renderer.material.color = Color.Lerp(renderer.material.color, color, lerpTime * Time.deltaTime);
+        Invoke("LerpBoolFalse", 0.3f);
+    }
+    void LerpBlue()
+    {
+        renderer.material.color = Color.Lerp(renderer.material.color, corIncial, lerpTime * Time.deltaTime);
     }
 
     private void ChasePlayer()

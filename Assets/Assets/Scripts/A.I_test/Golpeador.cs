@@ -109,22 +109,6 @@ public class Golpeador : MonoBehaviour
                 Invoke("recover", 0.4f);
             }
 
-            //tem que ter duas collisoes mas o vois collision enter so registra uma
-            //CRIAR UM SCRIPT SO PRA COLISAO COM O CENARIO
-
-            //Muda de direção ao se chocar com a  cena
-            //if (collision2.gameObject.tag =="Cenario")
-           // {
-          //      Debug.Log("colidiucmCenario");
-
-           //     walkPointSet = false;
-           //     randomZ = Random.Range(-walkPointRange, walkPointRange);
-           //     randomX = Random.Range(-walkPointRange, walkPointRange);
-
-           //     walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-                
-           // }
         }
     }
 
