@@ -11,6 +11,7 @@ public class RagdollEvil : MonoBehaviour
     [SerializeField] GameObject rosto;
     public float tempo = 1;
     public bool active = false;
+    public bool AtiradorragOn = false;
     float hits = 0;
 
     void Start()
@@ -34,6 +35,10 @@ public class RagdollEvil : MonoBehaviour
         {
             RagdollModeOff2();
             active = false;
+        }
+        if(AtiradorragOn == true)
+        {
+            RagdollModeOn2();
         }
     }
 

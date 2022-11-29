@@ -29,6 +29,9 @@ public class Atirador : MonoBehaviour
 
     WallCollision wallcol2;
     [SerializeField] GameObject atirador;
+
+    RagdollEvil ragscript;
+    
     private void Awake()
     {
         player = GameObject.Find("Noah").transform;
@@ -36,6 +39,7 @@ public class Atirador : MonoBehaviour
 
         Ani.SetBool("Walk2", true);
         wallcol2 = atirador.GetComponent<WallCollision>();
+        ragscript = atirador.GetComponent<RagdollEvil>();
     }
 
     private void Update()
@@ -56,12 +60,12 @@ public class Atirador : MonoBehaviour
         {
             Ani.SetBool("shooting2", false);
             Ani.SetBool("Walk2", false);
-            Ani.SetBool("defeat", true);
+           // Ani.SetBool("defeat", true);
 
             //thisRB.AddForce(transform.forward * -9f, ForceMode.Impulse);
             Invoke("Ps", 1.3f);
             Destroy(esse,1.5f);
-            
+            ragscript.AtiradorragOn = true;
         }
     }
 
