@@ -34,6 +34,9 @@ public class Golpeador : MonoBehaviour
 
     WallCollision wallcol2;
     [SerializeField] GameObject golpeador;
+
+    FreetheGates gatesref;
+    [SerializeField] GameObject gates;
     private void Awake()
     {
         player = GameObject.Find("Noah").transform;
@@ -42,6 +45,7 @@ public class Golpeador : MonoBehaviour
         Ani.SetBool("Walk2", true);
 
         wallcol2 = golpeador.GetComponent<WallCollision>();
+        gatesref = gates.GetComponent<FreetheGates>();
     }
 
     private void Update()
@@ -119,6 +123,7 @@ public class Golpeador : MonoBehaviour
     private void Ps()
     {
         Instantiate(Particles, transform.position, Quaternion.identity);
+        gatesref.destroyGate++;
     }
 
     private void Patroling()

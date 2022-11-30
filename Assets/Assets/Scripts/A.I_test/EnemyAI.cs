@@ -112,7 +112,7 @@ public class EnemyAI : MonoBehaviour
             hits++;
         }
 
-        if (hits > 8)
+        if (hits > 10)
         {
             Destroy(thisFace);
             Instantiate(patriclesystem, transform.position, Quaternion.identity);
