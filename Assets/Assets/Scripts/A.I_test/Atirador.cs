@@ -31,7 +31,10 @@ public class Atirador : MonoBehaviour
     [SerializeField] GameObject atirador;
 
     RagdollEvil ragscript;
-    
+
+    FreetheGates gatesref;
+    [SerializeField] GameObject gates;
+
     private void Awake()
     {
         player = GameObject.Find("Noah").transform;
@@ -40,6 +43,7 @@ public class Atirador : MonoBehaviour
         Ani.SetBool("Walk2", true);
         wallcol2 = atirador.GetComponent<WallCollision>();
         ragscript = atirador.GetComponent<RagdollEvil>();
+        gatesref = gates.GetComponent<FreetheGates>();
     }
 
     private void Update()
@@ -65,6 +69,7 @@ public class Atirador : MonoBehaviour
             //thisRB.AddForce(transform.forward * -9f, ForceMode.Impulse);
             Invoke("Ps", 1.3f);
             Destroy(esse,1.5f);
+            gatesref.destroyGate++;
             ragscript.AtiradorragOn = true;
         }
     }
