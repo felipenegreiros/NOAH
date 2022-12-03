@@ -11,6 +11,7 @@ public class RagdollEvil : MonoBehaviour
     [SerializeField] GameObject rosto;
     public float tempo = 1;
     public bool active = false;
+    public bool AtiradorragOn = false;
     float hits = 0;
 
     void Start()
@@ -22,10 +23,10 @@ public class RagdollEvil : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // if (hits > 3)
-       // {
-       //     RagdollModeOn2();
-       // }
+        if (hits > 3)
+        {
+            RagdollModeOn2();
+        }
         if(active == true)
         {
             timer();
@@ -35,11 +36,20 @@ public class RagdollEvil : MonoBehaviour
             RagdollModeOff2();
             active = false;
         }
+        if(AtiradorragOn == true)
+        {
+            RagdollModeOn2();
+        }
     }
 
     void timer()
     {
         tempo++;
+    }
+
+    void recover()
+    {
+        ThisGuysAnimator2.SetBool("defeat", false);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -48,10 +58,12 @@ public class RagdollEvil : MonoBehaviour
         {
            // if (Input.GetKey(KeyCode.K))
           //  {
-                Debug.Log("collide");
+               // Debug.Log("collide");
                 hits++;
-              RagdollModeOn2();
-           // }
+                ThisGuysAnimator2.SetBool("defeat", true);
+                Invoke("recover", 0.2f);
+            // RagdollModeOn2();
+            // }
         }
     }
     Collider[] ragDollColliders2;
@@ -66,6 +78,7 @@ public class RagdollEvil : MonoBehaviour
         tempo = 0;
         active = true;
         ThisGuysAnimator2.enabled = false;
+        
 
         foreach (Collider col in ragDollColliders2)
         {
@@ -77,6 +90,7 @@ public class RagdollEvil : MonoBehaviour
             rigid.isKinematic = false;
         }
 
+        sword.enabled = false;
         mainCollider2.enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
     }
@@ -93,7 +107,7 @@ public class RagdollEvil : MonoBehaviour
             rigid.isKinematic = true;
         }
 
-        sword.enabled = true;
+       // sword.enabled = true;
         ThisGuysAnimator2.enabled = true;
         mainCollider2.enabled = true;
         GetComponent<Rigidbody>().isKinematic = false;

@@ -27,11 +27,23 @@ public class Atirador : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    WallCollision wallcol2;
+    [SerializeField] GameObject atirador;
+
+    RagdollEvil ragscript;
+
+    FreetheGates gatesref;
+    [SerializeField] GameObject gates;
+
     private void Awake()
     {
         player = GameObject.Find("Noah").transform;
         agent = GetComponent<NavMeshAgent>();
+
         Ani.SetBool("Walk2", true);
+        wallcol2 = atirador.GetComponent<WallCollision>();
+        ragscript = atirador.GetComponent<RagdollEvil>();
+        gatesref = gates.GetComponent<FreetheGates>();
     }
 
     private void Update()
@@ -52,12 +64,13 @@ public class Atirador : MonoBehaviour
         {
             Ani.SetBool("shooting2", false);
             Ani.SetBool("Walk2", false);
-            Ani.SetBool("defeat", true);
+           // Ani.SetBool("defeat", true);
 
             //thisRB.AddForce(transform.forward * -9f, ForceMode.Impulse);
             Invoke("Ps", 1.3f);
             Destroy(esse,1.5f);
-            
+            gatesref.destroyGate++;
+            ragscript.AtiradorragOn = true;
         }
     }
 
@@ -88,6 +101,12 @@ public class Atirador : MonoBehaviour
         {
             walkPointSet = false;
         }
+        if (wallcol2.wallcol == true)
+        {
+            Debug.Log("FOI");
+            walkPointSet = false;
+            wallcol2.wallcol = false;
+        }
     }
     private void SearchWalkPoint()
     {
@@ -98,11 +117,13 @@ public class Atirador : MonoBehaviour
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+       // Debug.Log("voidSearchWalkpoint");
         //nao parece ser nada desse void
 
         if (Physics.Raycast(walkpoint, -transform.up, 2f, whatIsGround))
         {
             walkPointSet = true;
+           // Debug.Log("ifSearchWalkpoint");
         }
     }
 
@@ -122,9 +143,9 @@ public class Atirador : MonoBehaviour
         //agent.SetDestination(transform.position);
         Ani.SetBool("shooting2", true);
 
-        agent.SetDestination(player.transform.position / 2);
+       // agent.SetDestination(player.transform.position / 2);
 
-        //a treta ï¿½ com a rotaï¿½ï¿½o, verificar o q esta mechendo com a rotaï¿½ï¿½o
+        //a treta é com a rotação, verificar o q esta mechendo com a rotação
         //possivel conflito entre "LookAt & SetDestination"
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
 

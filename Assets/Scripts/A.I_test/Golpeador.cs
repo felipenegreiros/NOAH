@@ -12,24 +12,31 @@ public class Golpeador : MonoBehaviour
     [SerializeField] Transform bulletpoint;
     [SerializeField] GameObject esse;
     [SerializeField] GameObject Particles;
+    [SerializeField] GameObject arm;
     [SerializeField] Collider arma;
     [SerializeField] Rigidbody armarig;
-
+    public Collision collision3;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
     public Vector3 walkpoint;
-    bool walkPointSet;
+    public bool walkPointSet;
     public float walkPointRange;
 
     public float timeBetweenAttacks;
     float hits = 0;
+    float randomX, randomZ;
     bool alreadyattacked;
 
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
     bool armable;
 
+    WallCollision wallcol2;
+    [SerializeField] GameObject golpeador;
+
+    FreetheGates gatesref;
+    [SerializeField] GameObject gates;
     private void Awake()
     {
         player = GameObject.Find("Noah").transform;
@@ -37,6 +44,8 @@ public class Golpeador : MonoBehaviour
 
         Ani.SetBool("Walk2", true);
 
+        wallcol2 = golpeador.GetComponent<WallCollision>();
+        gatesref = gates.GetComponent<FreetheGates>();
     }
 
     private void Update()
@@ -49,10 +58,10 @@ public class Golpeador : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
-        if(armable == true)
-        {
-
-        }
+       // if(wallcol2.wallcol == false)
+       // {
+       //     Debug.Log("walcol");
+       // }
 
     }
 
@@ -60,34 +69,50 @@ public class Golpeador : MonoBehaviour
     {
         armable = true;
         arma.enabled = true;
-       // armarig.isKinematic = true;
+        arm.tag = "balah";
+        // armarig.isKinematic = true;
     }
     void aramableOff()
     {
         armable = false;
         arma.enabled = false;
-       // armarig.isKinematic = false;
+        arm.tag = "Untagged";
+        // armarig.isKinematic = false;
+    }
+    void recover()
+    {
+        arm.tag = "balah";
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Golpe")
         {
-            arma.enabled = false;
+
+            arm.tag = "Untagged";
+            aramableOff();
             Ani.SetBool("shooting2", false);
             Ani.SetBool("Walk2", false);
             Ani.SetBool("defeat", true);
-
+            alreadyattacked = false;
             hits++;
+            Ani.SetBool("shooting2", false);
 
-           // Invoke("hitanimfalse", 0.5f);
-            //thisRB.AddForce(transform.forward * -9f, ForceMode.Impulse);
-           // if (hits > 2)
-          //  {
+
+            if (hits > 3)
+            {
+                aramableOff();
+                arm.tag = "Untagged";
                 Invoke("Ps", 1.3f);
                 Destroy(esse, 1.5f);
-          //  }
-            //mudar a tag so na hr do chute
+                armable = false;
+                arma.enabled = false;
+            }
+            else
+            {
+                Invoke("recover", 0.4f);
+            }
+
         }
     }
 
@@ -98,6 +123,7 @@ public class Golpeador : MonoBehaviour
     private void Ps()
     {
         Instantiate(Particles, transform.position, Quaternion.identity);
+        gatesref.destroyGate++;
     }
 
     private void Patroling()
@@ -124,6 +150,14 @@ public class Golpeador : MonoBehaviour
         {
             walkPointSet = false;
         }
+
+        if (wallcol2.wallcol == true)
+        {
+            Debug.Log("FOIIIIII");
+            walkPointSet = false;
+            wallcol2.wallcol = false;
+        }
+
     }
     private void SearchWalkPoint()
     {
@@ -131,17 +165,18 @@ public class Golpeador : MonoBehaviour
         Ani.SetBool("Walk2", true);
 
         arma.enabled = false;
-       // armarig.isKinematic = false;
 
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        randomZ = Random.Range(-walkPointRange, walkPointRange);
+        randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        //nao parece ser nada desse void
+       // Debug.Log("voidSearchWalkpoint");
+       
 
         if (Physics.Raycast(walkpoint, -transform.up, 2f, whatIsGround))
         {
             walkPointSet = true;
+           // Debug.Log("ifSearchWalkpoint");
         }
     }
 
@@ -159,16 +194,11 @@ public class Golpeador : MonoBehaviour
     }
     private void AttackPlayer()
     {
-        //agent.SetDestination(transform.position);
+ 
         Ani.SetBool("shooting2", true);
 
-        agent.SetDestination(player.transform.position / 2);
+       // agent.SetDestination(player.transform.position );
 
-       // arma.enabled = true;
-       // armarig.isKinematic = true;
-
-        //a treta � com a rota��o, verificar o q esta mechendo com a rota��o
-        //possivel conflito entre "LookAt & SetDestination"
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
 
         if (!alreadyattacked)
@@ -186,7 +216,7 @@ public class Golpeador : MonoBehaviour
 
     private void ResetAttack()
     {
-       
+        Ani.SetBool("shooting2", false);
         alreadyattacked = false;
     }
 }
