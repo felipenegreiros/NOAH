@@ -1,139 +1,144 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class FECharacScript : MonoBehaviour
 {
-    [SerializeField] Animator anim;
-    //private CharacterController _charController;
-    private Transform chartransf;
-    private Rigidbody charig;
+    [SerializeField] private Animator animatorComponent;
+    private Transform characterTransform;
+    private Rigidbody rigidBodyComponent;
 
     public float inX;
     public float inZ;
-    public float kicktime = 0;
-    public float punchtime = 0;
-    private Vector3 vmovement;
-    private Vector3 vvelocity;
+    public float kickTime = 0;
+    public float punchTime = 0;
+    private Vector3 verticalMovement;
+    private Vector3 verticalVelocity;
     public float moveSpeed;
-    private float gravidade;
     private int tempo;
-    bool kick;
 
     [SerializeField] private float forceMagnitude;
+    
+    [SerializeField] public CapsuleCollider mainCollider;
+    [SerializeField] public Collider feetCollider;
+    [SerializeField] public BoxCollider handCollider;
+    [SerializeField] public Rigidbody handRig;
 
-    //ragdollvaribles
-    // [SerializeField] public MeshCollider Maincollider;
-    // [SerializeField] public Collider boxcollider;
-    [SerializeField] public CapsuleCollider Maincollider;
-    [SerializeField] public Collider pecollider;
-    [SerializeField] public BoxCollider maocollider;
-    [SerializeField] public Rigidbody maorig;
-    //[SerializeField] public Rigidbody peRigid;
+    [SerializeField] private GameObject leg;
+    [SerializeField] private GameObject hand;
+    [SerializeField] private GameObject thisGuyRig;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject sword;
+    [SerializeField] private GameObject ps;
+    [SerializeField] private Transform bulletPoint;
+    private GameObject playerGameObject;
+    private float hits = 0;
 
-    [SerializeField] GameObject perna;
-    [SerializeField] GameObject mao;
-    [SerializeField] GameObject ThisGuyrig;
-    [SerializeField] GameObject bala;
-    [SerializeField] GameObject Sword;
-    [SerializeField] GameObject ps;
-    [SerializeField] Transform bulletpoint;
-
-    float hits = 0;
-    public Vector3 characPosition;
-    public Vector3 boxsize;
-    public Quaternion characRotation;
-    void Start()
+    private void Start()
     {
-        Getragdoolbits();
+        GetRagDollBits();
         RagdollOff();
 
-        GameObject Playeri = GameObject.FindGameObjectWithTag("Player");
-       // _charController = Playeri.GetComponent<CharacterController>();
-        chartransf = Playeri.GetComponent<Transform>();
-        anim = Playeri.GetComponent<Animator>();
-        charig = Playeri.GetComponent<Rigidbody>();
-
-
+        playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        characterTransform = playerGameObject.GetComponent<Transform>();
+        animatorComponent = playerGameObject.GetComponent<Animator>();
+        rigidBodyComponent = playerGameObject.GetComponent<Rigidbody>();
         moveSpeed = 4f;
-        gravidade = 0.5f;
-       
-
-        anim.SetBool("kick", false);
-        anim.SetBool("kick2", true);
+        animatorComponent.SetBool(Kick, false);
+        animatorComponent.SetBool(Kick2, true);
     }
 
-    Rigidbody[] ragrigid;
-    Collider[] ragcollider;
-    void Getragdoolbits()
+    private Rigidbody[] ragRigid;
+    private Collider[] ragCollider;
+    private static readonly int Kick = Animator.StringToHash("kick");
+    private static readonly int Kick2 = Animator.StringToHash("kick2");
+    private static readonly int Run = Animator.StringToHash("run");
+    private static readonly int Run2 = Animator.StringToHash("run2");
+    private static readonly int LeftBool = Animator.StringToHash("lbool");
+    private static readonly int RightBool = Animator.StringToHash("rbool");
+    private static readonly int Punch = Animator.StringToHash("punch");
+    private static readonly int Shoot1 = Animator.StringToHash("shoot");
+    private static readonly int Bool1 = Animator.StringToHash("bool1");
+    private static readonly int Bool2 = Animator.StringToHash("bool2");
+    private static readonly int LeftBoolB = Animator.StringToHash("lbool2");
+    private static readonly int RightBoolB = Animator.StringToHash("rbool2");
+    private static readonly int Crouch = Animator.StringToHash("Agacha");
+    private static readonly int Hit = Animator.StringToHash("hit");
+
+    private void GetRagDollBits()
     {
-        ragrigid = ThisGuyrig.GetComponentsInChildren<Rigidbody>();
-        ragcollider = ThisGuyrig.GetComponentsInChildren<Collider>();
+        ragRigid = thisGuyRig.GetComponentsInChildren<Rigidbody>();
+        ragCollider = thisGuyRig.GetComponentsInChildren<Collider>();
     }
-    void RagdollOff()
+
+    private void RagdollOff()
     {
-        foreach (Collider col in ragcollider)
+        foreach (var playerCollider in ragCollider)
         {
-            col.enabled = false;
+            playerCollider.enabled = false;
         }
-        foreach (Rigidbody rag in ragrigid)
+        foreach (var playerRag in ragRigid)
         {
-            rag.isKinematic = true;
+            playerRag.isKinematic = true;
         }
-    
-        anim.enabled = true;
-        Maincollider.enabled = true;
-        GetComponent<Rigidbody>().isKinematic = false;
-        maorig.isKinematic = false;
+        animatorComponent.enabled = true;
+        mainCollider.enabled = true;
+        rigidBodyComponent.isKinematic = false;
+        handRig.isKinematic = false;
     }
-    void PeEnable()
+
+    private void EnableFeet()
     {
        // pecollider.enabled = true;
-        perna.tag = "Golpe";
-        pecollider.enabled = true;
+        leg.tag = "Golpe";
+        feetCollider.enabled = true;
     }
-    void PeDisable()
+
+    private void DisableFeet()
     {
-        pecollider.enabled = false;
-        perna.tag = "Untagged";
+        feetCollider.enabled = false;
+        leg.tag = "Untagged";
     }
-    void maoEnable()
+
+    private void EnableHand()
     {
-        mao.tag = "Golpe";
-        maocollider.enabled = true;
+        hand.tag = "Golpe";
+        handCollider.enabled = true;
       
     }
-    void maoDisable()
+
+    private void DisableHand()
     {
-        mao.tag = "Untagged";
-        maocollider.enabled = false;
+        hand.tag = "Untagged";
+        handCollider.enabled = false;
 
     }
 
-    void swordEnable()
+    private void EnableSword()
     {
-        maocollider.center = new Vector3(-2.5f, 0, 0);
-        maocollider.size = new Vector3(6, 0.5f, 1);
+        handCollider.center = new Vector3(-2.5f, 0, 0);
+        handCollider.size = new Vector3(6, 0.5f, 1);
 
-        Sword.SetActive(true);
+        sword.SetActive(true);
     }
-    void RagdollOn()
-    {
-        anim.enabled = false;
 
-        foreach (Collider col in ragcollider)
+    private void EnableRagDoll()
+    {
+        animatorComponent.enabled = false;
+
+        foreach (var col in ragCollider)
         {
             col.enabled = true;
         }
-        foreach (Rigidbody rag in ragrigid)
+        foreach (var rag in ragRigid)
         {
             rag.isKinematic = false;
         }
 
-        Maincollider.enabled = false;
-        GetComponent<Rigidbody>().isKinematic = true;
-
+        mainCollider.enabled = false;
+        rigidBodyComponent.isKinematic = true;
         hits = 0;
     }
        private void OnCollisionEnter(Collision collision)
@@ -141,50 +146,36 @@ public class FECharacScript : MonoBehaviour
 
         if (collision.gameObject.name == "Rosto_AI")
         {
-            RagdollOn();
-           // Instantiate(ps, characPosition, characRotation);
-           // Debug.Log("pow");
+            EnableRagDoll();
         }
-        if (collision.gameObject.tag == "balah")
+        if (collision.gameObject.CompareTag("balah"))
         {
-            maoDisable();
-            PeDisable();
+            DisableHand();
+            DisableFeet();
             hits++;
-            anim.SetBool("hit", true);
-            Invoke("hitfalse", 0.2f);
-           // Instantiate(ps, characPosition, characRotation);
-           // Debug.Log("pow");
-        }
-        else
-        {
-           // Maincollider.enabled = true;
-           // Invoke("disablebox", 0.7f);
+            animatorComponent.SetBool(Hit, true);
+            Invoke("HitFalse", 0.2f);
         }
 
     }
 
-    void hitfalse()
+       private void HitFalse()
     {
-        anim.SetBool("hit", false);
+        animatorComponent.SetBool(Hit, false);
     }
-    void disablebox()
-    {
-       // boxcollider.enabled = false;
-    }
+       
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-       // maocollider.enabled = true;
-
         if (hits > 4)
         {
-            RagdollOn();
+            EnableRagDoll();
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            swordEnable();
-            maocollider.enabled = true;
+            EnableSword();
+            handCollider.enabled = true;
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
@@ -194,23 +185,23 @@ public class FECharacScript : MonoBehaviour
         inX = Input.GetAxis("Horizontal");
         inZ = Input.GetAxis("Vertical");
 
-        Maist();
+        IncrementTempo();
 
         //CORRER
         if (Input.GetKey(KeyCode.M))
         {
 
-            anim.SetBool("run", true);
-            anim.SetBool("run2", false);
-            kicktime = 0;
+            animatorComponent.SetBool(Run, true);
+            animatorComponent.SetBool(Run2, false);
+            kickTime = 0;
            // inX = inX * 100;
 
             // Debug.Log("colon");
         }
         if (Input.GetKeyUp(KeyCode.M))
         {
-            anim.SetBool("run", false);
-            anim.SetBool("run2", true);
+            animatorComponent.SetBool(Run, false);
+            animatorComponent.SetBool(Run2, true);
 
         }
         //CHUTE
@@ -220,227 +211,188 @@ public class FECharacScript : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            kicktime = 100;
-            anim.SetBool("run", false);
-            anim.SetBool("run2", true);
-            anim.SetBool("kick", true);
-            anim.SetBool("lbool", false);
-            anim.SetBool("rbool", false);
-            kick = true;
-
+            kickTime = 100;
+            animatorComponent.SetBool(Run, false);
+            animatorComponent.SetBool(Run2, true);
+            animatorComponent.SetBool(Kick, true);
+            animatorComponent.SetBool(LeftBool, false);
+            animatorComponent.SetBool(RightBool, false);
         }
         else
         {
-            kicktime = kicktime - 5f;
-            //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
+            kickTime = kickTime - 5f;
         }
 
         if (Input.GetKeyUp(KeyCode.K))
         {
-            anim.SetBool("kick", false);
-            kick = false;
+            animatorComponent.SetBool(Kick, false);
         }
 
-        if (kicktime < 0)
+        if (kickTime < 0)
         {
-            kicktime = 0;
+            kickTime = 0;
         }
-        if (kicktime > 20 )
+        if (kickTime > 20 )
         {
-           // Invoke("PeEnable", 0.8f);
-           // pecollider.enabled = true;
-           // perna.tag = "balah";
-        }
-        else
-        {
-           // perna.tag = "Untagged";
         }
 
         //PUNCH
         if (Input.GetKeyDown(KeyCode.H))
         {
-            punchtime = 100;
-            anim.SetBool("run", false);
-            anim.SetBool("run2", true);
-            anim.SetBool("punch", true);
-            anim.SetBool("lbool", false);
-            anim.SetBool("rbool", false);
-            maorig.isKinematic = false;
-           // inX = inX * 100;
-
+            punchTime = 100;
+            animatorComponent.SetBool(Run, false);
+            animatorComponent.SetBool(Run2, true);
+            animatorComponent.SetBool(Punch, true);
+            animatorComponent.SetBool(LeftBool, false);
+            animatorComponent.SetBool(RightBool, false);
+            handRig.isKinematic = false;
+            
         }
         else
         {
-            punchtime = punchtime - 2f;
-            //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
+            punchTime = punchTime - 2f;
         }
 
         if (Input.GetKeyUp(KeyCode.H))
         {
-            anim.SetBool("punch", false);
+            animatorComponent.SetBool(Punch, false);
 
         }
 
-        if (punchtime < 0)
+        if (punchTime < 0)
         {
-            punchtime = 0;
+            punchTime = 0;
         }
-        if (punchtime > 5)
+        if (punchTime > 5)
         {
-            //  Invoke("maoEnable", 0.4f);
-            //  maocollider.enabled = true;
-            // perna.tag = "balah";
-            maorig.isKinematic = false;
+            handRig.isKinematic = false;
 
         }
         else
         {
-            //mao.tag = "Untagged";
-            maocollider.enabled = false;
+            handCollider.enabled = false;
         }
 
         //WALK
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            anim.SetBool("bool1", true);
-            anim.SetBool("bool2", true);
-           // inX = inX * 100;
-           // tempo = 0;
+            animatorComponent.SetBool(Bool1, true);
+            animatorComponent.SetBool(Bool2, true);
         }
 
         if (Input.GetKeyUp(KeyCode.UpArrow)) 
         {
-
-            anim.SetBool("bool1", false);
-            anim.SetBool("bool2", false);
+            animatorComponent.SetBool(Bool1, false);
+            animatorComponent.SetBool(Bool2, false);
             tempo = 0;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            anim.SetBool("lbool", true);
-            anim.SetBool("lbool2", false);
+            animatorComponent.SetBool(LeftBool, true);
+            animatorComponent.SetBool(LeftBoolB, false);
             inX = -inX * -100;
         }
         else 
         {
-            anim.SetBool("lbool", false);
-            anim.SetBool("lbool2", true);
+            animatorComponent.SetBool(LeftBool, false);
+            animatorComponent.SetBool(LeftBoolB, true);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            anim.SetBool("rbool", true);
-            anim.SetBool("rbool2", false);
+            animatorComponent.SetBool(RightBool, true);
+            animatorComponent.SetBool(RightBoolB, false);
             inX = inX * 100;
         }
         else
         {
-            anim.SetBool("rbool", false);
-            anim.SetBool("rbool2", true);  
+            animatorComponent.SetBool(RightBool, false);
+            animatorComponent.SetBool(RightBoolB, true);  
         }
         if (tempo > 160)
         {
-           // anim.SetBool("run", true);
-           // anim.SetBool("run2", false);
         }
 
         //AGACHAR
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            anim.SetBool("Agacha", true);
+            animatorComponent.SetBool(Crouch, true);
             // Maincollider.enabled = false;
-            Maincollider.height = 6;
-            Maincollider.center = new Vector3(0, 3, 0);
+            mainCollider.height = 6;
+            mainCollider.center = new Vector3(0, 3, 0);
         }
         if (Input.GetKeyUp(KeyCode.DownArrow))
         {
-            anim.SetBool("Agacha", false);
+            animatorComponent.SetBool(Crouch, false);
            // Maincollider.enabled = true;
-            Maincollider.height = 13;
-            Maincollider.center = new Vector3(0, 7, 0);
+            mainCollider.height = 13;
+            mainCollider.center = new Vector3(0, 7, 0);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-           // inX = inX * 100;
         }
         else
         {
-            anim.SetBool("Agacha", false);
+            animatorComponent.SetBool(Crouch, false);
         }
 
         //ATIRAR
         if (Input.GetKeyDown(KeyCode.J))
         {
-            anim.SetBool("run", false);
-            anim.SetBool("run2", true);
-            anim.SetBool("shoot", true);
-            anim.SetBool("bool1", false);
-            anim.SetBool("bool2", false);
-
-            Invoke("atira", 0.3f);
+            animatorComponent.SetBool(Run, false);
+            animatorComponent.SetBool(Run2, true);
+            animatorComponent.SetBool(Shoot1, true);
+            animatorComponent.SetBool(Bool1, false);
+            animatorComponent.SetBool(Bool2, false);
+            Invoke("Shoot", 0.3f);
         }
 
         if (Input.GetKeyUp(KeyCode.J))
         {
-            anim.SetBool("shoot", false);
+            animatorComponent.SetBool(Shoot1, false);
 
         }
         if (Input.GetKey(KeyCode.J))
         {
-               // inX = inX * 100;     
         }
 
         //Debug.Log(inX);
-        if(inX >100 || inX < -100)
+        if(inX is > 100 or < -100)
         {
             inX = 100;
         }
 
     }
 
-    void atira()
+    private void Shoot()
     {
-        if (anim.GetBool("shoot") == true)
-        { 
-            Rigidbody rb = Instantiate(bala, bulletpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 4f, ForceMode.Impulse);
-            rb.AddForce(transform.up * -0.1f, ForceMode.Impulse);
-        }
+        if (!animatorComponent.GetBool(Shoot1)) return;
+        var bulletInstance = Instantiate(bullet, bulletPoint.position, Quaternion.identity);
+        var bulletRigidBody = bulletInstance.GetComponent<Rigidbody>();
+        bulletRigidBody.AddForce(transform.forward * 4f, ForceMode.Impulse);
+        bulletRigidBody.AddForce(transform.up * -0.1f, ForceMode.Impulse);
     }
     private void FixedUpdate()
     {
-
-        vmovement = chartransf.transform.forward * inZ *(1.5f * Time.deltaTime);
-        
-        chartransf.transform.Rotate(Vector3.up * inX * (1.5f * Time.deltaTime));
-
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.M))
-            {
-                charig.AddForce(vmovement * moveSpeed * Time.deltaTime);
-            tempo = 0;
-
-        }
+        verticalMovement = characterTransform.transform.forward * inZ *(1.5f * Time.deltaTime);
+        characterTransform.transform.Rotate(Vector3.up * inX * (1.5f * Time.deltaTime));
+        if (!Input.GetKeyDown(KeyCode.UpArrow) && !Input.GetKeyDown(KeyCode.M)) return;
+        rigidBodyComponent.AddForce(verticalMovement * moveSpeed * Time.deltaTime);
+        tempo = 0;
 
     }
 
-    private void Maist()
+    private void IncrementTempo()
     {
         tempo++;
     }
+    
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Rigidbody rigidbody = hit.collider.attachedRigidbody;
-        if (rigidbody !=null 
-          //  & Input.GetKey(KeyCode.K)//pra so ativar se ele chutar
-            
-            )
-        {
-            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
-            forceDirection.y = 0;
-            forceDirection.Normalize();
-
-            rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
-        }
-
+        var rigidBody = hit.collider.attachedRigidbody;
+        if (rigidBody == null) return;
+        var forceDirection = hit.gameObject.transform.position - transform.position;
+        forceDirection.y = 0;
+        forceDirection.Normalize();
+        rigidBody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
     }
-
 }
