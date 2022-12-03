@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.45534986, g: 0.4377057, b: 0.5767208, a: 1}
+  m_IndirectSpecularColor: {r: 0.45534998, g: 0.43770564, b: 0.5767202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13565,6 +13565,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e02f9d810058a8a42a006caf475baade, type: 3}
   m_PrefabInstance: {fileID: 779150715}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &291880567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4441848305933595309, guid: 609c8b7859f7d124a9d5646978da3c23, type: 3}
+  m_PrefabInstance: {fileID: 1380246888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &293337277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16861,7 +16866,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413967546}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4483b49d432a8a449a30e92e509bdab8, type: 3}
   m_Name: 
@@ -16896,24 +16901,6 @@ MonoBehaviour:
   currentTransform: {x: 0, y: 0, z: 0}
   movementValueIncrease: 0
   rotateValueIncrease: {x: 0, y: 0, z: 0}
---- !u!143 &413967552
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 413967546}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Height: 13
-  m_Radius: 2
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 7, z: 0}
 --- !u!136 &413967554
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16928,6 +16915,39 @@ CapsuleCollider:
   m_Height: 13
   m_Direction: 1
   m_Center: {x: 0, y: 7, z: 0}
+--- !u!114 &413967555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413967546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58ed6d54009ef442ab6bb50abb99ad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 413967548}
+  inX: 0
+  inZ: 0
+  kicktime: 0
+  punchtime: 0
+  moveSpeed: 0
+  forceMagnitude: 0
+  Maincollider: {fileID: 413967554}
+  pecollider: {fileID: 1459460241}
+  maocollider: {fileID: 1392625664}
+  maorig: {fileID: 1392625665}
+  perna: {fileID: 1459460238}
+  mao: {fileID: 291880567}
+  ThisGuyrig: {fileID: 1411992843}
+  bala: {fileID: 7917319578482180742, guid: b40a4fc7da3bc52488ce168eac39d739, type: 3}
+  Sword: {fileID: 1434945965}
+  ps: {fileID: 0}
+  bulletpoint: {fileID: 714360596}
+  characPosition: {x: 0, y: 0, z: 0}
+  boxsize: {x: 0, y: 0, z: 0}
+  characRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &416035439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51332,6 +51352,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.24307886, y: 0.24673621, z: 0.21671659}
   m_Center: {x: -0.028030545, y: 0.07288801, z: 0.0662175}
+--- !u!1 &1434945965 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c5019f4df88febc4791933c4337238e6, type: 3}
+  m_PrefabInstance: {fileID: 1686242353}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1444911074
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52342,7 +52367,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488971896}
-  m_LocalRotation: {x: 0.1091774, y: -0.000000025047155, z: 0.0000000027510283, w: 0.9940223}
+  m_LocalRotation: {x: 0.1091774, y: 0.000000013197481, z: -0.0000000014495319, w: 0.9940223}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
