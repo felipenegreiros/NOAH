@@ -9,11 +9,21 @@ public class FECharacScript : MonoBehaviour
     [SerializeField] private Animator animatorComponent;
     private Transform characterTransform;
     private Rigidbody rigidBodyComponent;
+    
+    public KeyCode upKey = KeyCode.W;
+    public KeyCode downKey = KeyCode.S;
+    public KeyCode leftKey = KeyCode.A;
+    public KeyCode rightKey = KeyCode.D;
 
-    public float inX;
-    public float inZ;
-    public float kickTime = 0;
-    public float punchTime = 0;
+    public KeyCode kickKey = KeyCode.K;
+    public KeyCode runKey = KeyCode.M;
+    public KeyCode punchKey = KeyCode.H;
+    public KeyCode shootKey = KeyCode.R;
+
+    private float inX;
+    private float inZ;
+    private float kickTime = 0;
+    private float punchTime = 0;
     private Vector3 verticalMovement;
     private Vector3 verticalVelocity;
     public float moveSpeed;
@@ -21,10 +31,10 @@ public class FECharacScript : MonoBehaviour
 
     [SerializeField] private float forceMagnitude;
     
-    [SerializeField] public CapsuleCollider mainCollider;
-    [SerializeField] public Collider feetCollider;
-    [SerializeField] public BoxCollider handCollider;
-    [SerializeField] public Rigidbody handRig;
+    [SerializeField] private CapsuleCollider mainCollider;
+    [SerializeField] private Collider feetCollider;
+    [SerializeField] private BoxCollider handCollider;
+    [SerializeField] private Rigidbody handRig;
 
     [SerializeField] private GameObject leg;
     [SerializeField] private GameObject hand;
@@ -38,13 +48,12 @@ public class FECharacScript : MonoBehaviour
 
     private void Start()
     {
-        GetRagDollBits();
-        RagdollOff();
-
         playerGameObject = GameObject.FindGameObjectWithTag("Player");
         characterTransform = playerGameObject.GetComponent<Transform>();
         animatorComponent = playerGameObject.GetComponent<Animator>();
         rigidBodyComponent = playerGameObject.GetComponent<Rigidbody>();
+        GetRagDollBits();
+        RagdollOff();
         moveSpeed = 4f;
         animatorComponent.SetBool(Kick, false);
         animatorComponent.SetBool(Kick2, true);
@@ -172,12 +181,7 @@ public class FECharacScript : MonoBehaviour
             EnableRagDoll();
         }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            EnableSword();
-            handCollider.enabled = true;
-        }
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(upKey))
         {
             RagdollOff();
         }
@@ -188,28 +192,51 @@ public class FECharacScript : MonoBehaviour
         IncrementTempo();
 
         //CORRER
-        if (Input.GetKey(KeyCode.M))
-        {
+        RunMechanics();
+        
+        //CHUTE
+        KickMechanics();
 
+        //PUNCH
+        PunchMechanics();
+
+        //WALK
+        WalkMechanics();
+
+        //AGACHAR
+        CrouchMechanics();
+
+        //ATIRAR
+        ShootingMechanics();
+    }
+
+    private void RunMechanics()
+    {
+        if (Input.GetKey(runKey))
+        {
             animatorComponent.SetBool(Run, true);
             animatorComponent.SetBool(Run2, false);
             kickTime = 0;
-           // inX = inX * 100;
+            // inX = inX * 100;
 
             // Debug.Log("colon");
         }
-        if (Input.GetKeyUp(KeyCode.M))
+
+        if (Input.GetKeyUp(runKey))
         {
             animatorComponent.SetBool(Run, false);
             animatorComponent.SetBool(Run2, true);
+        }
+    }
 
-        }
-        //CHUTE
-        if (Input.GetKey(KeyCode.K))
+    private void KickMechanics()
+    {
+        if (Input.GetKey(kickKey))
         {
-           // inX = inX * 100;
+            // inX = inX * 100;
         }
-        if (Input.GetKeyDown(KeyCode.K))
+
+        if (Input.GetKeyDown(kickKey))
         {
             kickTime = 100;
             animatorComponent.SetBool(Run, false);
@@ -223,7 +250,7 @@ public class FECharacScript : MonoBehaviour
             kickTime = kickTime - 5f;
         }
 
-        if (Input.GetKeyUp(KeyCode.K))
+        if (Input.GetKeyUp(kickKey))
         {
             animatorComponent.SetBool(Kick, false);
         }
@@ -232,12 +259,15 @@ public class FECharacScript : MonoBehaviour
         {
             kickTime = 0;
         }
-        if (kickTime > 20 )
+
+        if (kickTime > 20)
         {
         }
+    }
 
-        //PUNCH
-        if (Input.GetKeyDown(KeyCode.H))
+    private void PunchMechanics()
+    {
+        if (Input.GetKeyDown(punchKey))
         {
             punchTime = 100;
             animatorComponent.SetBool(Run, false);
@@ -246,58 +276,60 @@ public class FECharacScript : MonoBehaviour
             animatorComponent.SetBool(LeftBool, false);
             animatorComponent.SetBool(RightBool, false);
             handRig.isKinematic = false;
-            
         }
         else
         {
             punchTime = punchTime - 2f;
         }
 
-        if (Input.GetKeyUp(KeyCode.H))
+        if (Input.GetKeyUp(punchKey))
         {
             animatorComponent.SetBool(Punch, false);
-
         }
 
         if (punchTime < 0)
         {
             punchTime = 0;
         }
+
         if (punchTime > 5)
         {
             handRig.isKinematic = false;
-
         }
         else
         {
             handCollider.enabled = false;
         }
+    }
 
-        //WALK
-        if (Input.GetKey(KeyCode.UpArrow))
+    private void WalkMechanics()
+    {
+        if (Input.GetKey(upKey))
         {
             animatorComponent.SetBool(Bool1, true);
             animatorComponent.SetBool(Bool2, true);
         }
 
-        if (Input.GetKeyUp(KeyCode.UpArrow)) 
+        if (Input.GetKeyUp(upKey))
         {
             animatorComponent.SetBool(Bool1, false);
             animatorComponent.SetBool(Bool2, false);
             tempo = 0;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+
+        if (Input.GetKey(leftKey))
         {
             animatorComponent.SetBool(LeftBool, true);
             animatorComponent.SetBool(LeftBoolB, false);
             inX = -inX * -100;
         }
-        else 
+        else
         {
             animatorComponent.SetBool(LeftBool, false);
             animatorComponent.SetBool(LeftBoolB, true);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+
+        if (Input.GetKey(rightKey))
         {
             animatorComponent.SetBool(RightBool, true);
             animatorComponent.SetBool(RightBoolB, false);
@@ -306,37 +338,17 @@ public class FECharacScript : MonoBehaviour
         else
         {
             animatorComponent.SetBool(RightBool, false);
-            animatorComponent.SetBool(RightBoolB, true);  
+            animatorComponent.SetBool(RightBoolB, true);
         }
+
         if (tempo > 160)
         {
         }
+    }
 
-        //AGACHAR
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            animatorComponent.SetBool(Crouch, true);
-            // Maincollider.enabled = false;
-            mainCollider.height = 6;
-            mainCollider.center = new Vector3(0, 3, 0);
-        }
-        if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            animatorComponent.SetBool(Crouch, false);
-           // Maincollider.enabled = true;
-            mainCollider.height = 13;
-            mainCollider.center = new Vector3(0, 7, 0);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-        }
-        else
-        {
-            animatorComponent.SetBool(Crouch, false);
-        }
-
-        //ATIRAR
-        if (Input.GetKeyDown(KeyCode.J))
+    private void ShootingMechanics()
+    {
+        if (Input.GetKeyUp(shootKey))
         {
             animatorComponent.SetBool(Run, false);
             animatorComponent.SetBool(Run2, true);
@@ -346,21 +358,53 @@ public class FECharacScript : MonoBehaviour
             Invoke("Shoot", 0.3f);
         }
 
-        if (Input.GetKeyUp(KeyCode.J))
+        if (Input.GetKeyUp(shootKey))
         {
             animatorComponent.SetBool(Shoot1, false);
-
         }
-        if (Input.GetKey(KeyCode.J))
+
+        if (Input.GetKeyUp(shootKey))
         {
         }
 
         //Debug.Log(inX);
-        if(inX is > 100 or < -100)
+        if (inX is > 100 or < -100)
         {
             inX = 100;
         }
+    }
 
+    private void CrouchMechanics()
+    {
+        if (Input.GetKeyDown(downKey))
+        {
+            animatorComponent.SetBool(Crouch, true);
+            // Maincollider.enabled = false;
+            mainCollider.height = 6;
+            mainCollider.center = new Vector3(0, 3, 0);
+        }
+
+        if (Input.GetKeyUp(downKey))
+        {
+            animatorComponent.SetBool(Crouch, false);
+            // Maincollider.enabled = true;
+            mainCollider.height = 13;
+            mainCollider.center = new Vector3(0, 7, 0);
+        }
+
+        if (Input.GetKey(downKey))
+        {
+        }
+        else
+        {
+            animatorComponent.SetBool(Crouch, false);
+        }
+
+        if (Input.GetKey(downKey))
+        {
+            EnableSword();
+            handCollider.enabled = true;
+        }
     }
 
     private void Shoot()
