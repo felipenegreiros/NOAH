@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7917319578482180738}
   - component: {fileID: 7917319578482180739}
   - component: {fileID: 7917319578482180736}
-  - component: {fileID: -7450855813408401537}
+  - component: {fileID: 7917319578482180737}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: balah
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-7450855813408401537
+--- !u!114 &7917319578482180737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,9 +124,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7917319578482180742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c707ee8b1ba9a743a01f46c75dd4965, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ca7235a6f3cc9b41bdf680d3c6615f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToLive: 5
-  horizontalSpeed: 4
-  verticalSpeed: 0.37
+  life: 4
+  bala: {fileID: 7917319578482180742}
+  balaexp: {fileID: 5967611599718341237, guid: 3b01b60203124174789df0a5ea60cc88, type: 3}
+  timerr: 0
+  pos: {x: 0, y: 0, z: 0}
