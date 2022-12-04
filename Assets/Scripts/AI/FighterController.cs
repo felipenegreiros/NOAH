@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
 using Assets.Scripts.A.I_test;
+using Attributes;
 using Control;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,16 +13,19 @@ namespace AI
     {
         [SerializeField] private float attackingRange = 2.16f;
         [SerializeField] private float timeBetweenAttacks = 1f;
+        public float timeSinceLastAttack;
         private GameObject playerGameObject;
+        private Health playerHealthComponent;
         private Animator _animatorComponent;
         public bool isPlayerInRange;
         public bool isReadyToAttack;
-        public float timeSinceLastAttack;
         private float distanceToPlayer;
         private NavMeshAgent _navMeshComponent;
         private Aggro _aggroComponent;
         private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int Walk = Animator.StringToHash("walk");
+        private static readonly int AttackFromWalk = Animator.StringToHash("attack_from_walk");
+        private static readonly int AttackFromIdle = Animator.StringToHash("attack_from_idle");
 
         private void Awake()
         {
@@ -31,6 +37,7 @@ namespace AI
         private void Start()
         {
             playerGameObject = _aggroComponent.GetPlayerGameObject();
+            playerHealthComponent = playerGameObject.GetComponent<Health>();
         }
         
         private void Update()
@@ -71,20 +78,28 @@ namespace AI
             var canAttack = AnalyzeAttackConditions();
             if (canAttack)
             {
-                _animatorComponent.applyRootMotion = false;
-                _animatorComponent.SetBool(Attack, true);
+                TriggerSingleAttack();
             }
-            else
-            {
-                _animatorComponent.applyRootMotion = true;
-                _animatorComponent.SetBool(Attack, false);
-            }
+
         }
+
+        private void TriggerSingleAttack()
+        {
+            _animatorComponent.applyRootMotion = false;
+            _animatorComponent.SetTrigger(AttackFromWalk);
+            _animatorComponent.SetTrigger(AttackFromIdle);
+            timeSinceLastAttack = 0;
+        }
+
 
         private bool AnalyzeAttackConditions()
         {
-            isReadyToAttack = timeSinceLastAttack >= timeBetweenAttacks;
+            isReadyToAttack = timeSinceLastAttack > timeBetweenAttacks;
             isPlayerInRange = distanceToPlayer <= attackingRange;
+            if (!isPlayerInRange)
+            {
+                _animatorComponent.applyRootMotion = true;
+            }
             return isReadyToAttack && isPlayerInRange;
         }
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7620a979-dcf7-495c-a403-fe8ff75064de" name="Changes" comment="player movement">
+      <change beforePath="$PROJECT_DIR$/.gitgnore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_18_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_18_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_20_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_20_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/24d45e813e524a99bfb7a145158a7980157a00/0b/25f00fdd/UnitySynchronizationContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2eb755104f804d58b43afc31fbdea6cb3a00/2c/c5f462cf/NativeInputSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/399c8e15142744e6bd24f9564fb1c25a6e00/bc/aa61b922/Canvas.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Assets/Scripts/A.I_test/CharacScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Assets/Scripts/A.I_test/CharacScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Assets/Scripts/A.I_test/CharacScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Scenes/Felipe_CenaJogo.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/AI/FighterController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Scripts/FECharacScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FECharacScript.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.8.9/Runtime/Core/CinemachineComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.8.9/Runtime/Core/CinemachineVirtualCameraBase.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="TaskManager">
+    <task id="LOCAL-00001" summary="player movement">
+      <created>1670165031743</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670165031743</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="player movement" />
+    <option name="LAST_COMMIT_MESSAGE" value="player movement" />
+  </component>
+</project>
