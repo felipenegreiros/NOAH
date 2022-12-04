@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="426c4cd0-4d8b-4a63-a938-5d235ec0625f" name="Changes" comment="aaa">
-      <change beforePath="$PROJECT_DIR$/.gitgnore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitgnore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_05_AM__Changes_.xml" beforeDir="false" />
+    <list default="true" id="7620a979-dcf7-495c-a403-fe8ff75064de" name="Changes" comment="player movement">
+      <change beforePath="$PROJECT_DIR$/.gitgnore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_18_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_18_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_20_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_20_AM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Felipe_CenaJogo.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Felipe_CenaJogo.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,19 +24,27 @@
     <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Assets/Scripts/A.I_test/CharacScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Scenes/Felipe_CenaJogo.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AI/FighterController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FECharacScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Scripts/FECharacScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FECharacScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.8.9/Runtime/Core/CinemachineComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.8.9/Runtime/Core/CinemachineVirtualCameraBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="player movement">
+      <created>1670165031743</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670165031743</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
@@ -64,5 +72,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="player movement" />
+    <option name="LAST_COMMIT_MESSAGE" value="player movement" />
   </component>
 </project>
