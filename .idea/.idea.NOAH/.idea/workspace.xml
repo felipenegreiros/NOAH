@@ -4,141 +4,65 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593e81cf-0e30-482f-b175-591b0b428115" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_05_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_05_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_18_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_18_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_20_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_20_AM__Changes_.xml" afterDir="false" />
+    <list default="true" id="426c4cd0-4d8b-4a63-a938-5d235ec0625f" name="Changes" comment="aaa">
+      <change beforePath="$PROJECT_DIR$/.gitgnore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitgnore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_3_2022_7_05_AM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NOAH/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FECharacScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FECharacScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Felipe_CenaJogo.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Felipe_CenaJogo.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/FELIPE" />
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
-  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/24d45e813e524a99bfb7a145158a7980157a00/0b/25f00fdd/UnitySynchronizationContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2eb755104f804d58b43afc31fbdea6cb3a00/2c/c5f462cf/NativeInputSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/399c8e15142744e6bd24f9564fb1c25a6e00/bc/aa61b922/Canvas.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Assets/Scripts/A.I_test/CharacScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Assets/Scripts/A.I_test/CharacScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Assets/Scripts/A.I_test/CharacScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Scenes/Felipe_CenaJogo.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/AI/FighterController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FECharacScript.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mateus/Desktop/noah/Assets/Scripts/FECharacScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.8.9/Runtime/Core/CinemachineComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.8.9/Runtime/Core/CinemachineVirtualCameraBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectId" id="2IPJkE8lPMpCauSCd7cLRaPisfM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
-    <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.9f1\Editor\Unity.exe" />
-      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;C:\Users\Felipe Vasconcelos\Desktop\NOAH\NOAH&quot; -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\Felipe Vasconcelos\Desktop\NOAH\NOAH" />
-      <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
-      <option name="allowRunningInParallel" value="false" />
-      <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
-      <option name="projectPathOnTarget" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <method v="2" />
-    </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
-      <option name="allowRunningInParallel" value="false" />
-      <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
-      <option name="projectPathOnTarget" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <method v="2" />
-    </configuration>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="593e81cf-0e30-482f-b175-591b0b428115" name="Changes" comment="" />
-      <created>1670077428487</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1670077428487</updated>
-      <workItem from="1670077449641" duration="2219000" />
-      <workItem from="1670079761506" duration="3227000" />
-      <workItem from="1670083132289" duration="713000" />
-      <workItem from="1670084883537" duration="97000" />
-      <workItem from="1670085125453" duration="73000" />
-      <workItem from="1670085475161" duration="111000" />
-      <workItem from="1670097026160" duration="1266000" />
-    </task>
-    <task id="LOCAL-00001" summary="df">
-      <created>1670082613951</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1670082613951</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Folder for gameObjects">
-      <created>1670087246061</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1670087246061</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
-  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="df" />
-    <MESSAGE value="Folder for gameObjects" />
-    <option name="LAST_COMMIT_MESSAGE" value="Folder for gameObjects" />
   </component>
 </project>
