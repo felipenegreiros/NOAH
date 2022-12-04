@@ -191,22 +191,22 @@ public class FECharacScript : MonoBehaviour
 
         IncrementTempo();
 
-        //CORRER
+        // CORRER
         RunMechanics();
         
-        //CHUTE
+        // CHUTE
         KickMechanics();
 
-        //PUNCH
+        // PUNCH
         PunchMechanics();
 
-        //WALK
+        // WALK
         WalkMechanics();
 
-        //AGACHAR
+        // AGACHAR
         CrouchMechanics();
 
-        //ATIRAR
+        // ATIRAR
         ShootingMechanics();
     }
 
